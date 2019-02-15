@@ -56,6 +56,8 @@ def get_answer(question, story):
     answer = baseline_stub.baseline(qbow, sentences, stopwords)
     print("answer:", " ".join(t[0] for t in answer))
 
+    print("\n")
+
 
     ###     End of Your Code         ###
     return answer
