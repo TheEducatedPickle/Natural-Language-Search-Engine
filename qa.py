@@ -1,4 +1,4 @@
-import sys, nltk, operator
+import re, sys, nltk, operator
 import baseline_stub
 import chunk_demo
 import constituency_demo_stub
@@ -41,6 +41,7 @@ def get_answer(question, story):
 
     """
     ###     Your Code Goes Here         ###
+    '''
     question_id = question["qid"]
 
     driver = QABase()
@@ -55,12 +56,34 @@ def get_answer(question, story):
     sentences = baseline_stub.get_sentences(text)
     answer = baseline_stub.baseline(qbow, sentences, stopwords)
     print("answer:", " ".join(t[0] for t in answer))
-
-
+    print()
+    '''
+    #print("Question: " + question["text"])
+    answer_type(question["text"])
+    answer = "placeholder"
     ###     End of Your Code         ###
     return answer
 
+def answer_type(qtext):
+    outTypes = {}
+    outTypes["Person"] = "Noun"
+    outTypes["Object"] = "Noun"
+    outTypes["Location"] = "Noun"
+    outTypes["Color"] = "Noun"
+    outTypes["Time"] = "Time"
+    outTypes["Method"] = "Method"
 
+    if bool(re.match("Who",qtext)): return "Who"
+    if bool(re.match("What",qtext)): return "What"
+    if bool(re.match("Where",qtext)): return "Where"
+    if bool(re.match("When",qtext)): return "When"
+    if bool(re.match("Why",qtext)): return "Why"    
+       
+
+def reformulate_question(qtext):
+    if (answer_type(qtext) == "Who"):
+        ref = re.search("Who (.*)", qtext)
+        regex = "(.*) "+ref
 
 #############################################################
 ###     Dont change the code in this section
@@ -84,7 +107,7 @@ def main():
     run_qa()
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
-    score_answers()
+    #score_answers()
 
 if __name__ == "__main__":
     main()
