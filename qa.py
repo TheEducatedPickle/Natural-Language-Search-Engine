@@ -1,4 +1,8 @@
-
+import sys, nltk, operator
+import baseline_stub
+import chunk_demo
+import constituency_demo_stub
+import dependency_demo_stub
 from qa_engine.base import QABase
 from qa_engine.score_answers import main as score_answers
 
@@ -37,8 +41,20 @@ def get_answer(question, story):
 
     """
     ###     Your Code Goes Here         ###
+    question_id = question["qid"]
 
-    answer = "whatever you think the answer is"
+    driver = QABase()
+    q = driver.get_question(question_id)
+    story = driver.get_story(q["sid"])
+    text = story["text"]
+    question = q["text"]
+    print("question:", question)
+    stopwords = set(nltk.corpus.stopwords.words("english"))
+
+    qbow = baseline_stub.get_bow(baseline_stub.get_sentences(question)[0], stopwords)
+    sentences = baseline_stub.get_sentences(text)
+    answer = baseline_stub.baseline(qbow, sentences, stopwords)
+    print("answer:", " ".join(t[0] for t in answer))
 
 
     ###     End of Your Code         ###
