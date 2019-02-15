@@ -53,6 +53,7 @@ def get_answer(question, story):
 
     qbow = baseline_stub.get_bow(baseline_stub.get_sentences(question)[0], stopwords)
     sentences = baseline_stub.get_sentences(text)
+    print(sentences)
     answer = baseline_stub.baseline(qbow, sentences, stopwords)
     print("answer:", " ".join(t[0] for t in answer))
 
