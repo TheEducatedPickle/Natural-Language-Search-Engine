@@ -35,6 +35,7 @@ def find_answer(qgraph, sgraph):
     qmain = find_main(qgraph)
 
     qword = qmain["word"]#TODO perhaps have an alternate version if this does not work
+    print(qword)
 
     snode = find_node(qword, sgraph)
 
@@ -56,7 +57,7 @@ if __name__ == '__main__':
     driver = QABase()
 
     # Get the first question and its story
-    q = driver.get_question("fables-01-2")
+    q = driver.get_question("fables-01-1")
     print(q["text"])
     story = driver.get_story(q["sid"])
 
@@ -69,7 +70,7 @@ if __name__ == '__main__':
 
     # The answer is in the second sentence
     # You would have to figure this out like in the chunking demo
-    sgraph = story["sch_dep"][2]
+    sgraph = story["sch_dep"][1]
     #print(sgraph.nodes.values())
 
     
