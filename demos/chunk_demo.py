@@ -58,7 +58,7 @@ def find_locations(tree):
 
 def find_candidates(sentences, chunker):
     candidates = []
-    for sent in crow_sentences:
+    for sent in sentences:
         tree = chunker.parse(sent)
         # print(tree)
         locations = find_locations(tree)
