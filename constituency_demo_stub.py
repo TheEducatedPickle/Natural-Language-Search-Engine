@@ -53,6 +53,7 @@ if __name__ == '__main__':
 
     driver = QABase()
     q = driver.get_question("fables-01-1")
+    print(q["text"])
     story = driver.get_story(q["sid"])
 
     tree = story["sch_par"][1]

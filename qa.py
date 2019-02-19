@@ -1,4 +1,5 @@
-import re, sys, nltk, operator
+import sys, nltk, operator, re
+from rake_nltk import Rake
 import baseline_stub
 import constituency_demo_stub
 import dependency_demo_stub
@@ -55,9 +56,25 @@ def get_answer(question, story):
     #    return "None"
     print("QUESTION:", question)
     stopwords = set(nltk.corpus.stopwords.words("english"))
+    #https://www.quora.com/How-can-I-extract-keywords-from-a-document-using-NLTK
+    #if we are allowed to, use rake
+
 
     qbow = baseline_stub.get_bow(baseline_stub.get_sentences(question)[0], stopwords)
     sentences = baseline_stub.get_sentences(text)
+    print(sentences)
+
+
+    #https://pypi.org/project/rake-nltk/
+    r = Rake()
+    r.extract_keywords_from_text(question)
+    r.get_ranked_phrases() #right now this can give bigrams and unigrams (possibly more)
+
+    possible_sentences = chunk_demo.find_sentences(r.get_ranked_phrases(), chunk_demo.get_sentences(text))
+    print("POSSIBLE SENTENCES" + str(possible_sentences))
+    #perhaps make a way to firtsly rank the possible sentences
+    #possibly with pronouns assume that it may be the subject.
+
     answer = baseline_stub.baseline(qbow, sentences, stopwords)
     #print(answer)
 
