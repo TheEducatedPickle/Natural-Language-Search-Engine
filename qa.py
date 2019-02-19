@@ -30,6 +30,7 @@ def baseline(question,story):
     q = driver.get_question(question_id)
     story = driver.get_story(q["sid"])
     if question['type']=='sch':
+        print("USING SCHEHZARD")
         text=story['sch']
     else:
         text = story["text"]

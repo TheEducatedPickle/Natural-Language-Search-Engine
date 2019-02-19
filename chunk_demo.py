@@ -5,6 +5,7 @@ Created on May 14, 2014
 Modified on May 21, 2015
 '''
 
+from rake_nltk import rake
 import re, sys, nltk
 from nltk.stem.wordnet import WordNetLemmatizer
 from qa_engine.base import QABase
