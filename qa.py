@@ -198,9 +198,9 @@ def get_answer(question, story):
     q=nltk.word_tokenize(q)
     print(q)
     #if q[0]=='Where':
-    return chunk(question,story)
+    #return chunk(question,story)
     #else:
-    #return baseline(question,story)
+    return baseline(question,story)
 
    
 
