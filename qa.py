@@ -1,9 +1,9 @@
 import sys, nltk, operator
-import baseline_stub
-import chunk_demo
+import baseline
+import chunk
 from nltk.stem.wordnet import WordNetLemmatizer
-import constituency_demo_stub
-import dependency_demo_stub
+import constituency
+import dependency
 from qa_engine.base import QABase
 from qa_engine.score_answers import main as score_answers
 
@@ -22,10 +22,8 @@ GRAMMAR =   """
 LOC_PP = set(["in", "on", "at"])
 
 
-def baseline(question,story):
-     ###     Your Code Goes Here         ###
+def base(question, story):
     question_id = question["qid"]
-
     driver = QABase()
     q = driver.get_question(question_id)
     story = driver.get_story(q["sid"])
@@ -34,14 +32,16 @@ def baseline(question,story):
     else:
         text = story["text"]
     question = q["text"]
-    print("QUESTION", question)
-    
+
+    print("QUESTION: ", question)
 
     stopwords = set(nltk.corpus.stopwords.words("english"))
 
-    qbow = baseline_stub.get_bow(baseline_stub.get_sentences(question)[0], stopwords)
-    sentences = baseline_stub.get_sentences(text)
-    answer = baseline_stub.baseline(qbow, sentences, stopwords)
+
+
+    qbow = baseline.get_bow(baseline.get_sentences(question)[0], stopwords)
+    sentences = baseline.get_sentences(text)
+    answer = baseline.baseline(qbow, sentences, stopwords)
     newanswer=""
     newanswer =newanswer.join(t[0]+" " for t in answer)
     #print("answer:", " ".join(t[0] for t in answer))
@@ -49,19 +49,19 @@ def baseline(question,story):
     print()
     print(question)
     chunker = nltk.RegexpParser(GRAMMAR)
-    question=chunk_demo.get_sentences(question)
+    question=chunk.get_sentences(question)
     tempanswer=newanswer
-    tempanswer=chunk_demo.get_sentences(tempanswer)
+    tempanswer=chunk.get_sentences(tempanswer)
     atree=chunker.parse(tempanswer[0])
     if question[0][0][0].lower()=="who":
-        np=chunk_demo.find_nounphrase(atree)
+        np=chunk.find_nounphrase(atree)
         answer1=""
         for token in np[0].leaves():
             answer1=answer1+" "+token[0]
         newanswer=answer1
 
     elif question[0][0][0].lower()=="where":
-        pp=chunk_demo.find_locations(atree)
+        pp=chunk.find_locations(atree)
         answer1=""
         for token in pp[0].leaves():
             answer1=answer1+" "+token[0]
@@ -105,7 +105,7 @@ def get_answer(question, story):
 
 
     """
-    return baseline(question,story)
+    return base(question, story)
 
    
 
