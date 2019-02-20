@@ -1,6 +1,8 @@
 import sys, nltk, operator, re
 from rake_nltk import Rake
 import baseline_stub
+import chunk_demo
+from nltk.stem.wordnet import WordNetLemmatizer
 import constituency_demo_stub
 import dependency_demo_stub
 import chunker
@@ -8,6 +10,159 @@ from qa_engine.base import QABase
 from nltk.stem.wordnet import WordNetLemmatizer
 from qa_engine.score_answers import main as score_answers
 
+GRAMMAR =   """
+            N: {<PRP>|<NN.*>}
+            V: {<V.*>}
+            ADJ: {<JJ.*>}
+            NP: {<DT>? <ADJ>* <N>+}
+            {<DT|PP\$>?<JJ>*<NN>}   
+            {<NNP>+}
+            PP: {<IN><NP><POS>?<N>*}
+            VP: {<TO>? <V> (<NP>|<PP>)*}
+            """
+
+
+LOC_PP = set(["in", "on", "at"])
+
+
+def baseline(question,story):
+     ###     Your Code Goes Here         ###
+    question_id = question["qid"]
+
+    driver = QABase()
+    q = driver.get_question(question_id)
+    story = driver.get_story(q["sid"])
+    if question['type']=='sch':
+        text=story['sch']
+    else:
+        text = story["text"]
+    question = q["text"]
+    print("question:", question)
+    
+
+    stopwords = set(nltk.corpus.stopwords.words("english"))
+
+    qbow = baseline_stub.get_bow(baseline_stub.get_sentences(question)[0], stopwords)
+    sentences = baseline_stub.get_sentences(text)
+    answer = baseline_stub.baseline(qbow, sentences, stopwords)
+    newanswer=""
+    newanswer =newanswer.join(t[0]+" " for t in answer)
+    #print("answer:", " ".join(t[0] for t in answer))
+
+    print()
+ 
+    print(question)
+    chunker = nltk.RegexpParser(GRAMMAR)
+    question=chunk_demo.get_sentences(question)
+    print(question)
+    qtree=chunker.parse(question[0])
+    #print(question[0][0][0])
+    #print(qtree)
+    #print()
+    tempanswer=newanswer
+    tempanswer=chunk_demo.get_sentences(tempanswer)
+    atree=chunker.parse(tempanswer[0])
+    if question[0][0][0].lower()=="who":
+        np=chunk_demo.find_nounphrase(atree)
+        print("Noun Phrase")
+        #for t in np:
+            #print(" ".join([token[0] for token in t.leaves()]))
+        answer1=""
+        for token in np[0].leaves():
+            answer1=answer1+" "+token[0]
+        #print(answer1)
+        newanswer=answer1
+    elif question[0][0][0].lower()=="where":
+        pp=chunk_demo.find_locations(atree)
+        answer1=""
+        print("VERBPHRASE")
+        for t in pp:
+            print(" ".join([token[0] for token in t.leaves()]))
+        for token in pp[0].leaves():
+            answer1=answer1+" "+token[0]
+        newanswer=answer1
+
+    #print(tempanswer)
+    #print(atree)
+    print("ANSWER ",newanswer)
+    print()
+
+
+    ###     End of Your Code         ###
+
+    return newanswer
+def chunk(q,story):
+    chunker = nltk.RegexpParser(GRAMMAR)
+    lmtzr = WordNetLemmatizer()
+   
+    text = story["text"]
+
+    question=q["text"]
+    question=chunk_demo.get_sentences(question)
+    qtree=chunker.parse(question[0])
+  
+    np=chunk_demo.find_nounphrase(qtree)
+    vp=chunk_demo.find_verbphrase(qtree)
+    
+    print(vp)
+    vp=vp[len(vp)-1]
+
+    print("Noun Phrase")
+    for t in np:
+        print(" ".join([token[0] for token in t.leaves()]))
+    print("Verb Phrase")
+    for t in vp:
+        print(" ".join([token[0] for token in t.leaves()]))
+
+
+
+
+    # Apply the standard NLP pipeline we've seen before
+    sentences = chunk_demo.get_sentences(text)
+
+    # Assume we're given the keywords for now
+    # What is happening
+    verb = "sitting"
+    # Who is doing it
+    subj = "crow"
+    subj=chunk_demo.get_Subject(np)
+    print(chunk_demo.get_Action(vp))
+    verb=chunk_demo.get_Action(vp)
+    # Where is it happening (what we want to know)
+    loc = None
+    testsubj=[lmtzr.lemmatize(word,"n")for word in subj]  
+    testverb=[lmtzr.lemmatize(word,"v") for word in verb]
+    print("TEST VERB IS ",testverb)
+    total=testsubj+testverb
+    print(total)
+    # Might be useful to stem the words in case there isn't an extact
+    # string match
+    subj_stem = lmtzr.lemmatize(subj[0], "n")
+    print("SUBJECT: ",subj_stem)
+    verb_stem = lmtzr.lemmatize(verb[0], "v")
+    print("VERB:  ",verb_stem)
+
+    # Find the sentences that have all of our keywords in them
+    # How could we make this better?
+    crow_sentences = chunk_demo.find_sentences(total, sentences)
+
+    # Extract the candidate locations from these sentences
+    locations = chunk_demo.find_candidates(crow_sentences, chunker)
+
+    # Print them out
+    answer=""
+    for loc in locations:
+        print("done")
+        print(loc)
+        print(" ".join([token[0] for token in loc.leaves()]))
+        for token in loc.leaves():
+            answer=answer+" "+token[0]
+    print("ANSWER :"+answer)
+    return answer
+
+
+
+    
 
 def get_answer(question, story):
     """
@@ -69,6 +224,15 @@ def get_answer(question, story):
     r = Rake()
     r.extract_keywords_from_text(question)
     r.get_ranked_phrases() #right now this can give bigrams and unigrams (possibly more)
+    q = question["text"]
+    q=nltk.word_tokenize(q)
+    print(q)
+    #if q[0]=='Where':
+    #return chunk(question,story)
+    #else:
+    return baseline(question,story)
+
+
 
     possible_sentences = chunk_demo.find_sentences(r.get_ranked_phrases(), chunk_demo.get_sentences(text))
     print("POSSIBLE SENTENCES" + str(possible_sentences))
