@@ -8,9 +8,6 @@ Modified on May 21, 2015
 
 import sys, nltk, operator
 from qa_engine.base import QABase
-
-def get_SurroundingSentences(text):
-
     
 # The standard NLTK pipeline for POS tagging a document
 def get_sentences(text):

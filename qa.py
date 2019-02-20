@@ -35,7 +35,7 @@ def baseline(question,story):
     else:
         text = story["text"]
     question = q["text"]
-    print("question:", question)
+    print("QUESTION", question)
     
 
     stopwords = set(nltk.corpus.stopwords.words("english"))
@@ -48,47 +48,31 @@ def baseline(question,story):
     #print("answer:", " ".join(t[0] for t in answer))
 
     print()
- 
     print(question)
     chunker = nltk.RegexpParser(GRAMMAR)
     question=chunk_demo.get_sentences(question)
-    print(question)
     qtree=chunker.parse(question[0])
-    #print(question[0][0][0])
-    #print(qtree)
-    #print()
     tempanswer=newanswer
     tempanswer=chunk_demo.get_sentences(tempanswer)
     atree=chunker.parse(tempanswer[0])
     if question[0][0][0].lower()=="who":
         np=chunk_demo.find_nounphrase(atree)
-        print("Noun Phrase")
-        #for t in np:
-            #print(" ".join([token[0] for token in t.leaves()]))
         answer1=""
         for token in np[0].leaves():
             answer1=answer1+" "+token[0]
-        #print(answer1)
         newanswer=answer1
+
     elif question[0][0][0].lower()=="where":
         pp=chunk_demo.find_locations(atree)
         answer1=""
-        print("VERBPHRASE")
-        for t in pp:
-            print(" ".join([token[0] for token in t.leaves()]))
         for token in pp[0].leaves():
             answer1=answer1+" "+token[0]
         newanswer=answer1
 
-    #print(tempanswer)
-    #print(atree)
     print("ANSWER ",newanswer)
     print()
-
-
-    ###     End of Your Code         ###
-
     return newanswer
+
 def chunk(q,story):
     chunker = nltk.RegexpParser(GRAMMAR)
     lmtzr = WordNetLemmatizer()
@@ -130,15 +114,12 @@ def chunk(q,story):
     loc = None
     testsubj=[lmtzr.lemmatize(word,"n")for word in subj]  
     testverb=[lmtzr.lemmatize(word,"v") for word in verb]
-    print("TEST VERB IS ",testverb)
     total=testsubj+testverb
     print(total)
     # Might be useful to stem the words in case there isn't an extact
     # string match
     subj_stem = lmtzr.lemmatize(subj[0], "n")
-    print("SUBJECT: ",subj_stem)
     verb_stem = lmtzr.lemmatize(verb[0], "v")
-    print("VERB:  ",verb_stem)
 
     # Find the sentences that have all of our keywords in them
     # How could we make this better?
@@ -150,8 +131,6 @@ def chunk(q,story):
     # Print them out
     answer=""
     for loc in locations:
-        print("done")
-        print(loc)
         print(" ".join([token[0] for token in loc.leaves()]))
         for token in loc.leaves():
             answer=answer+" "+token[0]
@@ -195,12 +174,6 @@ def get_answer(question, story):
 
 
     """
-    q = question["text"]
-    q=nltk.word_tokenize(q)
-    print(q)
-    #if q[0]=='Where':
-    #return chunk(question,story)
-    #else:
     return baseline(question,story)
 
    

@@ -12,8 +12,6 @@ from qa_engine.base import QABase
 
 LMTZR = WordNetLemmatizer()
 
-
-
 # Our simple grammar from class (and the book)
 GRAMMAR =   """
             N: {<PRP>|<NN.*>}
@@ -26,18 +24,24 @@ GRAMMAR =   """
             VP: {<TO>? <V> (<NP>|<PP>)*}
             """
 
-LOC_PP = set(["in", "on", "at","under"])
-
 def get_sentences(text):
+    output = []
     sentences = nltk.sent_tokenize(text)
     sentences = [nltk.word_tokenize(sent) for sent in sentences]
-    sentences = [nltk.pos_tag(sent) for sent in sentences]
-    
-    return sentences
+    sentences = [nltk.pos_tag(sent) for sent in sentences]    
+    for sent in sentences:
+        temp = []
+        for word_pair in sent:
+            if re.search("VB", word_pair[1]):
+                temp.append((LMTZR.lemmatize(word_pair[0]),word_pair[1]))
+            else:
+                temp.append(word_pair)
+        output.append(temp)
+    print(output)
+    return output
 
 def pp_filter(subtree):
     return subtree.label() == "PP"
-
 def vp_filter(subtree):
     return subtree.label() == "VP"
 def np_filter(subtree):
@@ -93,7 +97,6 @@ def find_sentences(patterns, sentences):
     
     result = []
     for sent, raw_sent in zip(sentences, raw_sentences):
-        print("RAW_SENT ",raw_sent)
         for pattern in patterns:
            
             if not re.search(pattern, raw_sent):
@@ -102,8 +105,8 @@ def find_sentences(patterns, sentences):
                 matches = True
         if matches:
             result.append(sent)
-    print("RESULTS are ", result)    
     return result
+
 def get_Subject(np):
     subject=[]
 
@@ -118,11 +121,17 @@ def get_Action(vp):
     action=[]
     for t in vp:
         temp=[nltk.pos_tag([token[0]]) for token in t.leaves()]
-        print(temp)
         for token in t.leaves():
             if bool(re.search("VB[DGNPZ]?",token[1])):
                 action.append(token[0])
     return action
+
+
+
+
+
+
+
 if __name__ == '__main__':
     # Our tools
     chunker = nltk.RegexpParser(GRAMMAR)
@@ -138,22 +147,17 @@ if __name__ == '__main__':
     question=q["text"]
     question=get_sentences(question)
     qtree=chunker.parse(question[0])
-    print(qtree)
     np=find_nounphrase(qtree)
     vp=find_verbphrase(qtree)
     vp=vp[len(vp)-1]
 
-    print("Noun Phrase")
-    for t in np:
-        print(" ".join([token[0] for token in t.leaves()]))
-    print("Verb Phrase")
-    for t in vp:
-        print(" ".join([token[0] for token in t.leaves()]))
-    
-    for t in np:
-        for token in t.leaves():
-            print("TOKENNN")
-            print(token)
+    #print("Noun Phrase")
+    #for t in np:
+    #    print(" ".join([token[0] for token in t.leaves()]))
+    #print("Verb Phrase")
+    #for t in vp:
+    #    print(" ".join([token[0] for token in t.leaves()]))
+
     
     # Apply the standard NLP pipeline we've seen before
     sentences = get_sentences(text)
@@ -163,8 +167,6 @@ if __name__ == '__main__':
     verb = "sitting"
     # Who is doing it
     subj = "crow"
-    print(len(vp))
-    print(len(np))
     subj=get_Subject(np)[0]
     verb=get_Action(vp)[0]
     # Where is it happening (what we want to know)
@@ -184,6 +186,5 @@ if __name__ == '__main__':
     
     # Print them out
     for loc in locations:
-        print("done")
-        #print(loc)
+        print(loc)
        # print(" ".join([token[0] for token in loc.leaves()]))
