@@ -32,6 +32,7 @@ def find_phrase(tagged_tokens, qbow):
 def baseline(qbow, sentences, stopwords):
     # Collect all the candidate answers
     answers = []
+    number = 0
     for sent in sentences:
         # A list of all the word tokens in the sentence
         sbow = get_bow(sent, stopwords)
@@ -40,15 +41,16 @@ def baseline(qbow, sentences, stopwords):
         # & is the set intersection operator
         overlap = len(qbow & sbow)
         
-        answers.append((overlap, sent))
-        
+        answers.append((overlap, sent, number))
+        number += 1
     # Sort the results by the first element of the tuple (i.e., the count)
     # Sort answers from smallest to largest by default, so reverse it
     answers = sorted(answers, key=operator.itemgetter(0), reverse=True)
 
     # Return the best answer
     best_answer = (answers[0])[1]    
-    return best_answer
+    index = (answers[0])[2]
+    return best_answer, index
 
 
 if __name__ == '__main__':
