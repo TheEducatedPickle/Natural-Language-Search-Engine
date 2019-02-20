@@ -21,7 +21,8 @@ GRAMMAR =   """
             {<DT|PP\$>?<JJ>*<NN>}   
             {<NNP>+}
             PP: {<IN> <NP>}
-            VP: {<TO>? <V> (<NP>|<PP>)*}
+            VP: {<TO>? <V> (<NP>)*}
+            RP: {<PP><VP><ADJ><NP>}
             """
 
 def get_sentences(text):
@@ -30,7 +31,8 @@ def get_sentences(text):
     sentences = [nltk.word_tokenize(sent) for sent in sentences]
     sentences = [nltk.pos_tag(sent) for sent in sentences]    
     for sent in sentences:
-        temp = lemmatize(sent)
+        #temp = lemmatize(sent)
+        temp = sent
         output.append(temp)
     return output
 
@@ -49,6 +51,8 @@ def vp_filter(subtree):
     return subtree.label() == "VP"
 def np_filter(subtree):
     return subtree.label() == "NP"
+def rp_filter(subtree):
+    return subtree.label() == "RP"
 
 def is_location(prep):
     return bool(re.search("IN",prep[1]))
@@ -74,13 +78,13 @@ def find_prepphrases(tree):
     
     return locations
 
-def find_reasons(tree):
-    locations = []
-    for subtree in tree.subtrees(filter=pp_filter):
-        if is_location(subtree[0]):
-            locations.append(subtree)
-    
-    return locations
+def find_reasons(tree, indicators=["because","since","for","on","to"]):
+    output = []
+    print(tree)
+    for subtree in tree.subtrees(filter=rp_filter):
+        #if (subtree[0] in indicators):
+        output.append(subtree)
+    return output
 
 def find_nounphrase(tree):
     nounphrase=[]
@@ -99,7 +103,7 @@ def find_candidates(sentences, chunker):
     for sent in sentences:
         tree = chunker.parse(sent)
         # print(tree)
-        locations = find_prepphrases(tree)
+        locations = find_reasons(tree)
         candidates.extend(locations)
         
     return candidates

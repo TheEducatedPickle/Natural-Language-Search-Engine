@@ -15,7 +15,8 @@ GRAMMAR =   """
             {<DT|PP\$>?<JJ>*<NN>}   
             {<NNP>+}
             PP: {<IN><NP><POS>?<N>*}
-            VP: {<TO>? <V> (<NP>|<PP>)*}
+            VP: {<TO>? <V> (<NP>)*}
+            RP: {<PP><VP><ADJ><NP>}
             """
 
 
@@ -28,7 +29,7 @@ def base(question, story):
     driver = QABase()
     q = driver.get_question(question_id)
     story = driver.get_story(q["sid"])
-    if question['type']=='sch':
+    if question['type']=='Sch':
         text=story['sch']
     else:
         text = story["text"]
@@ -37,13 +38,12 @@ def base(question, story):
 
     #Code
     stopwords = set(nltk.corpus.stopwords.words("english"))
-    question_stem_list = chunk.lemmatize(nltk.pos_tag(nltk.word_tokenize(question)))
-    question_stem = "".join(t[0] + " " for t in question_stem_list)
-
+    #question_stem_list = chunk.lemmatize(nltk.pos_tag(nltk.word_tokenize(question)))
+    #question_stem = "".join(t[0] + " " for t in question_stem_list)
+    question_stem = question
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    
     answer = baseline.baseline(qbow, sentences, stopwords)
     newanswer ="".join(t[0]+" " for t in answer)
     chunker = nltk.RegexpParser(GRAMMAR)
@@ -51,23 +51,32 @@ def base(question, story):
     atree=chunker.parse(tempanswer[0])
     if question[0][0][0].lower()=="who":
         np=chunk.find_nounphrase(atree)
-        answer1=""
-        for token in np[0].leaves():
-            answer1=answer1+" "+token[0]
-        newanswer=answer1
+        temp_ans=""
+        if (np != []):
+            for token in np[0].leaves():
+                temp_ans=temp_ans+" "+token[0]
+        else:
+            temp_ans = " none"
+        newanswer=temp_ans
 
     elif question[0][0][0].lower()=="where":
         pp=chunk.find_prepphrases(atree)
-        answer1=""
-        for token in pp[0].leaves():
-            answer1=answer1+" "+token[0]
-        newanswer=answer1
-    elif question[0][0][0] == "why":
-        pp=chunk.find_prepphrases(atree)
-        answer1=""
-        for token in pp[0].leaves():
-            answer1=answer1+" "+token[0]
-        newanswer=answer1
+        temp_ans=""
+        if (pp != []):
+            for token in pp[0].leaves():
+                temp_ans=temp_ans+" "+token[0]
+        else:
+            temp_ans = " none"
+        newanswer=temp_ans
+    elif question[0][0][0].lower() == "why":
+        pp=chunk.find_reasons(atree)
+        temp_ans=""
+        if (pp != []):
+            for token in pp[0].leaves():
+                temp_ans=temp_ans+" "+token[0]
+        else:
+            temp_ans = " none"
+        newanswer=temp_ans
 
     print("ANSWER ",newanswer)
     print()
