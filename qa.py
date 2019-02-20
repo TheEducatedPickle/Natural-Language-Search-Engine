@@ -37,8 +37,6 @@ def base(question, story):
 
     stopwords = set(nltk.corpus.stopwords.words("english"))
 
-
-
     qbow = baseline.get_bow(baseline.get_sentences(question)[0], stopwords)
     sentences = baseline.get_sentences(text)
     answer = baseline.baseline(qbow, sentences, stopwords)
@@ -61,7 +59,7 @@ def base(question, story):
         newanswer=answer1
 
     elif question[0][0][0].lower()=="where":
-        pp=chunk.find_locations(atree)
+        pp=chunk.find_prepphrases(atree)
         answer1=""
         for token in pp[0].leaves():
             answer1=answer1+" "+token[0]

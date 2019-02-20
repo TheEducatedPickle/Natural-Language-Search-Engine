@@ -51,7 +51,7 @@ def is_location(prep):
     return bool(re.search("IN",prep[1]))
     #return prep[0] in LOC_PP
 
-def find_locations(tree):
+def find_prepphrases(tree):
     # Starting at the root of the tree
     # Traverse each node and get the subtree underneath it
     # Filter out any subtrees who's label is not a PP
@@ -86,7 +86,7 @@ def find_candidates(sentences, chunker):
     for sent in sentences:
         tree = chunker.parse(sent)
         # print(tree)
-        locations = find_locations(tree)
+        locations = find_prepphrases(tree)
         candidates.extend(locations)
         
     return candidates
