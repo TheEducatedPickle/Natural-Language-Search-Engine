@@ -57,8 +57,6 @@ def rp_filter(subtree):
 def is_location(prep):
     return bool(re.search("IN",prep[1]))
     #return prep[0] in LOC_PP
-def is_reason(prep):
-    return bool(re.search("IN",prep[1]))
 
 def find_prepphrases(tree):
     # Starting at the root of the tree
@@ -78,12 +76,12 @@ def find_prepphrases(tree):
     
     return locations
 
-def find_reasons(tree, indicators=["because","since","for","on","to"]):
+def find_reasons(tree, indicators=["because","since","for","to"]):
     output = []
     print(tree)
     for subtree in tree.subtrees(filter=rp_filter):
-        #if (subtree[0] in indicators):
-        output.append(subtree)
+        if (subtree[0][0][0] in indicators):
+            output.append(subtree)
     return output
 
 def find_nounphrase(tree):

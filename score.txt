@@ -347,7 +347,7 @@ F-measure: 0.000
 SCORING mc500.train.0.1
 
 Comparing Gold   "visit friends"
-      and Resp   " after a long trip"
+      and Resp   " none"
 
 RECALL:    0.000
 PRECISION: 0.000
