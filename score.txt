@@ -1,0 +1,491 @@
+Computing QA Performance:
+  * answer key: hw6-answers.tsv
+  * predictions file: hw6-responses.tsv
+----------------------------------------
+
+SCORING fables-01-1
+
+Comparing Gold   "on a branch of a tree"
+      and Resp   " on a branch"
+
+RECALL:    0.600
+PRECISION: 1.000
+F-measure: 0.750
+
+----------------------------------------
+
+SCORING fables-01-2
+
+Comparing Gold   "a piece of cheese"
+      and Resp   "A Crow was sitting on a branch of a tree with a piece of cheese in her beak when a Fox observed her and set his wits to work to discover some way of getting the cheese . "
+
+RECALL:    1.000
+PRECISION: 0.138
+F-measure: 0.242
+
+----------------------------------------
+
+SCORING fables-01-3
+
+Comparing Gold   "a fox and a crow"
+      and Resp   " A Crow"
+
+RECALL:    0.500
+PRECISION: 1.000
+F-measure: 0.667
+
+----------------------------------------
+
+SCORING fables-01-4
+
+Comparing Gold   "snatched"
+      and Resp   "A Crow was sitting on a branch of a tree with a piece of cheese in her beak when a Fox observed her and set his wits to work to discover some way of getting the cheese . "
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-01-5
+
+Comparing Gold   "under the tree"
+      and Resp   " on a branch"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-01-6
+
+Comparing Gold   " that the fox had flattered her"
+      and Resp   "A Crow was sitting on a branch of a tree with a piece of cheese in her beak when a Fox observed her and set his wits to work to discover some way of getting the cheese . "
+
+RECALL:    0.500
+PRECISION: 0.103
+F-measure: 0.171
+
+----------------------------------------
+
+SCORING fables-01-7
+
+Comparing Gold   "the fox"
+      and Resp   " A Crow"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-1
+
+Comparing Gold   "a fat bull"
+      and Resp   " A Lion"
+
+RECALL:    0.333
+PRECISION: 0.500
+F-measure: 0.400
+
+----------------------------------------
+
+SCORING fables-02-2
+
+Comparing Gold   "the bull"
+      and Resp   " dear friend"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-3
+
+Comparing Gold   "in a meadow"
+      and Resp   " in a meadow"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-02-4
+
+Comparing Gold   "the bull"
+      and Resp   " dear friend"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-5
+
+Comparing Gold   "a lion"
+      and Resp   " A Lion"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-02-6
+
+Comparing Gold   "that the lion was friendly"
+      and Resp   "A Lion watched a fat Bull feeding in a meadow , and his mouth watered when he thought of the royal feast he would make , but he did not dare to attack him , for he was afraid of his sharp horns . "
+
+RECALL:    0.600
+PRECISION: 0.086
+F-measure: 0.150
+
+----------------------------------------
+
+SCORING fables-02-7
+
+Comparing Gold   "a lion and a bull"
+      and Resp   " dear friend"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-8
+
+Comparing Gold   "the bull"
+      and Resp   " dear friend"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-9
+
+Comparing Gold   "to eat the bull"
+      and Resp   "A Lion watched a fat Bull feeding in a meadow , and his mouth watered when he thought of the royal feast he would make , but he did not dare to attack him , for he was afraid of his sharp horns . "
+
+RECALL:    0.750
+PRECISION: 0.086
+F-measure: 0.154
+
+----------------------------------------
+
+SCORING fables-02-10
+
+Comparing Gold   "because the lion feared sharp every horn of the bull"
+      and Resp   "A Lion watched a fat Bull feeding in a meadow , and his mouth watered when he thought of the royal feast he would make , but he did not dare to attack him , for he was afraid of his sharp horns . "
+
+RECALL:    0.556
+PRECISION: 0.143
+F-measure: 0.227
+
+----------------------------------------
+
+SCORING fables-02-11
+
+Comparing Gold   "sharp every horn of the bull"
+      and Resp   "A Lion watched a fat Bull feeding in a meadow , and his mouth watered when he thought of the royal feast he would make , but he did not dare to attack him , for he was afraid of his sharp horns . "
+
+RECALL:    0.667
+PRECISION: 0.114
+F-measure: 0.195
+
+----------------------------------------
+
+SCORING blogs-01-1
+
+Comparing Gold   " eventful today"
+      and Resp   "Today was the start of the G20 summit . "
+
+RECALL:    0.500
+PRECISION: 0.125
+F-measure: 0.200
+
+----------------------------------------
+
+SCORING blogs-01-2
+
+Comparing Gold   "g20 summit"
+      and Resp   "Today was the start of the G20 summit . "
+
+RECALL:    1.000
+PRECISION: 0.250
+F-measure: 0.400
+
+----------------------------------------
+
+SCORING blogs-01-3
+
+Comparing Gold   " right in front of my store"
+      and Resp   " of people"
+
+RECALL:    0.167
+PRECISION: 0.500
+F-measure: 0.250
+
+----------------------------------------
+
+SCORING blogs-01-4
+
+Comparing Gold   "a police car "
+      and Resp   "Since there are so many leaders coming together their are going to be a lot of people who have different views on how to run the government they follow so they protest . "
+
+RECALL:    0.333
+PRECISION: 0.034
+F-measure: 0.062
+
+----------------------------------------
+
+SCORING blogs-01-5
+
+Comparing Gold   "the people"
+      and Resp   " Today"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-6
+
+Comparing Gold   "the people"
+      and Resp   " a protest"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-7
+
+Comparing Gold   " burned"
+      and Resp   "Police cars were burned and things were thrown at cops . "
+
+RECALL:    1.000
+PRECISION: 0.100
+F-measure: 0.182
+
+----------------------------------------
+
+SCORING blogs-01-8
+
+Comparing Gold   "the people"
+      and Resp   " Police cars"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-9
+
+Comparing Gold   "a police car "
+      and Resp   "Today was a very eventful work day . "
+
+RECALL:    0.333
+PRECISION: 0.125
+F-measure: 0.182
+
+----------------------------------------
+
+SCORING blogs-01-10
+
+Comparing Gold   "were burned "
+      and Resp   "Police cars were burned and things were thrown at cops . "
+
+RECALL:    1.000
+PRECISION: 0.200
+F-measure: 0.333
+
+----------------------------------------
+
+SCORING blogs-01-11
+
+Comparing Gold   "bean bag bullets"
+      and Resp   "Today was a very eventful work day . "
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-12
+
+Comparing Gold   "bean bag bullets"
+      and Resp   "As things got worse tear gas and bean bag bullets were fired at the rioters while they smash windows of stores . "
+
+RECALL:    1.000
+PRECISION: 0.136
+F-measure: 0.240
+
+----------------------------------------
+
+SCORING blogs-01-13
+
+Comparing Gold   "windows of stores"
+      and Resp   "As things got worse tear gas and bean bag bullets were fired at the rioters while they smash windows of stores . "
+
+RECALL:    1.000
+PRECISION: 0.136
+F-measure: 0.240
+
+----------------------------------------
+
+SCORING mc500.train.0.1
+
+Comparing Gold   "visit friends"
+      and Resp   "Alyssa got to the beach after a long trip . "
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.2
+
+Comparing Gold   "a salad"
+      and Resp   "After going swimming and laying out , she went to her friend Ellen 's house . "
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.3
+
+Comparing Gold   "kristin"
+      and Resp   " Kristin"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.0.4
+
+Comparing Gold   "atlanta"
+      and Resp   " after a long trip"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.5
+
+Comparing Gold   "spend time with her friends"
+      and Resp   "Alyssa was happy to spend time with her friends again . "
+
+RECALL:    1.000
+PRECISION: 0.455
+F-measure: 0.625
+
+----------------------------------------
+
+SCORING mc500.train.0.6
+
+Comparing Gold   "they were tired."
+      and Resp   "They stayed the night because they were tired . "
+
+RECALL:    1.000
+PRECISION: 0.500
+F-measure: 0.667
+
+----------------------------------------
+
+SCORING mc500.train.0.7
+
+Comparing Gold   "the girls"
+      and Resp   " The girls"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.0.8
+
+Comparing Gold   "alyssa"
+      and Resp   " Alyssa"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.0.9
+
+Comparing Gold   "catfish"
+      and Resp   "Alyssa enjoyed the restaurant 's special . "
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.10
+
+Comparing Gold   "soup"
+      and Resp   "Alyssa called her friends Kristin and Rachel to meet at Ellen 's house . "
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.11
+
+Comparing Gold   "a restaurant"
+      and Resp   " for dinner"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.12
+
+Comparing Gold   "ellen's house"
+      and Resp   " at Ellen 's"
+
+RECALL:    0.667
+PRECISION: 0.667
+F-measure: 0.667
+
+----------------------------------------
+
+
+Finished processing 43 questions
+*************************************************************************
+
+FINAL RESULTS
+
+
+AVERAGE RECAL =     0.4536
+AVERAGE PRECISION = 0.2651
+AVERAGE F-MEASURE = 0.2792
+
+*************************************************************************
+

@@ -46,7 +46,6 @@ def base(question, story):
     
     answer = baseline.baseline(qbow, sentences, stopwords)
     newanswer ="".join(t[0]+" " for t in answer)
-    print(newanswer)
     chunker = nltk.RegexpParser(GRAMMAR)
     tempanswer=chunk.get_sentences(newanswer)
     atree=chunker.parse(tempanswer[0])
@@ -128,7 +127,10 @@ def main():
     run_qa()
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
+    f = open("score.txt", "w")
+    sys.stdout = f
     score_answers()
+    sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
     main()
