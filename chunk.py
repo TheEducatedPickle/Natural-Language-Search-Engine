@@ -53,6 +53,8 @@ def np_filter(subtree):
 def is_location(prep):
     return bool(re.search("IN",prep[1]))
     #return prep[0] in LOC_PP
+def is_reason(prep):
+    return bool(re.search("IN",prep[1]))
 
 def find_prepphrases(tree):
     # Starting at the root of the tree
@@ -71,8 +73,16 @@ def find_prepphrases(tree):
             locations.append(subtree)
     
     return locations
-def find_nounphrase(tree):
 
+def find_reasons(tree):
+    locations = []
+    for subtree in tree.subtrees(filter=pp_filter):
+        if is_location(subtree[0]):
+            locations.append(subtree)
+    
+    return locations
+
+def find_nounphrase(tree):
     nounphrase=[]
     for subtree in tree.subtrees(filter=np_filter):
         nounphrase.append(subtree)
@@ -101,7 +111,6 @@ def find_sentences(patterns, sentences):
     result = []
     for sent, raw_sent in zip(sentences, raw_sentences):
         for pattern in patterns:
-           
             if not re.search(pattern, raw_sent):
                 matches = False
             else:

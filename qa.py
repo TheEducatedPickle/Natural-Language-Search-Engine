@@ -62,6 +62,12 @@ def base(question, story):
         for token in pp[0].leaves():
             answer1=answer1+" "+token[0]
         newanswer=answer1
+    elif question[0][0][0] == "why":
+        pp=chunk.find_prepphrases(atree)
+        answer1=""
+        for token in pp[0].leaves():
+            answer1=answer1+" "+token[0]
+        newanswer=answer1
 
     print("ANSWER ",newanswer)
     print()
