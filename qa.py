@@ -29,7 +29,9 @@ def baseline(question,story):
     driver = QABase()
     q = driver.get_question(question_id)
     story = driver.get_story(q["sid"])
-    if question['type']=='sch':
+    print(question["type"])
+    if question["type"]=="Sch":
+        print("USING SCHEHZARD")
         text=story['sch']
     else:
         text = story["text"]
@@ -59,11 +61,12 @@ def baseline(question,story):
     tempanswer=newanswer
     tempanswer=chunk_demo.get_sentences(tempanswer)
     atree=chunker.parse(tempanswer[0])
+    print(atree)
     if question[0][0][0].lower()=="who":
         np=chunk_demo.find_nounphrase(atree)
         print("Noun Phrase")
-        #for t in np:
-            #print(" ".join([token[0] for token in t.leaves()]))
+        for t in np:
+            print(" ".join([token[0] for token in t.leaves()]))
         answer1=""
         for token in np[0].leaves():
             answer1=answer1+" "+token[0]
@@ -228,7 +231,7 @@ def main():
     run_qa()
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
-    score_answers()
+    # score_answers()
 
 if __name__ == "__main__":
     main()
