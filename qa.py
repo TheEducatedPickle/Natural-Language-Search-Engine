@@ -1,7 +1,6 @@
 import sys, nltk, operator, re
 from rake_nltk import Rake
 import baseline_stub
-import chunk_demo
 from nltk.stem.wordnet import WordNetLemmatizer
 import constituency_demo_stub
 import dependency_demo_stub
@@ -53,17 +52,17 @@ def baseline(question,story):
  
     print(question)
     chunker = nltk.RegexpParser(GRAMMAR)
-    question=chunk_demo.get_sentences(question)
+    question=chunker.get_sentences(question)
     print(question)
     qtree=chunker.parse(question[0])
     #print(question[0][0][0])
     #print(qtree)
     #print()
     tempanswer=newanswer
-    tempanswer=chunk_demo.get_sentences(tempanswer)
+    tempanswer=chunker.get_sentences(tempanswer)
     atree=chunker.parse(tempanswer[0])
     if question[0][0][0].lower()=="who":
-        np=chunk_demo.find_nounphrase(atree)
+        np=chunker.find_nounphrase(atree)
         print("Noun Phrase")
         #for t in np:
             #print(" ".join([token[0] for token in t.leaves()]))
@@ -73,7 +72,7 @@ def baseline(question,story):
         #print(answer1)
         newanswer=answer1
     elif question[0][0][0].lower()=="where":
-        pp=chunk_demo.find_locations(atree)
+        pp=chunker.find_locations(atree)
         answer1=""
         print("VERBPHRASE")
         for t in pp:
@@ -98,11 +97,11 @@ def chunk(q,story):
     text = story["text"]
 
     question=q["text"]
-    question=chunk_demo.get_sentences(question)
+    question=chunker.get_sentences(question)
     qtree=chunker.parse(question[0])
   
-    np=chunk_demo.find_nounphrase(qtree)
-    vp=chunk_demo.find_verbphrase(qtree)
+    np=chunker.find_nounphrase(qtree)
+    vp=chunker.find_verbphrase(qtree)
     
     print(vp)
     vp=vp[len(vp)-1]
@@ -118,16 +117,16 @@ def chunk(q,story):
 
 
     # Apply the standard NLP pipeline we've seen before
-    sentences = chunk_demo.get_sentences(text)
+    sentences = chunker.get_sentences(text)
 
     # Assume we're given the keywords for now
     # What is happening
     verb = "sitting"
     # Who is doing it
     subj = "crow"
-    subj=chunk_demo.get_Subject(np)
-    print(chunk_demo.get_Action(vp))
-    verb=chunk_demo.get_Action(vp)
+    subj=chunker.get_Subject(np)
+    print(chunker.get_Action(vp))
+    verb=chunker.get_Action(vp)
     # Where is it happening (what we want to know)
     loc = None
     testsubj=[lmtzr.lemmatize(word,"n")for word in subj]  
@@ -144,10 +143,10 @@ def chunk(q,story):
 
     # Find the sentences that have all of our keywords in them
     # How could we make this better?
-    crow_sentences = chunk_demo.find_sentences(total, sentences)
+    crow_sentences = chunker.find_sentences(total, sentences)
 
     # Extract the candidate locations from these sentences
-    locations = chunk_demo.find_candidates(crow_sentences, chunker)
+    locations = chunker.find_candidates(crow_sentences, chunker)
 
     # Print them out
     answer=""
@@ -234,7 +233,7 @@ def get_answer(question, story):
 
 
 
-    possible_sentences = chunk_demo.find_sentences(r.get_ranked_phrases(), chunk_demo.get_sentences(text))
+    possible_sentences = chunker.find_sentences(r.get_ranked_phrases(), chunker.get_sentences(text))
     print("POSSIBLE SENTENCES" + str(possible_sentences))
     #perhaps make a way to firtsly rank the possible sentences
     #possibly with pronouns assume that it may be the subject.
@@ -247,7 +246,7 @@ def get_answer(question, story):
     #answer = shorten_answer(q, answer)   
 
     #Chunking based answer
-    chunker_options = chunker.chunking(question_id,q_data[1], q_data[2])
+    chunker_options = chunker.chunking(question_id, q_data[1], q_data[2])
     
     if chunker_options:
         answer = chunker_options[0]
