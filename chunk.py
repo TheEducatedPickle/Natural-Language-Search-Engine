@@ -32,7 +32,6 @@ def get_sentences(text):
     for sent in sentences:
         temp = lemmatize(sent)
         output.append(temp)
-    print(output)
     return output
 
 def lemmatize(tagged_sent):

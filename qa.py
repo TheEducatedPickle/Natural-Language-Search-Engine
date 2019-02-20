@@ -37,12 +37,16 @@ def base(question, story):
 
     #Code
     stopwords = set(nltk.corpus.stopwords.words("english"))
-    qbow = baseline.get_bow(baseline.get_sentences(question)[0], stopwords)
+    question_stem_list = chunk.lemmatize(nltk.pos_tag(nltk.word_tokenize(question)))
+    question_stem = "".join(t[0] + " " for t in question_stem_list)
+
+    qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
     
     answer = baseline.baseline(qbow, sentences, stopwords)
     newanswer ="".join(t[0]+" " for t in answer)
+    print(newanswer)
     chunker = nltk.RegexpParser(GRAMMAR)
     tempanswer=chunk.get_sentences(newanswer)
     atree=chunker.parse(tempanswer[0])
