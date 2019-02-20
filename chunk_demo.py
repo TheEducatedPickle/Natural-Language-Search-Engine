@@ -10,7 +10,7 @@ import re, sys, nltk
 from nltk.stem.wordnet import WordNetLemmatizer
 from qa_engine.base import QABase
 
-LMTZR = WordNetLemmatizer()
+LMTZR = nltk.stem.SnowballStemmer('english')
 
 # Our simple grammar from class (and the book)
 GRAMMAR =   """
@@ -33,7 +33,7 @@ def get_sentences(text):
         temp = []
         for word_pair in sent:
             if re.search("VB", word_pair[1]):
-                temp.append((LMTZR.lemmatize(word_pair[0]),word_pair[1]))
+                temp.append((LMTZR.stem(word_pair[0]),word_pair[1]))
             else:
                 temp.append(word_pair)
         output.append(temp)
@@ -93,7 +93,7 @@ def find_candidates(sentences, chunker):
 
 def find_sentences(patterns, sentences):
     # Get the raw text of each sentence to make it easier to search using regexes
-    raw_sentences = [" ".join([LMTZR.lemmatize(token[0]) for token in sent]) for sent in sentences]
+    raw_sentences = [" ".join([LMTZR.stem(token[0]) for token in sent]) for sent in sentences]
     
     result = []
     for sent, raw_sent in zip(sentences, raw_sentences):
@@ -135,7 +135,7 @@ def get_Action(vp):
 if __name__ == '__main__':
     # Our tools
     chunker = nltk.RegexpParser(GRAMMAR)
-    lmtzr = WordNetLemmatizer()
+    lmtzr = nltk.stem.SnowballStemmer('english')
     
     question_id = "fables-01-1"
 
@@ -174,8 +174,8 @@ if __name__ == '__main__':
     
     # Might be useful to stem the words in case there isn't an extact
     # string match
-    subj_stem = lmtzr.lemmatize(subj, "n")
-    verb_stem = lmtzr.lemmatize(verb, "v")
+    subj_stem = lmtzr.stem(subj, "n")
+    verb_stem = lmtzr.stem(verb, "v")
     
     # Find the sentences that have all of our keywords in them
     # How could we make this better?

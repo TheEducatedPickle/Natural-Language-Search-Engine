@@ -30,7 +30,6 @@ def baseline(question,story):
     q = driver.get_question(question_id)
     story = driver.get_story(q["sid"])
     if question['type']=='sch':
-        print("USING SCHEHZARD")
         text=story['sch']
     else:
         text = story["text"]
@@ -72,73 +71,6 @@ def baseline(question,story):
     print()
     return newanswer
 
-def chunk(q,story):
-    chunker = nltk.RegexpParser(GRAMMAR)
-    lmtzr = WordNetLemmatizer()
-   
-    text = story["text"]
-
-    question=q["text"]
-    question=chunk_demo.get_sentences(question)
-    qtree=chunker.parse(question[0])
-  
-    np=chunk_demo.find_nounphrase(qtree)
-    vp=chunk_demo.find_verbphrase(qtree)
-    
-    print(vp)
-    vp=vp[len(vp)-1]
-
-    print("Noun Phrase")
-    for t in np:
-        print(" ".join([token[0] for token in t.leaves()]))
-    print("Verb Phrase")
-    for t in vp:
-        print(" ".join([token[0] for token in t.leaves()]))
-
-
-
-
-    # Apply the standard NLP pipeline we've seen before
-    sentences = chunk_demo.get_sentences(text)
-
-    # Assume we're given the keywords for now
-    # What is happening
-    verb = "sitting"
-    # Who is doing it
-    subj = "crow"
-    subj=chunk_demo.get_Subject(np)
-    print(chunk_demo.get_Action(vp))
-    verb=chunk_demo.get_Action(vp)
-    # Where is it happening (what we want to know)
-    loc = None
-    testsubj=[lmtzr.lemmatize(word,"n")for word in subj]  
-    testverb=[lmtzr.lemmatize(word,"v") for word in verb]
-    total=testsubj+testverb
-    print(total)
-    # Might be useful to stem the words in case there isn't an extact
-    # string match
-    subj_stem = lmtzr.lemmatize(subj[0], "n")
-    verb_stem = lmtzr.lemmatize(verb[0], "v")
-
-    # Find the sentences that have all of our keywords in them
-    # How could we make this better?
-    crow_sentences = chunk_demo.find_sentences(total, sentences)
-
-    # Extract the candidate locations from these sentences
-    locations = chunk_demo.find_candidates(crow_sentences, chunker)
-
-    # Print them out
-    answer=""
-    for loc in locations:
-        print(" ".join([token[0] for token in loc.leaves()]))
-        for token in loc.leaves():
-            answer=answer+" "+token[0]
-    print("ANSWER :"+answer)
-    return answer
-
-
-
-    
 
 def get_answer(question, story):
     """
