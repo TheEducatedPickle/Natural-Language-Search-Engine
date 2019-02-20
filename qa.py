@@ -16,9 +16,8 @@ GRAMMAR =   """
             {<NNP>+}
             PP: {<IN><NP><POS>?<N>*}
             VP: {<TO>? <V> (<NP>)*}
-            RP: {<PP><VP><ADJ><NP>}
+            RP: {<PP><VP>?<ADJ|VP>?<NP>?}
             """
-
 
 LOC_PP = set(["in", "on", "at"])
 
@@ -58,9 +57,17 @@ def base(question, story):
         else:
             temp_ans = " none"
         newanswer=temp_ans
-
     elif question[0][0][0].lower()=="where":
         pp=chunk.find_prepphrases(atree)
+        temp_ans=""
+        if (pp != []):
+            for token in pp[0].leaves():
+                temp_ans=temp_ans+" "+token[0]
+        else:
+            temp_ans = " none"
+        newanswer=temp_ans
+    elif question[0][0][0].lower()=="when":
+        pp=chunk.find_times(atree)
         temp_ans=""
         if (pp != []):
             for token in pp[0].leaves():

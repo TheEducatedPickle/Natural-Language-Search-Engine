@@ -204,11 +204,11 @@ F-measure: 0.222
 SCORING blogs-01-1
 
 Comparing Gold   "on eventful today "
-      and Resp   "A summit meeting named G20 summit started on eventful today . "
+      and Resp   " on eventful today"
 
 RECALL:    1.000
-PRECISION: 0.300
-F-measure: 0.462
+PRECISION: 1.000
+F-measure: 1.000
 
 ----------------------------------------
 
@@ -347,7 +347,7 @@ F-measure: 0.000
 SCORING mc500.train.0.1
 
 Comparing Gold   "visit friends"
-      and Resp   " none"
+      and Resp   " after a long trip"
 
 RECALL:    0.000
 PRECISION: 0.000
@@ -402,11 +402,11 @@ F-measure: 0.625
 SCORING mc500.train.0.6
 
 Comparing Gold   "they were tired."
-      and Resp   " none"
+      and Resp   " because they were tired"
 
-RECALL:    0.000
-PRECISION: 0.000
-F-measure: 0.000
+RECALL:    0.750
+PRECISION: 0.750
+F-measure: 0.750
 
 ----------------------------------------
 
@@ -483,9 +483,9 @@ Finished processing 43 questions
 FINAL RESULTS
 
 
-AVERAGE RECAL =     0.5398
-AVERAGE PRECISION = 0.3725
-AVERAGE F-MEASURE = 0.3844
+AVERAGE RECAL =     0.5572
+AVERAGE PRECISION = 0.4062
+AVERAGE F-MEASURE = 0.4143
 
 *************************************************************************
 

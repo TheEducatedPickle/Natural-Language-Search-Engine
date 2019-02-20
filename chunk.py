@@ -22,7 +22,7 @@ GRAMMAR =   """
             {<NNP>+}
             PP: {<IN> <NP>}
             VP: {<TO>? <V> (<NP>)*}
-            RP: {<PP><VP><ADJ><NP>}
+            RP: {<PP><VP>?<ADJ|VP>?<NP>?}
             """
 
 def get_sentences(text):
@@ -94,9 +94,16 @@ def find_nounphrase(tree):
 def find_verbphrase(tree):
     verbphrase=[]
     for subtree in tree.subtrees(filter=vp_filter):
-
         verbphrase.append(subtree)
     return verbphrase
+
+def find_times(tree, indicators = ["by","after","during","before","at", "on"]):
+    output = []
+    print(tree)
+    for subtree in tree.subtrees(filter=pp_filter):
+        if (subtree[0][0] in indicators):
+            output.append(subtree)
+    return output
 
 def find_candidates(sentences, chunker):
     candidates = []
