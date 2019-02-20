@@ -51,7 +51,6 @@ def baseline(question,story):
     print(question)
     chunker = nltk.RegexpParser(GRAMMAR)
     question=chunk_demo.get_sentences(question)
-    qtree=chunker.parse(question[0])
     tempanswer=newanswer
     tempanswer=chunk_demo.get_sentences(tempanswer)
     atree=chunker.parse(tempanswer[0])
