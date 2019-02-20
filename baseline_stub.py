@@ -5,11 +5,11 @@ Created on May 14, 2014
 
 Modified on May 21, 2015
 '''
-
+from nltk.stem.wordnet import WordNetLemmatizer
 import sys, nltk, operator
 from qa_engine.base import QABase
 
-def get_SurroundingSentences(text):
+#def get_SurroundingSentences(text):
 
     
 # The standard NLTK pipeline for POS tagging a document
