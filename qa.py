@@ -23,6 +23,7 @@ LOC_PP = set(["in", "on", "at"])
 
 
 def base(question, story):
+    #Base
     question_id = question["qid"]
     driver = QABase()
     q = driver.get_question(question_id)
@@ -32,24 +33,18 @@ def base(question, story):
     else:
         text = story["text"]
     question = q["text"]
-
     print("QUESTION: ", question)
 
+    #Code
     stopwords = set(nltk.corpus.stopwords.words("english"))
-
     qbow = baseline.get_bow(baseline.get_sentences(question)[0], stopwords)
     sentences = baseline.get_sentences(text)
-    answer = baseline.baseline(qbow, sentences, stopwords)
-    newanswer=""
-    newanswer =newanswer.join(t[0]+" " for t in answer)
-    #print("answer:", " ".join(t[0] for t in answer))
-
-    print()
-    print(question)
-    chunker = nltk.RegexpParser(GRAMMAR)
     question=chunk.get_sentences(question)
-    tempanswer=newanswer
-    tempanswer=chunk.get_sentences(tempanswer)
+    
+    answer = baseline.baseline(qbow, sentences, stopwords)
+    newanswer ="".join(t[0]+" " for t in answer)
+    chunker = nltk.RegexpParser(GRAMMAR)
+    tempanswer=chunk.get_sentences(newanswer)
     atree=chunker.parse(tempanswer[0])
     if question[0][0][0].lower()=="who":
         np=chunk.find_nounphrase(atree)
@@ -106,8 +101,6 @@ def get_answer(question, story):
     return base(question, story)
 
    
-
-
 
 #############################################################
 ###     Dont change the code in this section

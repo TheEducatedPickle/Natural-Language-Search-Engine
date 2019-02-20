@@ -10,7 +10,7 @@ import re, sys, nltk
 from nltk.stem.wordnet import WordNetLemmatizer
 from qa_engine.base import QABase
 
-LMTZR = nltk.stem.SnowballStemmer('english')
+LMTZR = WordNetLemmatizer()
 
 # Our simple grammar from class (and the book)
 GRAMMAR =   """
@@ -30,15 +30,19 @@ def get_sentences(text):
     sentences = [nltk.word_tokenize(sent) for sent in sentences]
     sentences = [nltk.pos_tag(sent) for sent in sentences]    
     for sent in sentences:
-        temp = []
-        for word_pair in sent:
-            if re.search("VB", word_pair[1]):
-                temp.append((LMTZR.stem(word_pair[0]),word_pair[1]))
-            else:
-                temp.append(word_pair)
+        temp = lemmatize(sent)
         output.append(temp)
     print(output)
     return output
+
+def lemmatize(tagged_sent):
+    temp = []
+    for word_pair in tagged_sent:
+        if re.search("VB", word_pair[1]):
+            temp.append((LMTZR.lemmatize(word_pair[0], "v"),word_pair[1]))
+        else:
+            temp.append(word_pair)
+    return temp
 
 def pp_filter(subtree):
     return subtree.label() == "PP"
@@ -93,7 +97,7 @@ def find_candidates(sentences, chunker):
 
 def find_sentences(patterns, sentences):
     # Get the raw text of each sentence to make it easier to search using regexes
-    raw_sentences = [" ".join([LMTZR.stem(token[0]) for token in sent]) for sent in sentences]
+    raw_sentences = [" ".join([LMTZR.lemmatize(token[0]) for token in sent]) for sent in sentences]
     
     result = []
     for sent, raw_sent in zip(sentences, raw_sentences):
@@ -112,7 +116,6 @@ def get_Subject(np):
 
     for t in np:
         for token in t.leaves():
-            tag=nltk.pos_tag([token[0]])
             if bool(re.search("NN[PS]?|PRP",token[1])):
                 subject.append(token[0])
     return subject
@@ -120,7 +123,6 @@ def get_Subject(np):
 def get_Action(vp):
     action=[]
     for t in vp:
-        temp=[nltk.pos_tag([token[0]]) for token in t.leaves()]
         for token in t.leaves():
             if bool(re.search("VB[DGNPZ]?",token[1])):
                 action.append(token[0])
@@ -135,7 +137,7 @@ def get_Action(vp):
 if __name__ == '__main__':
     # Our tools
     chunker = nltk.RegexpParser(GRAMMAR)
-    lmtzr = nltk.stem.SnowballStemmer('english')
+    lmtzr = WordNetLemmatizer()
     
     question_id = "fables-01-1"
 
@@ -174,8 +176,8 @@ if __name__ == '__main__':
     
     # Might be useful to stem the words in case there isn't an extact
     # string match
-    subj_stem = lmtzr.stem(subj, "n")
-    verb_stem = lmtzr.stem(verb, "v")
+    subj_stem = lmtzr.lemmatize(subj, "n")
+    verb_stem = lmtzr.lemmatize(verb, "v")
     
     # Find the sentences that have all of our keywords in them
     # How could we make this better?
