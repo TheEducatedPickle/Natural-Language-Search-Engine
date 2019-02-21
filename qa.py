@@ -25,14 +25,11 @@ LOC_PP = set(["in", "on", "at"])
 def base(question, story):
     #Base
     question_id = question["qid"]
-    driver = QABase()
-    q = driver.get_question(question_id)
-    story = driver.get_story(q["sid"])
     if question['type']=='Sch':
         text=story['sch']
     else:
         text = story["text"]
-    question = q["text"]
+    question = question["text"]
     print("QUESTION: ", question)
 
     #Code
@@ -151,7 +148,7 @@ def main():
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
     sys.stdout = f
-    score_answers()
+    #score_answers()
     sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
