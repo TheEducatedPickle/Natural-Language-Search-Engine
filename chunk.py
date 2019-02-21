@@ -170,14 +170,6 @@ if __name__ == '__main__':
     np=find_nounphrase(qtree)
     vp=find_verbphrase(qtree)
     vp=vp[len(vp)-1]
-
-    #print("Noun Phrase")
-    #for t in np:
-    #    print(" ".join([token[0] for token in t.leaves()]))
-    #print("Verb Phrase")
-    #for t in vp:
-    #    print(" ".join([token[0] for token in t.leaves()]))
-
     
     # Apply the standard NLP pipeline we've seen before
     sentences = get_sentences(text)

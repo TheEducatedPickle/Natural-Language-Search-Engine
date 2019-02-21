@@ -25,20 +25,15 @@ LOC_PP = set(["in", "on", "at"])
 def base(question, story):
     #Base
     question_id = question["qid"]
-    driver = QABase()
-    q = driver.get_question(question_id)
-    story = driver.get_story(q["sid"])
     if question['type']=='Sch':
         text=story['sch']
     else:
         text = story["text"]
-    question = q["text"]
+    question = question["text"]
     print("QUESTION: ", question)
 
     #Code
     stopwords = set(nltk.corpus.stopwords.words("english"))
-    #question_stem_list = chunk.lemmatize(nltk.pos_tag(nltk.word_tokenize(question)))
-    #question_stem = "".join(t[0] + " " for t in question_stem_list)
     question_stem = question
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
@@ -146,7 +141,7 @@ def run_qa(evala=False):
 
 
 def main():
-    run_qa(evala=True)
+    run_qa(evala=False)
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
