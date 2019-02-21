@@ -72,11 +72,11 @@ F-measure: 0.000
 SCORING fables-01-7
 
 Comparing Gold   "the fox"
-      and Resp   " The crow"
+      and Resp   " the fox"
 
-RECALL:    0.500
-PRECISION: 0.500
-F-measure: 0.500
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
 
 ----------------------------------------
 
@@ -483,9 +483,9 @@ Finished processing 43 questions
 FINAL RESULTS
 
 
-AVERAGE RECAL =     0.4289
-AVERAGE PRECISION = 0.5148
-AVERAGE F-MEASURE = 0.4489
+AVERAGE RECAL =     0.4406
+AVERAGE PRECISION = 0.5264
+AVERAGE F-MEASURE = 0.4605
 
 *************************************************************************
 

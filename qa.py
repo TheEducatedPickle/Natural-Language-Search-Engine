@@ -1,4 +1,4 @@
-import sys, nltk, operator
+import sys, nltk, operator, re
 import baseline
 import chunk
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -6,6 +6,7 @@ import constituency
 import dependency
 from qa_engine.base import QABase
 from qa_engine.score_answers import main as score_answers
+from rake_nltk import Rake
 
 GRAMMAR =   """
             N: {<PRP>|<NN.*>}
@@ -49,11 +50,22 @@ def base(question, story):
     atree=chunker.parse(tempanswer[0])
     what_set = ["happened", "do"] #this should probably be changed in the future
     what_set = set(what_set)
-
+    rake =Rake()
+    rake.extract_keywords_from_text(real_question["text"])
     if question[0][0][0].lower()=="who":
+
+        pos_phrases = nltk.pos_tag(rake.get_ranked_phrases())
+        #print(pos_phrases)
+
+        only_noun_pos_phrases = [noun for noun in pos_phrases if re.search(r"NN", noun[1])]
+        only_noun_phrases = []
+        for i in only_noun_pos_phrases:
+            only_noun_phrases.append(i[0])
+
         np=chunk.find_nounphrase(atree)
         temp_ans=""
         if (np != []):
+
             counter = 0
             while True:
                 temp_ans = ""
