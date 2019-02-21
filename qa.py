@@ -146,7 +146,7 @@ def main():
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
     sys.stdout = f
-    score_answers()
+    #score_answers()
     sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
