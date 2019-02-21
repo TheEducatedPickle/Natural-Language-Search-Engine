@@ -24,15 +24,14 @@ LOC_PP = set(["in", "on", "at"])
 
 def base(question, story):
     #Base
+    real_question = question
     question_id = question["qid"]
-    driver = QABase()
-    q = driver.get_question(question_id)
-    story = driver.get_story(q["sid"])
+
     if question['type']=='Sch':
         text=story['sch']
     else:
         text = story["text"]
-    question = q["text"]
+    question = question["text"]
     print("QUESTION: ", question)
 
     #Code
@@ -48,6 +47,9 @@ def base(question, story):
     chunker = nltk.RegexpParser(GRAMMAR)
     tempanswer=chunk.get_sentences(newanswer)
     atree=chunker.parse(tempanswer[0])
+    what_set = ["happened", "do"] #this should probably be changed in the future
+    what_set = set(what_set)
+
     if question[0][0][0].lower()=="who":
         np=chunk.find_nounphrase(atree)
         temp_ans=""
@@ -57,6 +59,28 @@ def base(question, story):
         else:
             temp_ans = newanswer
         newanswer=temp_ans
+
+
+    elif question[0][0][0].lower()=="what":
+        #TODO will use dependency in the future as what questions are too hard to figure out wihtout knowing which words are dependent on others.
+        if any(word in real_question["text"] for word in what_set):
+            pp = chunk.find_verbphrase(atree)
+        else:
+            pp=chunk.find_nounphrase(atree)
+        temp_ans=""
+        #print([k.leaves() for k in pp])
+        if (pp != []):
+            if len(pp)> 1: #fix later
+                for token in pp[1].leaves():
+                    temp_ans = temp_ans + " " + token[0]
+            else:
+                for token in pp[0].leaves():
+                    temp_ans = temp_ans+" "+token[0]
+        else:
+            temp_ans = newanswer
+        newanswer=temp_ans
+
+
     elif question[0][0][0].lower()=="where":
         pp=chunk.find_prepphrases(atree)
         temp_ans=""
@@ -66,6 +90,7 @@ def base(question, story):
         else:
             temp_ans = newanswer
         newanswer=temp_ans
+
     elif question[0][0][0].lower()=="when":
         pp=chunk.find_times(atree)
         temp_ans=""
@@ -146,7 +171,7 @@ def run_qa(evala=False):
 
 
 def main():
-    run_qa(evala=True)
+    run_qa(evala=False)
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")

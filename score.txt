@@ -17,11 +17,11 @@ F-measure: 0.750
 SCORING fables-01-2
 
 Comparing Gold   "a piece of cheese"
-      and Resp   "A Crow was sitting on a branch of a tree with a piece of cheese in her beak when a Fox observed her and set his wits to work to discover some way of getting the cheese . "
+      and Resp   " a branch"
 
-RECALL:    1.000
-PRECISION: 0.138
-F-measure: 0.242
+RECALL:    0.250
+PRECISION: 0.500
+F-measure: 0.333
 
 ----------------------------------------
 
@@ -39,7 +39,7 @@ F-measure: 0.667
 SCORING fables-01-4
 
 Comparing Gold   "snatched"
-      and Resp   "A fox observed the crow and tried to discover how to get the cheese . "
+      and Resp   " tried"
 
 RECALL:    0.000
 PRECISION: 0.000
@@ -61,7 +61,7 @@ F-measure: 0.125
 SCORING fables-01-6
 
 Comparing Gold   "flattered "
-      and Resp   "There once was a crow . "
+      and Resp   " a crow"
 
 RECALL:    0.000
 PRECISION: 0.000
@@ -138,11 +138,11 @@ F-measure: 1.000
 SCORING fables-02-6
 
 Comparing Gold   "that the lion was friendly"
-      and Resp   "The lion walked toward the bull and began to feign that the lion was friendly . "
+      and Resp   " the bull"
 
-RECALL:    1.000
-PRECISION: 0.385
-F-measure: 0.556
+RECALL:    0.200
+PRECISION: 0.500
+F-measure: 0.286
 
 ----------------------------------------
 
@@ -171,11 +171,11 @@ F-measure: 0.000
 SCORING fables-02-9
 
 Comparing Gold   "to eat the bull"
-      and Resp   "A lion watched the bull and salivated because the lion wanted to eat the bull . "
+      and Resp   " the bull"
 
-RECALL:    1.000
-PRECISION: 0.333
-F-measure: 0.500
+RECALL:    0.500
+PRECISION: 1.000
+F-measure: 0.667
 
 ----------------------------------------
 
@@ -193,11 +193,11 @@ F-measure: 0.875
 SCORING fables-02-11
 
 Comparing Gold   "sharp every horn of the bull"
-      and Resp   "A lion watched the bull and salivated because the lion wanted to eat the bull . "
+      and Resp   " the bull"
 
 RECALL:    0.333
-PRECISION: 0.167
-F-measure: 0.222
+PRECISION: 1.000
+F-measure: 0.500
 
 ----------------------------------------
 
@@ -215,11 +215,11 @@ F-measure: 1.000
 SCORING blogs-01-2
 
 Comparing Gold   "g20 summit"
-      and Resp   "A summit meeting named G20 summit started on eventful today . "
+      and Resp   " G20 summit"
 
 RECALL:    1.000
-PRECISION: 0.200
-F-measure: 0.333
+PRECISION: 1.000
+F-measure: 1.000
 
 ----------------------------------------
 
@@ -237,11 +237,11 @@ F-measure: 0.250
 SCORING blogs-01-4
 
 Comparing Gold   "a police car "
-      and Resp   "A people protested because it disagreed about a view . "
+      and Resp   " it"
 
-RECALL:    0.333
-PRECISION: 0.111
-F-measure: 0.167
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
 
 ----------------------------------------
 
@@ -269,12 +269,12 @@ F-measure: 1.000
 
 SCORING blogs-01-7
 
-Comparing Gold   " burned"
-      and Resp   "The people burned a police car and threw a thing at a police . "
+Comparing Gold   "it burned "
+      and Resp   " threw a thing"
 
-RECALL:    1.000
-PRECISION: 0.091
-F-measure: 0.167
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
 
 ----------------------------------------
 
@@ -291,52 +291,52 @@ F-measure: 1.000
 
 SCORING blogs-01-9
 
-Comparing Gold   " police cars"
-      and Resp   "Police cars were burned and things were thrown at cops . "
+Comparing Gold   "a police car "
+      and Resp   " things"
 
-RECALL:    1.000
-PRECISION: 0.200
-F-measure: 0.333
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
 
 ----------------------------------------
 
 SCORING blogs-01-10
 
-Comparing Gold   "were burned "
-      and Resp   "Police cars were burned and things were thrown at cops . "
+Comparing Gold   " burned"
+      and Resp   " burned"
 
 RECALL:    1.000
-PRECISION: 0.200
-F-measure: 0.333
+PRECISION: 1.000
+F-measure: 1.000
 
 ----------------------------------------
 
 SCORING blogs-01-11
 
 Comparing Gold   "bean bag bullets"
-      and Resp   "As things got worse tear gas and bean bag bullets were fired at the rioters while they smash windows of stores . "
+      and Resp   " worse tear gas"
 
-RECALL:    1.000
-PRECISION: 0.136
-F-measure: 0.240
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
 
 ----------------------------------------
 
 SCORING blogs-01-12
 
 Comparing Gold   "bean bag bullets"
-      and Resp   "As things got worse tear gas and bean bag bullets were fired at the rioters while they smash windows of stores . "
+      and Resp   " worse tear gas"
 
-RECALL:    1.000
-PRECISION: 0.136
-F-measure: 0.240
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
 
 ----------------------------------------
 
 SCORING blogs-01-13
 
 Comparing Gold   "windows of stores"
-      and Resp   "Today was a very eventful work day . "
+      and Resp   " eventful work day"
 
 RECALL:    0.000
 PRECISION: 0.000
@@ -358,7 +358,7 @@ F-measure: 0.000
 SCORING mc500.train.0.2
 
 Comparing Gold   "a salad"
-      and Resp   "After going swimming and laying out , she went to her friend Ellen 's house . "
+      and Resp   " she"
 
 RECALL:    0.000
 PRECISION: 0.000
@@ -391,11 +391,11 @@ F-measure: 0.000
 SCORING mc500.train.0.5
 
 Comparing Gold   "spend time with her friends"
-      and Resp   "Alyssa was happy to spend time with her friends again . "
+      and Resp   " time"
 
-RECALL:    1.000
-PRECISION: 0.455
-F-measure: 0.625
+RECALL:    0.200
+PRECISION: 1.000
+F-measure: 0.333
 
 ----------------------------------------
 
@@ -435,7 +435,7 @@ F-measure: 0.000
 SCORING mc500.train.0.9
 
 Comparing Gold   "catfish"
-      and Resp   "Alyssa enjoyed the restaurant 's special . "
+      and Resp   " the restaurant"
 
 RECALL:    0.000
 PRECISION: 0.000
@@ -446,7 +446,7 @@ F-measure: 0.000
 SCORING mc500.train.0.10
 
 Comparing Gold   "soup"
-      and Resp   "Alyssa called her friends Kristin and Rachel to meet at Ellen 's house . "
+      and Resp   " friends Kristin"
 
 RECALL:    0.000
 PRECISION: 0.000
@@ -483,9 +483,9 @@ Finished processing 43 questions
 FINAL RESULTS
 
 
-AVERAGE RECAL =     0.5727
-AVERAGE PRECISION = 0.4114
-AVERAGE F-MEASURE = 0.4219
+AVERAGE RECAL =     0.4057
+AVERAGE PRECISION = 0.4915
+AVERAGE F-MEASURE = 0.4256
 
 *************************************************************************
 
