@@ -21,7 +21,7 @@ GRAMMAR =   """
 
 LOC_PP = set(["in", "on", "at"])
 
-
+PERSONAL_PRONOUN=set(["he","she"])
 def base(question, story):
     #Base
     real_question = question
@@ -109,6 +109,16 @@ def base(question, story):
         else:
             temp_ans = newanswer
         newanswer=temp_ans
+ 
+    if newanswer.replace(" ","") in PERSONAL_PRONOUN and question[0][0][0].lower()=="who":
+        print("found pronoun")
+        i = index 
+        if i > 0:
+            previous_sentence=sentences[index-i]
+            for word,tag in previous_sentence:
+                if tag == "NNP":
+                    newanswer=word
+                    print("Previous sentence: ",previous_sentence)
 
     print("ANSWER ",newanswer)
     print()

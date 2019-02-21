@@ -424,11 +424,11 @@ F-measure: 1.000
 SCORING mc500.train.0.8
 
 Comparing Gold   "alyssa"
-      and Resp   " she"
+      and Resp   "Alyssa"
 
-RECALL:    0.000
-PRECISION: 0.000
-F-measure: 0.000
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
 
 ----------------------------------------
 
@@ -483,9 +483,9 @@ Finished processing 43 questions
 FINAL RESULTS
 
 
-AVERAGE RECAL =     0.4057
-AVERAGE PRECISION = 0.4915
-AVERAGE F-MEASURE = 0.4256
+AVERAGE RECAL =     0.4289
+AVERAGE PRECISION = 0.5148
+AVERAGE F-MEASURE = 0.4489
 
 *************************************************************************
 
