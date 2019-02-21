@@ -27,6 +27,9 @@ def find_phrase(tagged_tokens, qbow):
         if word in qbow:
             return tagged_tokens[i+1:]
 
+def takeSecond(elem):
+    return elem[1]
+
 def get_ranked_sentences(text):
     r = Rake() # Uses stopwords for english from NLTK, and all puntuation characters.
     r.extract_keywords_from_text(text)
@@ -64,11 +67,15 @@ def baseline(qbow, sentences, stopwords):
             best_candidate_sents.append(answers[i][1])
             #print(" ".join(t[0] for t in answers[i][1]))
         else: break
-    for sent in best_candidate_sents:
-        best_overlap = len(set([word[0] for word in sent]) & qbow)
-        print(best_overlap)
 
-    best_answer = (answers[0])[1]    
+    #for sent in best_candidate_sents: #Filter using Rake
+    #    ans_tagged = set([word[0] for word in sent])
+    #    best_overlap = len(ans_tagged & qbow)
+    #    candidates_ranked_on_rake.append((ans_tagged, best_overlap))
+    #print(candidates_ranked_on_rake)
+    #best_answer = sorted(candidates_ranked_on_rake, key=takeSecond)
+
+    best_answer = (answers[0])    
     index = (answers[0])[2]
     return best_answer, index
 

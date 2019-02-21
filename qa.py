@@ -24,7 +24,9 @@ LOC_PP = set(["in", "on", "at"])
 
 def base(question, story):
     #Base
+    real_question = question
     question_id = question["qid"]
+
     if question['type']=='Sch':
         text=story['sch']
     else:
@@ -34,6 +36,8 @@ def base(question, story):
 
     #Code
     stopwords = set(nltk.corpus.stopwords.words("english"))
+    #question_stem_list = chunk.lemmatize(nltk.pos_tag(nltk.word_tokenize(question)))
+    #question_stem = "".join(t[0] + " " for t in question_stem_list)
     question_stem = question
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
@@ -43,6 +47,9 @@ def base(question, story):
     chunker = nltk.RegexpParser(GRAMMAR)
     tempanswer=chunk.get_sentences(newanswer)
     atree=chunker.parse(tempanswer[0])
+    what_set = ["happened", "do"] #this should probably be changed in the future
+    what_set = set(what_set)
+
     if question[0][0][0].lower()=="who":
         np=chunk.find_nounphrase(atree)
         temp_ans=""
@@ -52,6 +59,30 @@ def base(question, story):
         else:
             temp_ans = newanswer
         newanswer=temp_ans
+
+
+    elif question[0][0][0].lower()=="what":
+        #TODO will use dependency in the future as what questions are too hard to figure out wihtout knowing which words are dependent on others.
+        if any(word in real_question["text"] for word in what_set):
+            pp = chunk.find_verbphrase(atree)
+            print("PP is" , pp)
+        else:
+            pp=chunk.find_nounphrase(atree)
+            print("PP is ", pp)
+        temp_ans=""
+        #print([k.leaves() for k in pp])
+        if (pp != []):
+            if len(pp)> 1: #fix later
+                for token in pp[1].leaves():
+                    temp_ans = temp_ans + " " + token[0]
+            else:
+                for token in pp[0].leaves():
+                    temp_ans = temp_ans+" "+token[0]
+        else:
+            temp_ans = newanswer
+        newanswer=temp_ans
+
+
     elif question[0][0][0].lower()=="where":
         pp=chunk.find_prepphrases(atree)
         temp_ans=""
@@ -61,6 +92,7 @@ def base(question, story):
         else:
             temp_ans = newanswer
         newanswer=temp_ans
+
     elif question[0][0][0].lower()=="when":
         pp=chunk.find_times(atree)
         temp_ans=""
@@ -146,7 +178,7 @@ def main():
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
     sys.stdout = f
-    #score_answers()
+    score_answers()
     sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
