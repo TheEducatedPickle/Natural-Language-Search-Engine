@@ -54,8 +54,29 @@ def base(question, story):
         np=chunk.find_nounphrase(atree)
         temp_ans=""
         if (np != []):
-            for token in np[0].leaves():
-                temp_ans=temp_ans+" "+token[0]
+            counter = 0
+            while True:
+                temp_ans = ""
+                val = False
+
+                for token in np[counter].leaves():
+
+                    temp_ans=temp_ans+" "+token[0]
+
+
+                for word in only_noun_phrases:
+
+                        if word in temp_ans:
+                            val = True
+                if val: # if answer contains a word in only_noun_phrases
+                    print("bing")
+                    if len(np)-1>counter:
+                        counter+=1
+                    else:
+                        temp_ans = newanswer
+                        break
+                else:
+                    break
         else:
             temp_ans = newanswer
         newanswer=temp_ans
