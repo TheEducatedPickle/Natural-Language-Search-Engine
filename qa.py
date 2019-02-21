@@ -83,6 +83,7 @@ def base(question, story):
 
     elif question[0][0][0].lower()=="where":
         pp=chunk.find_prepphrases(atree)
+        print(pp)
         temp_ans=""
         if (pp != []):
             for token in pp[0].leaves():
@@ -111,14 +112,12 @@ def base(question, story):
         newanswer=temp_ans
  
     if newanswer.replace(" ","") in PERSONAL_PRONOUN and question[0][0][0].lower()=="who":
-        print("found pronoun")
         i = index 
         if i > 0:
             previous_sentence=sentences[index-i]
             for word,tag in previous_sentence:
                 if tag == "NNP":
                     newanswer=word
-                    print("Previous sentence: ",previous_sentence)
 
     print("ANSWER ",newanswer)
     print()
