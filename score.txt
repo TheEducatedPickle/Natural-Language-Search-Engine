@@ -50,11 +50,11 @@ F-measure: 0.000
 SCORING fables-01-5
 
 Comparing Gold   "under the tree"
-      and Resp   " none"
+      and Resp   "A fox observed the crow and tried to discover how to get the cheese . "
 
-RECALL:    0.000
-PRECISION: 0.000
-F-measure: 0.000
+RECALL:    0.333
+PRECISION: 0.077
+F-measure: 0.125
 
 ----------------------------------------
 
@@ -105,11 +105,11 @@ F-measure: 1.000
 SCORING fables-02-3
 
 Comparing Gold   "in a meadow"
-      and Resp   " none"
+      and Resp   "There once was a fat bull . "
 
-RECALL:    0.000
-PRECISION: 0.000
-F-measure: 0.000
+RECALL:    0.333
+PRECISION: 0.143
+F-measure: 0.200
 
 ----------------------------------------
 
@@ -347,7 +347,7 @@ F-measure: 0.000
 SCORING mc500.train.0.1
 
 Comparing Gold   "visit friends"
-      and Resp   " none"
+      and Resp   "Alyssa got to the beach after a long trip . "
 
 RECALL:    0.000
 PRECISION: 0.000
@@ -483,9 +483,9 @@ Finished processing 43 questions
 FINAL RESULTS
 
 
-AVERAGE RECAL =     0.5572
-AVERAGE PRECISION = 0.4062
-AVERAGE F-MEASURE = 0.4143
+AVERAGE RECAL =     0.5727
+AVERAGE PRECISION = 0.4114
+AVERAGE F-MEASURE = 0.4219
 
 *************************************************************************
 

@@ -55,7 +55,7 @@ def base(question, story):
             for token in np[0].leaves():
                 temp_ans=temp_ans+" "+token[0]
         else:
-            temp_ans = " none"
+            temp_ans = newanswer
         newanswer=temp_ans
     elif question[0][0][0].lower()=="where":
         pp=chunk.find_prepphrases(atree)
@@ -64,7 +64,7 @@ def base(question, story):
             for token in pp[0].leaves():
                 temp_ans=temp_ans+" "+token[0]
         else:
-            temp_ans = " none"
+            temp_ans = newanswer
         newanswer=temp_ans
     elif question[0][0][0].lower()=="when":
         pp=chunk.find_times(atree)
@@ -73,7 +73,7 @@ def base(question, story):
             for token in pp[0].leaves():
                 temp_ans=temp_ans+" "+token[0]
         else:
-            temp_ans = " none"
+            temp_ans = newanswer
         newanswer=temp_ans
     elif question[0][0][0].lower() == "why":
         pp=chunk.find_reasons(atree)
@@ -82,7 +82,7 @@ def base(question, story):
             for token in pp[0].leaves():
                 temp_ans=temp_ans+" "+token[0]
         else:
-            temp_ans = " none"
+            temp_ans = newanswer
         newanswer=temp_ans
 
     print("ANSWER ",newanswer)
@@ -137,8 +137,8 @@ class QAEngine(QABase):
         return answer
 
 
-def run_qa():
-    QA = QAEngine()
+def run_qa(evala=False):
+    QA = QAEngine(evaluate=evala)
     QA.run()
     QA.save_answers()
 
@@ -146,7 +146,7 @@ def run_qa():
 
 
 def main():
-    run_qa()
+    run_qa(evala=True)
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
