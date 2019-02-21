@@ -71,6 +71,7 @@ def find_prepphrases(tree):
     # Make sure the crow/subj is to the left
     locations = []
     for subtree in tree.subtrees(filter=pp_filter):
+        print(subtree)
         if is_location(subtree[0]):
             locations.append(subtree)
     
