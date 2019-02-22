@@ -26,8 +26,8 @@ def get_dependents(node, graph):
         results = results + get_dependents(dep, graph)
         
     return results
-def get_subject(sgraph):
 
+def get_subject(sgraph):
     for node in sgraph.nodes.values():
         if node.get('head',None) == snode["address"]:
             if node['rel'] =='nsubj':
@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
     # get the dependency graph of the first question
     qgraph = q["dep"]
-    print("qgraph:", qgraph)
+    #print("qgraph:", qgraph)
 
     # The answer is in the second sentence
     # You would have to figure this out like in the chunking demo

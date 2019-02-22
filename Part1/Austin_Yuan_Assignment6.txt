@@ -1,0 +1,23 @@
+Turned in the code: Austin Yuan
+
+Team Members:
+Austin Yuan
+Dean Campagnolo
+Priya Rajarathinam
+
+We used chunking so that we could find the main subject of the question. 
+We used chunking on the sentence returned by the baseline stub and then applied filters so that we could get the answer.
+We categorized each question into one of the 5 “W” questions, and built custom chunking solutions for isolating the answer of each category.
+We altered the given regex patterns to return  a more accurate answer. We added more regex patterns so that we could answer questions such as Why?.
+We used Rake from rake_nltk to get the most important words from the question and then used regex to see if those words were nouns. After finding out that they were nouns we made sure that those nouns were not in the answer, and if they were we changed our answer. 
+We created a lemmatizer to help better match potential answers with the question
+
+My Contributions:
+I initially attempted to create a regex based solution finder, which had fairly poor performance. I worked on creating answer solutions for “who”, “when”, and “why” questions. I modified chunking grammar to identify other important phrases. I also worked on lemmatizing questions and answers. Finally, I worked on reformatting questions into searchable sentences. 
+
+Priya Contributions:
+I worked on the  who, why, and where questions. I edited the existing regex patterns and made my own so that we could find our answers. I also used chunking on the question and the answer and then modified the chunking-stub code so that it could work with phrases beyond just prepositional. 
+
+Dean Contributions:
+I worked on the who, what and was working on trying to implement the dependency code. I initially spent most of my time trying to get the dependency code to work, however, it proved to be a bit confusing and while I believe that I wrote the majority of the code to get the dependency to work, it didn’t effectively work when I used it in qa.py. While we didn’t use it in our code for this week, I have gained extensive knowledge about the dependency code that will greatly help our group in the future. In addition to this I also worked on the ‘What’ and ‘Who’ type questions and implemented the rake and its uses inside of the ‘who’ problems. I also helped on many other smaller things.
+

@@ -47,6 +47,13 @@ def baseline(qbow, sentences, stopwords):
     # Sort answers from smallest to largest by default, so reverse it
     answers = sorted(answers, key=operator.itemgetter(0), reverse=True)
 
+    #for sent in best_candidate_sents: #Filter using Rake
+    #    ans_tagged = set([word[0] for word in sent])
+    #    best_overlap = len(ans_tagged & qbow)
+    #    candidates_ranked_on_rake.append((ans_tagged, best_overlap))
+    #print(candidates_ranked_on_rake)
+    #best_answer = sorted(candidates_ranked_on_rake, key=takeSecond)
+
     # Return the best answer
     best_answer = (answers[0])[1]    
     index = (answers[0])[2]
