@@ -45,7 +45,7 @@ def dependent(question,story):
     #        else:
     #            print(lmtzr.lemmatize(word, 'n'))
     #print()
-
+    
     answer = dependency.find_answer(qgraph, sgraph)
     print("question:", question["text"])
     print("answer:", answer)
