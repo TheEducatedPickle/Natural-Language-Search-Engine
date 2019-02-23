@@ -27,7 +27,6 @@ def dependent(question,story):
     qgraph = question["dep"]
     # The answer is in the second sentence
     # You would have to figure this out like in the chunking demo
-
     if question['type']=='Sch':
         sgraph=story['sch_dep'][get_Index(question,story)]    
     else:
