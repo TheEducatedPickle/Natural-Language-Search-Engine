@@ -34,6 +34,7 @@ def dependent(question,story):
 
     # The answer is in the second sentence
     # You would have to figure this out like in the chunking demo
+    print(len(story["sch_dep"]))
     if question["type"]=='Sch':
         sgraph = story["sch_dep"][get_Index(question,story)]
     else:
