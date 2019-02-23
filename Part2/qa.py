@@ -41,6 +41,13 @@ def dependent(question,story):
     #            print(lmtzr.lemmatize(word, 'v'))
     #        else:
     #            print(lmtzr.lemmatize(word, 'n'))
+    posMap = {}
+    posMap["who"] = "nmod"
+    posMap["what"] = "nmod"
+    posMap["when"] = "nmod"
+    posMap["where"] = "nmod"
+    posMap["why"] = "nmod"
+    posType = posMap[question["text"].split(" ")[0].lower()]
     answer = dependency.find_answer(qgraph, sgraph)
     print("ANSWER:", answer)
     return answer
