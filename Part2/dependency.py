@@ -29,20 +29,22 @@ def get_dependents(node, graph):
 
 
 
-def find_answer(qgraph, sgraph, pos):
+def find_answer(qgraph, sgraph, dataarr):
     qmain = find_main(qgraph)
     qword = qmain["word"]
+    posarr = dataarr[0]
+    keywords = dataarr[1]
     
-    snode = find_node(qword, sgraph)
-    if snode == []:
-        return "Snode null"
-    for node in sgraph.nodes.values():
-        #if node.get('head', None) == snode["address"]:
-        if node['rel'] == pos:
-            deps = get_dependents(node, sgraph)
-            deps = sorted(deps+[node], key=operator.itemgetter("address"))
-            
-            return " ".join(dep["word"] for dep in deps)
+    for pos in posarr:
+        snode = find_node(qword, sgraph)
+        if snode == []:
+            return "Snode null"
+        for node in sgraph.nodes.values():
+            #if node.get('head', None) == snode["address"]:
+            if node['rel'] == pos:
+                deps = get_dependents(node, sgraph)
+                deps = sorted(deps+[node], key=operator.itemgetter("address"))  
+                return " ".join(dep["word"] for dep in deps)
 
 
 if __name__ == '__main__':

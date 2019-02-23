@@ -51,22 +51,26 @@ def dependent(question,story):
     #        else:
     #            print(lmtzr.lemmatize(word, 'n'))
     #print()
+
     posMap = {}
-    posMap["who"] = "nsubj"
-    posMap["what"] = "nmod"
-    posMap["when"] = "nmod"
-    posMap["where"] = "nmod"
-    posMap["why"] = "nmod"
-    posMap["how"] = "nsubj"
-    posMap["did"] = "nsubj"
-    posMap["had"] = "nsubj"
-    posMap["which"] = "nsubj"
+    posMap["who"] = (["nsubj"],[])        #POSMAP: ([tags], [keywords])
+    posMap["what"] = (["nmod"],[])
+    posMap["when"] = (["nmod"],[])
+    posMap["where"] = (["nmod","advmod"],["at", "from"])
+    posMap["why"] = (["nmod"],[])
+    posMap["how"] = (["nsubj"],[])
+    posMap["did"] = (["nsubj"],[])
+    posMap["had"] = (["nsubj"],[])
+    posMap["which"] = (["nsubj"],[])
     posType = posMap[question["text"].split(" ")[0].lower()]
 
     answer = dependency.find_answer(qgraph, sgraph, posType)
-    print("question:", question["text"])
-    print("answer:", answer)
-    print()
+    if question["text"].split(" ")[0].lower() == "where":
+        print("question:", question["text"])
+        if answer == None:
+            print(sgraph)
+        print("answer:", answer)
+        print()
     return answer
 def get_Index(question,story):
     real_question = question
