@@ -34,7 +34,7 @@ def dependent(question,story):
 
     # The answer is in the second sentence
     # You would have to figure this out like in the chunking demo
-    print(len(story["sch_dep"]))
+   
     if question["type"]=='Sch':
         sgraph = story["sch_dep"][get_Index(question,story)]
     else:
@@ -274,7 +274,7 @@ def main():
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
     sys.stdout = f
-    score_answers()
+    #score_answers()
     sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
