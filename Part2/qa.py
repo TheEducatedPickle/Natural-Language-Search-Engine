@@ -25,27 +25,31 @@ LOC_PP = set(["in", "on", "at"])
 PERSONAL_PRONOUN=set(["he","she"])
 def dependent(question,story):
     qgraph = question["dep"]
-    print("qgraph:", qgraph)
+    #print("qgraph:", qgraph)
 
     # The answer is in the second sentence
     # You would have to figure this out like in the chunking demo
-
-    sgraph = story["sch_dep"][get_Index(question,story)]
+    if question["type"]=='Sch':
+        sgraph = story["sch_dep"][get_Index(question,story)]
+    else:
+        sgraph = story["story_dep"][get_Index(question,story)]
 
     
     lmtzr = WordNetLemmatizer()
-    for node in sgraph.nodes.values():
-        tag = node["tag"]
-        word = node["word"]
-        if word is not None:
-            if tag.startswith("V"):
-                print(lmtzr.lemmatize(word, 'v'))
-            else:
-                print(lmtzr.lemmatize(word, 'n'))
-    print()
+    #for node in sgraph.nodes.values():
+    #    tag = node["tag"]
+    #    word = node["word"]
+    #    if word is not None:
+    #        if tag.startswith("V"):
+    #            print(lmtzr.lemmatize(word, 'v'))
+    #        else:
+    #            print(lmtzr.lemmatize(word, 'n'))
+    #print()
 
     answer = dependency.find_answer(qgraph, sgraph)
+    print("question:", question["text"])
     print("answer:", answer)
+    print()
     return answer
 def get_Index(question,story):
     real_question = question
@@ -56,7 +60,7 @@ def get_Index(question,story):
     else:
         text = story["text"]
     question = question["text"]
-    print("QUESTION: ", question)
+    #print("QUESTION: ", question)
 
     #Code
     stopwords = set(nltk.corpus.stopwords.words("english"))

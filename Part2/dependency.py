@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
     # get the dependency graph of the first question
     qgraph = q["dep"]
-    print("qgraph:", qgraph)
+    #print("qgraph:", qgraph)
 
     # The answer is in the second sentence
     # You would have to figure this out like in the chunking demo
