@@ -25,6 +25,11 @@ LOC_PP = set(["in", "on", "at"])
 PERSONAL_PRONOUN=set(["he","she"])
 def dependent(question,story):
     qgraph = question["dep"]
+    question_text=question["text"]
+    question_text=chunk.get_sentences(question_text)
+    question_prefix=question_text[0][0][0]
+ 
+    
     #print("qgraph:", qgraph)
 
     # The answer is in the second sentence
@@ -33,7 +38,7 @@ def dependent(question,story):
         sgraph = story["sch_dep"][get_Index(question,story)]
     else:
         sgraph = story["story_dep"][get_Index(question,story)]
-
+    #print(sgraph)
     
     lmtzr = WordNetLemmatizer()
     #for node in sgraph.nodes.values():
@@ -47,6 +52,7 @@ def dependent(question,story):
     #print()
     
     answer = dependency.find_answer(qgraph, sgraph)
+    print("Type:", question["type"])
     print("question:", question["text"])
     print("answer:", answer)
     print()

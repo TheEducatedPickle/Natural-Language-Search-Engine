@@ -38,8 +38,9 @@ def find_answer(qgraph, sgraph):
     for node in sgraph.nodes.values():
         #print("node[head]=", node["head"])
         if node.get('head', None) == snode["address"]:
-
+            print("in if ")
             if node['rel'] == "nmod":
+                
                 deps = get_dependents(node, sgraph)
                 deps = sorted(deps+[node], key=operator.itemgetter("address"))
                 
