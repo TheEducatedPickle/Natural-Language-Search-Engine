@@ -29,7 +29,7 @@ def get_dependents(node, graph):
 
 
 
-def find_answer(qgraph, sgraph):
+def find_answer(qgraph, sgraph, pos):
     qmain = find_main(qgraph)
     qword = qmain["word"]
     
@@ -38,8 +38,7 @@ def find_answer(qgraph, sgraph):
         return "Snode null"
     for node in sgraph.nodes.values():
         #if node.get('head', None) == snode["address"]:
-        if node['rel'] == "nsubj":
-            
+        if node['rel'] == pos:
             deps = get_dependents(node, sgraph)
             deps = sorted(deps+[node], key=operator.itemgetter("address"))
             
@@ -75,6 +74,6 @@ if __name__ == '__main__':
                 print(lmtzr.lemmatize(word, 'n'))
     print()
 
-    answer = find_answer(qgraph, sgraph)
+    answer = find_answer(qgraph, sgraph, "nsubj")
     print("answer:", answer)
 
