@@ -25,28 +25,26 @@ LOC_PP = set(["in", "on", "at"])
 PERSONAL_PRONOUN=set(["he","she"])
 def dependent(question,story):
     qgraph = question["dep"]
-    print("qgraph:", qgraph)
-
     # The answer is in the second sentence
     # You would have to figure this out like in the chunking demo
 
-    sgraph = story["sch_dep"][get_Index(question,story)]
-
-    
+    if question['type']=='Sch':
+        sgraph=story['sch_dep'][get_Index(question,story)]    
+    else:
+        sgraph=story["story_dep"][get_Index(question,story)]      
     lmtzr = WordNetLemmatizer()
-    for node in sgraph.nodes.values():
-        tag = node["tag"]
-        word = node["word"]
-        if word is not None:
-            if tag.startswith("V"):
-                print(lmtzr.lemmatize(word, 'v'))
-            else:
-                print(lmtzr.lemmatize(word, 'n'))
-    print()
-
+    #for node in sgraph.nodes.values():
+    #    tag = node["tag"]
+    #    word = node["word"]
+    #    if word is not None:
+    #        if tag.startswith("V"):
+    #            print(lmtzr.lemmatize(word, 'v'))
+    #        else:
+    #            print(lmtzr.lemmatize(word, 'n'))
     answer = dependency.find_answer(qgraph, sgraph)
-    print("answer:", answer)
+    print("ANSWER:", answer)
     return answer
+
 def get_Index(question,story):
     real_question = question
     question_id = question["qid"]
@@ -68,6 +66,7 @@ def get_Index(question,story):
     question=chunk.get_sentences(question)
     base_ans, index = baseline.baseline(qbow, sentences, stopwords)
     return index
+
 def base(question, story):
     #Base
     real_question = question
@@ -115,14 +114,9 @@ def base(question, story):
             while True:
                 temp_ans = ""
                 val = False
-
                 for token in np[counter].leaves():
-
                     temp_ans=temp_ans+" "+token[0]
-
-
                 for word in only_noun_phrases:
-
                         if word in temp_ans:
                             val = True
                 if val: # if answer contains a word in only_noun_phrases
