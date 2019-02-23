@@ -23,6 +23,51 @@ GRAMMAR =   """
 LOC_PP = set(["in", "on", "at"])
 
 PERSONAL_PRONOUN=set(["he","she"])
+def dependent(question,story):
+    qgraph = question["dep"]
+    print("qgraph:", qgraph)
+
+    # The answer is in the second sentence
+    # You would have to figure this out like in the chunking demo
+
+    sgraph = story["sch_dep"][get_Index(question,story)]
+
+    
+    lmtzr = WordNetLemmatizer()
+    for node in sgraph.nodes.values():
+        tag = node["tag"]
+        word = node["word"]
+        if word is not None:
+            if tag.startswith("V"):
+                print(lmtzr.lemmatize(word, 'v'))
+            else:
+                print(lmtzr.lemmatize(word, 'n'))
+    print()
+
+    answer = dependency.find_answer(qgraph, sgraph)
+    print("answer:", answer)
+    return answer
+def get_Index(question,story):
+    real_question = question
+    question_id = question["qid"]
+
+    if question['type']=='Sch':
+        text=story['sch']
+    else:
+        text = story["text"]
+    question = question["text"]
+    print("QUESTION: ", question)
+
+    #Code
+    stopwords = set(nltk.corpus.stopwords.words("english"))
+    #question_stem_list = chunk.lemmatize(nltk.pos_tag(nltk.word_tokenize(question)))
+    #question_stem = "".join(t[0] + " " for t in question_stem_list)
+    question_stem = question
+    qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
+    sentences = baseline.get_sentences(text)
+    question=chunk.get_sentences(question)
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords)
+    return index
 def base(question, story):
     #Base
     real_question = question
@@ -190,7 +235,7 @@ def get_answer(question, story):
 
 
     """
-    return base(question, story)
+    return dependent(question, story)
 
    
 

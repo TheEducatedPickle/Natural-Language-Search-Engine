@@ -105,7 +105,7 @@ class QABase(object):
             a = self.answer_question(q, self._stories.get(q["sid"]))
             self._answers[qid] = {"answer": a, "qid": qid}
 
-
+    
     def save_answers(self, fname=None):
         if fname is None:
             if self.evaluate:
