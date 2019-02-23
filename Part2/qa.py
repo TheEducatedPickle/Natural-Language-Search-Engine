@@ -30,7 +30,8 @@ def dependent(question,story):
     if question['type']=='Sch':
         sgraph=story['sch_dep'][get_Index(question,story)]    
     else:
-        sgraph=story["story_dep"][get_Index(question,story)]      
+        sgraph=story["story_dep"][get_Index(question,story)]   
+    #print(sgraph)   
     lmtzr = WordNetLemmatizer()
     #for node in sgraph.nodes.values():
     #    tag = node["tag"]
@@ -41,14 +42,15 @@ def dependent(question,story):
     #        else:
     #            print(lmtzr.lemmatize(word, 'n'))
     posMap = {}
-    posMap["who"] = "nmod"
+    posMap["who"] = "nsubj"
     posMap["what"] = "nmod"
     posMap["when"] = "nmod"
     posMap["where"] = "nmod"
     posMap["why"] = "nmod"
     posType = posMap[question["text"].split(" ")[0].lower()]
-    answer = dependency.find_answer(qgraph, sgraph)
+    answer = dependency.find_answer(qgraph, sgraph, posType)
     print("ANSWER:", answer)
+    print()
     return answer
 
 def get_Index(question,story):
@@ -262,9 +264,9 @@ def main():
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
-    sys.stdout = f
-    score_answers()
-    sys.stdout = sys.__stdout__
+    #sys.stdout = f
+    #score_answers()
+    #sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
     main()
