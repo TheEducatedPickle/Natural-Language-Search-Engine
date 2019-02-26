@@ -46,19 +46,13 @@ def dependent(question,story):
     # You would have to figure this out like in the chunking demo
     if question['qid']=='fables-03-21':
         sgraph = story["sch_dep"][index]
-        
-        #print("using sentence",baseline.get_sentences(story[story_type])[index])
         story_type="sch"
 
     elif question["type"]=='Sch':
         sgraph = story["sch_dep"][index]
-        
-        #print("using sentence",baseline.get_sentences(story[story_type])[index])
         story_type="sch"
     else:
         sgraph = story["story_dep"][get_Index(question,story)]
- 
-        #print("using sentence",baseline.get_sentences(story["text"])[index])
         story_type="text"
     #print(sgraph)
     
