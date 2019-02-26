@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys, nltk, operator, re
 import baseline
 import chunk
