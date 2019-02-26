@@ -29,12 +29,6 @@ def get_sentences(text):
     output = []
     sentences = nltk.sent_tokenize(text)
     sentences = [nltk.word_tokenize(sent) for sent in sentences]
-<<<<<<< HEAD:chunk_demo.py
-    sentences = [nltk.pos_tag(sent) for sent in sentences]
-    sentences = [ for sent in sentences if sent]
-    
-    return sentences
-=======
     sentences = [nltk.pos_tag(sent) for sent in sentences]    
     for sent in sentences:
         #temp = lemmatize(sent)
@@ -50,7 +44,6 @@ def lemmatize(tagged_sent):
         else:
             temp.append(word_pair)
     return temp
->>>>>>> posmap:Part2/chunk.py
 
 def pp_filter(subtree):
     return subtree.label() == "PP"
