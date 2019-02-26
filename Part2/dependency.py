@@ -37,6 +37,8 @@ def find_answer(qgraph, sgraph, dataarr):
     blacklist = dataarr[2]
     results = []
     def search_blacklist(node): #Searches a node & dependencies for keywords / blacklist
+        if node['lemma'] in blacklist:
+            return False
         deps = get_dependents(node, sgraph)
         for dep in deps:
             if dep['lemma'] in blacklist:
