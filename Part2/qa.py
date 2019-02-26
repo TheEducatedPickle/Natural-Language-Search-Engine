@@ -93,24 +93,24 @@ def dependent(question,story):
     answer = dependency.find_answer(qgraph, sgraph, posType)
     if answer == None:
         answer =="none"
-    if question["text"].split(" ")[0].lower() == "who":
-        print("using ",story_type," ")
+    if question["text"].split(" ")[0].lower() == "who": 
+        #print("using ",story_type," ")
         print("question:", question["text"])
         if answer == None:
             print(sgraph)
-        else:
-            if answer.lower().replace(" ","") in PERSONAL_PRONOUN and question_prefix.lower()=="who": #replace pronouns with Proper Nouns
-                i = index
-                if i > 0:
-                    sentences=story[story_type]
-                    sentences=baseline.get_sentences(sentences)
-                    previous_sentence=sentences[index-i]
-                    answer=""
-                    for word,tag in previous_sentence:
-                        if tag == "NNP":
-                            answer=word
         print("answer:", answer)
         print()
+
+    if answer != None and answer.lower().replace(" ","") in PERSONAL_PRONOUN and question_prefix.lower()=="who": #replace pronouns with Proper Nouns
+        i = index
+        if i > 0:
+            sentences=story[story_type]
+            sentences=baseline.get_sentences(sentences)
+            previous_sentence=sentences[index-i]
+            answer=""
+            for word,tag in previous_sentence:
+                if tag == "NNP":
+                    answer=word
     return str(answer)
 def get_Index(question,story):
     real_question = question
@@ -133,6 +133,7 @@ def get_Index(question,story):
     question=chunk.get_sentences(question)
     base_ans, index = baseline.baseline(qbow, sentences, stopwords)
     return index
+
 def base(question, story):
     #Base
     real_question = question
@@ -263,8 +264,8 @@ def base(question, story):
                 if tag == "NNP":
                     newanswer=word
 
-    print("ANSWER ",newanswer)
-    print()
+    #print("ANSWER ",newanswer)
+    #print()
     return newanswer
 
 
