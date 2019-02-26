@@ -1,22 +1,29 @@
 #!/usr/bin/env python
 
-import re, sys, nltk, operator
+import re
+import sys
+import nltk
+import operator
+import chunk
 from nltk.stem.wordnet import WordNetLemmatizer
 
 from qa_engine.base import QABase
-    
+
+
 def find_main(graph):
     for node in graph.nodes.values():
         if node['rel'] == 'root':
             return node
     return None
-    
+
+
 def find_node(word, graph):
     for node in graph.nodes.values():
         if node["word"] == word:
             return node
     return None
-    
+
+
 def get_dependents(node, graph):
     results = []
     for item in node["deps"]:
@@ -24,9 +31,7 @@ def get_dependents(node, graph):
         dep = graph.nodes[address]
         results.append(dep)
         results = results + get_dependents(dep, graph)
-        
     return results
-
 
 
 def find_answer(qgraph, sgraph, dataarr):
@@ -34,17 +39,48 @@ def find_answer(qgraph, sgraph, dataarr):
     qword = qmain["word"]
     posarr = dataarr[0]
     keywords = dataarr[1]
+    blacklist = dataarr[2]
+
+    def search_blacklist(node): #Searches a node & dependencies for keywords / blacklist
+        deps = get_dependents(node, sgraph)
+        for dep in deps:
+            if dep['lemma'] in blacklist:
+                return False
+        return True
     
-    for pos in posarr:
+    def search_keywords(node): #Searches a node & dependencies for keywords / blacklist
+        if keywords == []: return True
+        deps = get_dependents(node, sgraph)
+        for dep in deps:
+            if dep['lemma'] in keywords:
+                return True
+        return False
+
+    #for node in sgraph.nodes.values(): #TODO If conjunction, check sibling dependents too
+    #    if node['word'] == qword:
+    #        if node['rel'] == 'conj': break
+    #        deps = get_dependents(node, sgraph)
+    #        print("----------- ",qword," -----------")
+    #        print(deps)
+    #        deps = sorted(deps+[node], key=operator.itemgetter("address"))
+    #        return " ".join(dep["word"] for dep in deps)
+
+    for pos in posarr: #Iterate through all pos in order of importance, left to right
         snode = find_node(qword, sgraph)
         if snode == []:
             return "Snode null"
         for node in sgraph.nodes.values():
-            #if node.get('head', None) == snode["address"]:
-            if node['rel'] == pos:
+            # if node.get('head', None) == snode["address"]:
+            if node['rel'] == pos and search_blacklist(node):
                 deps = get_dependents(node, sgraph)
-                deps = sorted(deps+[node], key=operator.itemgetter("address"))  
+                deps = sorted(deps+[node], key=operator.itemgetter("address"))
                 return " ".join(dep["word"] for dep in deps)
+                #candidates.append(deps)
+
+        #for dep in candidates[0]:
+        #    print(dep["word"])
+        #    out += dep["word"] + " "
+        #return out
 
 
 if __name__ == '__main__':
@@ -64,7 +100,6 @@ if __name__ == '__main__':
     print(len(story["sch_dep"]))
     sgraph = story["sch_dep"][1]
 
-    
     lmtzr = WordNetLemmatizer()
     for node in sgraph.nodes.values():
         tag = node["tag"]
@@ -78,4 +113,3 @@ if __name__ == '__main__':
 
     answer = find_answer(qgraph, sgraph, "nsubj")
     print("answer:", answer)
-

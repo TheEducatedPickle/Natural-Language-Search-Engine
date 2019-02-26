@@ -1,0 +1,2075 @@
+Computing QA Performance:
+  * answer key: hw7-answers.tsv
+  * predictions file: hw7-responses.tsv
+----------------------------------------
+
+SCORING blogs-03-1
+
+Comparing Gold   "hurricane gustav"
+      and Resp   "by Hurricane Gustav"
+
+RECALL:    1.000
+PRECISION: 0.667
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING blogs-03-2
+
+Comparing Gold   "the storm"
+      and Resp   "in Monday"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-03-3
+
+Comparing Gold   "winds"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-03-4
+
+Comparing Gold   "president bush"
+      and Resp   "President Bush"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-03-5
+
+Comparing Gold   " louisiana"
+      and Resp   "Louisiana"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-03-6
+
+Comparing Gold   "a store named home depot "
+      and Resp   "to a store named Home Depot in order to purchase a portable generator"
+
+RECALL:    1.000
+PRECISION: 0.455
+F-measure: 0.625
+
+----------------------------------------
+
+SCORING blogs-03-7
+
+Comparing Gold   "a large group of pine trees and had a group of oak trees"
+      and Resp   "of a neighborhood of the narrator"
+
+RECALL:    0.222
+PRECISION: 0.400
+F-measure: 0.286
+
+----------------------------------------
+
+SCORING blogs-03-8
+
+Comparing Gold   "because it owned a group of trees and near the house of the narrator"
+      and Resp   "of trees"
+
+RECALL:    0.167
+PRECISION: 1.000
+F-measure: 0.286
+
+----------------------------------------
+
+SCORING blogs-03-9
+
+Comparing Gold   "the house of the parent of the narrator"
+      and Resp   "house"
+
+RECALL:    0.200
+PRECISION: 1.000
+F-measure: 0.333
+
+----------------------------------------
+
+SCORING blogs-03-10
+
+Comparing Gold   "the narrator"
+      and Resp   "The narrator"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-03-11
+
+Comparing Gold   "an area of a neighborhood of the narrator"
+      and Resp   "An area of a neighborhood of the narrator"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-03-12
+
+Comparing Gold   "the tree"
+      and Resp   "on the yard of a neighbor"
+
+RECALL:    0.500
+PRECISION: 0.167
+F-measure: 0.250
+
+----------------------------------------
+
+SCORING blogs-03-13
+
+Comparing Gold   "the narrator"
+      and Resp   "The narrator"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-03-14
+
+Comparing Gold   "a rv of the neighbor"
+      and Resp   "house"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-03-15
+
+Comparing Gold   "my wife, our five children, and our dog"
+      and Resp   "My wife children"
+
+RECALL:    0.375
+PRECISION: 1.000
+F-measure: 0.545
+
+----------------------------------------
+
+SCORING fables-01-1
+
+Comparing Gold   "on a branch of a tree"
+      and Resp   "in her beak"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-01-2
+
+Comparing Gold   "a piece of cheese"
+      and Resp   "on a branch of a tree with a piece of cheese in her beak"
+
+RECALL:    1.000
+PRECISION: 0.364
+F-measure: 0.533
+
+----------------------------------------
+
+SCORING fables-01-3
+
+Comparing Gold   "a fox and a crow"
+      and Resp   "A Crow"
+
+RECALL:    0.500
+PRECISION: 1.000
+F-measure: 0.667
+
+----------------------------------------
+
+SCORING fables-01-4
+
+Comparing Gold   "snatched"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-01-5
+
+Comparing Gold   "under the tree"
+      and Resp   "how"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-01-6
+
+Comparing Gold   "flattered "
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-01-7
+
+Comparing Gold   "the fox"
+      and Resp   "The crow"
+
+RECALL:    0.500
+PRECISION: 0.500
+F-measure: 0.500
+
+----------------------------------------
+
+SCORING fables-01-8
+
+Comparing Gold   "sitting on the branch of a tree"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-01-9
+
+Comparing Gold   "in the beak of the crow"
+      and Resp   "Some cheese"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-01-10
+
+Comparing Gold   "a fox"
+      and Resp   "A Crow"
+
+RECALL:    0.500
+PRECISION: 0.500
+F-measure: 0.500
+
+----------------------------------------
+
+SCORING fables-01-11
+
+Comparing Gold   "a fox"
+      and Resp   "A fox"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-01-12
+
+Comparing Gold   "the beauty of the bird was incomparable"
+      and Resp   "of the bird"
+
+RECALL:    0.500
+PRECISION: 1.000
+F-measure: 0.667
+
+----------------------------------------
+
+SCORING fables-01-13
+
+Comparing Gold   "loudly"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-1
+
+Comparing Gold   "a fat bull"
+      and Resp   "A Lion"
+
+RECALL:    0.333
+PRECISION: 0.500
+F-measure: 0.400
+
+----------------------------------------
+
+SCORING fables-02-2
+
+Comparing Gold   "the bull"
+      and Resp   "The Bull"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-02-3
+
+Comparing Gold   "in a meadow"
+      and Resp   "once"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-4
+
+Comparing Gold   "the bull"
+      and Resp   "The bull"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-02-5
+
+Comparing Gold   "a lion"
+      and Resp   "A lion"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-02-6
+
+Comparing Gold   "that the lion was friendly"
+      and Resp   "toward the bull"
+
+RECALL:    0.200
+PRECISION: 0.333
+F-measure: 0.250
+
+----------------------------------------
+
+SCORING fables-02-7
+
+Comparing Gold   "a lion and a bull"
+      and Resp   "my dear what makes"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-8
+
+Comparing Gold   "the bull"
+      and Resp   "my dear what makes"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-9
+
+Comparing Gold   "to eat the bull"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-10
+
+Comparing Gold   "because the lion feared sharp every horn of the bull"
+      and Resp   "of the bull"
+
+RECALL:    0.333
+PRECISION: 1.000
+F-measure: 0.500
+
+----------------------------------------
+
+SCORING fables-02-11
+
+Comparing Gold   "sharp every horn of the bull"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-12
+
+Comparing Gold   "horns"
+      and Resp   "world"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-13
+
+Comparing Gold   "a lion"
+      and Resp   "A lion"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-02-14
+
+Comparing Gold   "because the lion wanted to eat the bull"
+      and Resp   "because the lion wanted to eat the bull"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-02-15
+
+Comparing Gold   "to remove every horn of the bull"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-16
+
+Comparing Gold   "because every horn of the bull was ugly"
+      and Resp   "of the bull"
+
+RECALL:    0.375
+PRECISION: 1.000
+F-measure: 0.545
+
+----------------------------------------
+
+SCORING fables-02-17
+
+Comparing Gold   "to attempt to kill the bull"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-02-18
+
+Comparing Gold   "the bull"
+      and Resp   "a fat bull"
+
+RECALL:    0.500
+PRECISION: 0.333
+F-measure: 0.400
+
+----------------------------------------
+
+SCORING blogs-01-1
+
+Comparing Gold   "on eventful today "
+      and Resp   "on eventful today"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-01-2
+
+Comparing Gold   "g20 summit"
+      and Resp   "on eventful today"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-3
+
+Comparing Gold   "on a street "
+      and Resp   "so many leaders"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-4
+
+Comparing Gold   "a police car "
+      and Resp   "about a view"
+
+RECALL:    0.333
+PRECISION: 0.333
+F-measure: 0.333
+
+----------------------------------------
+
+SCORING blogs-01-5
+
+Comparing Gold   "the people"
+      and Resp   "The people"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-01-6
+
+Comparing Gold   "the people"
+      and Resp   "The people"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-01-7
+
+Comparing Gold   "it burned "
+      and Resp   "at a police"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-8
+
+Comparing Gold   "the people"
+      and Resp   "The people"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-01-9
+
+Comparing Gold   "a police car "
+      and Resp   "at cops"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-10
+
+Comparing Gold   "were burned "
+      and Resp   "at cops"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-11
+
+Comparing Gold   "bean bag bullets"
+      and Resp   "at the rioters"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-12
+
+Comparing Gold   "bean bag bullets"
+      and Resp   "at the rioters"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-13
+
+Comparing Gold   "windows of stores"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-14
+
+Comparing Gold   "the police"
+      and Resp   "The police"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-01-15
+
+Comparing Gold   "the rioters"
+      and Resp   "things"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-16
+
+Comparing Gold   "because they disagreed about a view"
+      and Resp   "about a view"
+
+RECALL:    0.500
+PRECISION: 1.000
+F-measure: 0.667
+
+----------------------------------------
+
+SCORING blogs-01-17
+
+Comparing Gold   "riot"
+      and Resp   "about a view"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-01-18
+
+Comparing Gold   "to alleviate the violence"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-04-1
+
+Comparing Gold   "a stork"
+      and Resp   "A Fox"
+
+RECALL:    0.500
+PRECISION: 0.500
+F-measure: 0.500
+
+----------------------------------------
+
+SCORING fables-04-2
+
+Comparing Gold   "a large flat dish of soup"
+      and Resp   "to dinner dish"
+
+RECALL:    0.167
+PRECISION: 0.333
+F-measure: 0.222
+
+----------------------------------------
+
+SCORING fables-04-3
+
+Comparing Gold   "in a flat and large dish"
+      and Resp   "in a flat and large dish"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-04-4
+
+Comparing Gold   "a lion and a bull"
+      and Resp   "A clever fox"
+
+RECALL:    0.250
+PRECISION: 0.333
+F-measure: 0.286
+
+----------------------------------------
+
+SCORING fables-04-5
+
+Comparing Gold   "lapped the soup with relish"
+      and Resp   "to dinner dish"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-04-6
+
+Comparing Gold   "because he wasn't able to reach some food that was in the pitcher"
+      and Resp   "because he was n't able to reach some food that was in the pitcher"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-04-7
+
+Comparing Gold   "the long and narrow neck of the pitcher"
+      and Resp   "of the stork"
+
+RECALL:    0.286
+PRECISION: 0.667
+F-measure: 0.400
+
+----------------------------------------
+
+SCORING fables-04-8
+
+Comparing Gold   "for it was impossible for him to reach the tempting contents of the vessel"
+      and Resp   "him"
+
+RECALL:    0.083
+PRECISION: 1.000
+F-measure: 0.154
+
+----------------------------------------
+
+SCORING fables-04-9
+
+Comparing Gold   "broth"
+      and Resp   "with great relish"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-04-10
+
+Comparing Gold   "the stork"
+      and Resp   "The stork"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-04-11
+
+Comparing Gold   "long and narrow"
+      and Resp   "of the stork"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-04-12
+
+Comparing Gold   "the fox"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-04-13
+
+Comparing Gold   "a flat and large dish"
+      and Resp   "in a flat and large dish"
+
+RECALL:    1.000
+PRECISION: 0.833
+F-measure: 0.909
+
+----------------------------------------
+
+SCORING blogs-02-1
+
+Comparing Gold   "a young man "
+      and Resp   "man"
+
+RECALL:    0.333
+PRECISION: 1.000
+F-measure: 0.500
+
+----------------------------------------
+
+SCORING blogs-02-2
+
+Comparing Gold   "out on my front lawn "
+      and Resp   "lawn"
+
+RECALL:    0.200
+PRECISION: 1.000
+F-measure: 0.333
+
+----------------------------------------
+
+SCORING blogs-02-3
+
+Comparing Gold   "i "
+      and Resp   "I"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-02-4
+
+Comparing Gold   "because it wanted the young man to know the narrator regretting that it had not aided him"
+      and Resp   "to the spot of the yard of the narrator"
+
+RECALL:    0.200
+PRECISION: 0.500
+F-measure: 0.286
+
+----------------------------------------
+
+SCORING blogs-02-5
+
+Comparing Gold   "the house of the narrator"
+      and Resp   "long"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-02-6
+
+Comparing Gold   "this ball of light in the trees above me "
+      and Resp   "lawn"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-02-7
+
+Comparing Gold   "everyone"
+      and Resp   "mind"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-02-8
+
+Comparing Gold   "a young man"
+      and Resp   "A young man"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-02-9
+
+Comparing Gold   "the narrator"
+      and Resp   "The narrator"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-02-10
+
+Comparing Gold   "a lion and a bull"
+      and Resp   "man"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-02-11
+
+Comparing Gold   "that the flash was an orb"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-02-12
+
+Comparing Gold   "some bright flash"
+      and Resp   "in a group of trees that was above the narrator"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-02-13
+
+Comparing Gold   "a few years ago "
+      and Resp   "A few years"
+
+RECALL:    0.750
+PRECISION: 1.000
+F-measure: 0.857
+
+----------------------------------------
+
+SCORING blogs-02-14
+
+Comparing Gold   "on the front yard of a narrator"
+      and Resp   "long"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-02-15
+
+Comparing Gold   "a young man"
+      and Resp   "A young man"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-02-16
+
+Comparing Gold   "the narrator"
+      and Resp   "The narrator"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-04-1
+
+Comparing Gold   "the squirrel"
+      and Resp   "The squirrel"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-04-2
+
+Comparing Gold   "the squirrel"
+      and Resp   "The squirrel"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-04-3
+
+Comparing Gold   "the squirrel's paw"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-04-4
+
+Comparing Gold   "the bowl"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-04-5
+
+Comparing Gold   "squirrels"
+      and Resp   "Squirrels"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-04-6
+
+Comparing Gold   "i"
+      and Resp   "I"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING blogs-04-7
+
+Comparing Gold   "a digital camera"
+      and Resp   "of those times I wish I had a digital camera"
+
+RECALL:    1.000
+PRECISION: 0.333
+F-measure: 0.500
+
+----------------------------------------
+
+SCORING blogs-04-8
+
+Comparing Gold   "many birds"
+      and Resp   "This"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-04-9
+
+Comparing Gold   "the railing "
+      and Resp   "on the railing"
+
+RECALL:    1.000
+PRECISION: 0.667
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING blogs-04-10
+
+Comparing Gold   "on the deck"
+      and Resp   "on the deck in order for Benjamin"
+
+RECALL:    1.000
+PRECISION: 0.429
+F-measure: 0.600
+
+----------------------------------------
+
+SCORING blogs-04-11
+
+Comparing Gold   "over the deck's railing"
+      and Resp   "the bowl"
+
+RECALL:    0.200
+PRECISION: 0.500
+F-measure: 0.286
+
+----------------------------------------
+
+SCORING blogs-04-12
+
+Comparing Gold   "in order for benjamin to drink the bowl's water."
+      and Resp   "on the deck in order for Benjamin"
+
+RECALL:    0.455
+PRECISION: 0.714
+F-measure: 0.556
+
+----------------------------------------
+
+SCORING blogs-04-13
+
+Comparing Gold   "in order for the birds to wait"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING blogs-04-14
+
+Comparing Gold   "a large stainless steel bowl of water"
+      and Resp   "of water"
+
+RECALL:    0.286
+PRECISION: 1.000
+F-measure: 0.444
+
+----------------------------------------
+
+SCORING fables-03-1
+
+Comparing Gold   "a lion and a bull"
+      and Resp   "An Eagle"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-03-2
+
+Comparing Gold   "an eagle"
+      and Resp   "An Eagle"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-03-3
+
+Comparing Gold   "his talons"
+      and Resp   "upon a Serpent"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-03-4
+
+Comparing Gold   "a countryman"
+      and Resp   "A countryman witness"
+
+RECALL:    1.000
+PRECISION: 0.667
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING fables-03-5
+
+Comparing Gold   "some poison "
+      and Resp   "upon a Serpent"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-03-6
+
+Comparing Gold   "into the man's drinking-horn "
+      and Resp   "into the man 's drinking-horn"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-03-7
+
+Comparing Gold   "to sip from the drinking vessel"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-03-8
+
+Comparing Gold   "the eagle"
+      and Resp   "The eagle"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-03-9
+
+Comparing Gold   "the drinking vessel"
+      and Resp   "toward a serpent"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-03-10
+
+Comparing Gold   "the ground"
+      and Resp   "draught"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-03-11
+
+Comparing Gold   "his exertions"
+      and Resp   "with his exertions"
+
+RECALL:    1.000
+PRECISION: 0.667
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING fables-03-12
+
+Comparing Gold   "spat some of his poison into the man's drinking-horn"
+      and Resp   "of his poison"
+
+RECALL:    0.300
+PRECISION: 1.000
+F-measure: 0.462
+
+----------------------------------------
+
+SCORING fables-03-13
+
+Comparing Gold   "an eagle"
+      and Resp   "An Eagle"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-03-14
+
+Comparing Gold   "the serpent"
+      and Resp   "the Serpent"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING fables-03-15
+
+Comparing Gold   "a countryman"
+      and Resp   "A countryman witness"
+
+RECALL:    1.000
+PRECISION: 0.667
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING fables-03-16
+
+Comparing Gold   "a countryman"
+      and Resp   "A countryman witness"
+
+RECALL:    1.000
+PRECISION: 0.667
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING fables-03-17
+
+Comparing Gold   "a drinking vessel"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-03-18
+
+Comparing Gold   "a countryman"
+      and Resp   "A countryman witness"
+
+RECALL:    1.000
+PRECISION: 0.667
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING fables-03-19
+
+Comparing Gold   "the serpent"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING fables-03-20
+
+Comparing Gold   " some of his poison"
+      and Resp   "of his poison"
+
+RECALL:    0.750
+PRECISION: 1.000
+F-measure: 0.857
+
+----------------------------------------
+
+SCORING fables-03-21
+
+Comparing Gold   "the eagle"
+      and Resp   "man"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.1
+
+Comparing Gold   "visit friends"
+      and Resp   "to the beach"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.2
+
+Comparing Gold   "a salad"
+      and Resp   "to her friend Ellen 's house"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.3
+
+Comparing Gold   "kristin"
+      and Resp   "Kristin"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.0.4
+
+Comparing Gold   "atlanta"
+      and Resp   "to the beach"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.5
+
+Comparing Gold   "spend time with her friends"
+      and Resp   "with her friends"
+
+RECALL:    0.600
+PRECISION: 1.000
+F-measure: 0.750
+
+----------------------------------------
+
+SCORING mc500.train.0.6
+
+Comparing Gold   "they were tired."
+      and Resp   "because they were tired"
+
+RECALL:    0.750
+PRECISION: 0.750
+F-measure: 0.750
+
+----------------------------------------
+
+SCORING mc500.train.0.7
+
+Comparing Gold   "the girls"
+      and Resp   "The girls"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.0.8
+
+Comparing Gold   "alyssa"
+      and Resp   "Alyssa"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.0.9
+
+Comparing Gold   "catfish"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.10
+
+Comparing Gold   "soup"
+      and Resp   "at Ellen 's house"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.11
+
+Comparing Gold   "a restaurant"
+      and Resp   "to a restaurant"
+
+RECALL:    1.000
+PRECISION: 0.667
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING mc500.train.0.12
+
+Comparing Gold   "ellen's house"
+      and Resp   "at Ellen 's house"
+
+RECALL:    1.000
+PRECISION: 0.750
+F-measure: 0.857
+
+----------------------------------------
+
+SCORING mc500.train.0.13
+
+Comparing Gold   "some lemonade"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.14
+
+Comparing Gold   "go back to ellen's house "
+      and Resp   "to a restaurant"
+
+RECALL:    0.167
+PRECISION: 0.333
+F-measure: 0.222
+
+----------------------------------------
+
+SCORING mc500.train.0.15
+
+Comparing Gold   "yes"
+      and Resp   "Alyssa"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.0.16
+
+Comparing Gold   "yes"
+      and Resp   "Alyssa"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.1
+
+Comparing Gold   "saturday afternoon"
+      and Resp   "Saturday"
+
+RECALL:    0.500
+PRECISION: 1.000
+F-measure: 0.667
+
+----------------------------------------
+
+SCORING mc500.train.23.2
+
+Comparing Gold   "saturday"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.3
+
+Comparing Gold   "outside the window"
+      and Resp   "It"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.4
+
+Comparing Gold   "the newspaper"
+      and Resp   "outside the window"
+
+RECALL:    0.500
+PRECISION: 0.333
+F-measure: 0.400
+
+----------------------------------------
+
+SCORING mc500.train.23.5
+
+Comparing Gold   "on the front"
+      and Resp   "On the front"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.23.6
+
+Comparing Gold   "all day"
+      and Resp   "all day"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.23.7
+
+Comparing Gold   "the story"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.8
+
+Comparing Gold   "in town"
+      and Resp   "The circus"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.9
+
+Comparing Gold   "no"
+      and Resp   "Andrew"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.10
+
+Comparing Gold   "goldfish food "
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.11
+
+Comparing Gold   "the people and animals at the circus "
+      and Resp   "The people and animals at the circus"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.23.12
+
+Comparing Gold   "lots of peanuts "
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.13
+
+Comparing Gold   "at the circus "
+      and Resp   "at the circus"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.23.14
+
+Comparing Gold   "the circus "
+      and Resp   "his dad"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.15
+
+Comparing Gold   "the elephant"
+      and Resp   "The elephant"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.23.16
+
+Comparing Gold   "“i think the newspaper is here. maybe we can find an idea in the newspaper”"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.17
+
+Comparing Gold   "by the door"
+      and Resp   "here"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.18
+
+Comparing Gold   "the elephant"
+      and Resp   "The elephant"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.23.19
+
+Comparing Gold   "tricks"
+      and Resp   "at the circus"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.20
+
+Comparing Gold   "the newspaper"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.21
+
+Comparing Gold   "feed his goldfish"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.23.22
+
+Comparing Gold   "andrew and his dad"
+      and Resp   "Andrew and his dad"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.18.1
+
+Comparing Gold   "outside to her back yard"
+      and Resp   "to her back yard"
+
+RECALL:    0.800
+PRECISION: 1.000
+F-measure: 0.889
+
+----------------------------------------
+
+SCORING mc500.train.18.2
+
+Comparing Gold   "one morning"
+      and Resp   "one morning"
+
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
+
+----------------------------------------
+
+SCORING mc500.train.18.3
+
+Comparing Gold   "went outside to her back yard"
+      and Resp   "to her back yard"
+
+RECALL:    0.667
+PRECISION: 1.000
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING mc500.train.18.4
+
+Comparing Gold   "bunch of flowers"
+      and Resp   "of flowers"
+
+RECALL:    0.667
+PRECISION: 1.000
+F-measure: 0.800
+
+----------------------------------------
+
+SCORING mc500.train.18.5
+
+Comparing Gold   "a lot of different sized flowers"
+      and Resp   "to her back yard"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.6
+
+Comparing Gold   "all of the flowers "
+      and Resp   "to her back yard"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.7
+
+Comparing Gold   "in her yard"
+      and Resp   "where"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.8
+
+Comparing Gold   "in a secret spot "
+      and Resp   "inside"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.9
+
+Comparing Gold   " because it was mother's day and she had to collect flowers before her mom woke up to give to her as a present"
+      and Resp   "to her back yard"
+
+RECALL:    0.095
+PRECISION: 0.500
+F-measure: 0.160
+
+----------------------------------------
+
+SCORING mc500.train.18.10
+
+Comparing Gold   "flowers"
+      and Resp   "to her"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.11
+
+Comparing Gold   "excited"
+      and Resp   "Kelly was excited"
+
+RECALL:    1.000
+PRECISION: 0.333
+F-measure: 0.500
+
+----------------------------------------
+
+SCORING mc500.train.18.12
+
+Comparing Gold   " because it was mother's day and she had to collect flowers before her mom woke up to give to her as a present"
+      and Resp   "to her back yard"
+
+RECALL:    0.095
+PRECISION: 0.500
+F-measure: 0.160
+
+----------------------------------------
+
+SCORING mc500.train.18.13
+
+Comparing Gold   "small"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.14
+
+Comparing Gold   "the flowers"
+      and Resp   "to her back yard"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.15
+
+Comparing Gold   "the red one"
+      and Resp   "Her mother 's favorite"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.16
+
+Comparing Gold   "“8:30 am”"
+      and Resp   "to her"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.17
+
+Comparing Gold   "string"
+      and Resp   "of the flowers"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.18
+
+Comparing Gold   "flowers"
+      and Resp   "to her"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.19
+
+Comparing Gold   "morgan"
+      and Resp   "None"
+
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
+
+----------------------------------------
+
+SCORING mc500.train.18.20
+
+Comparing Gold   "so morgan wouldn't find the flowers and eat them"
+      and Resp   "of the flowers"
+
+RECALL:    0.200
+PRECISION: 0.667
+F-measure: 0.308
+
+----------------------------------------
+
+SCORING mc500.train.18.21
+
+Comparing Gold   "she was going to give her mother the flowers"
+      and Resp   "of the flowers"
+
+RECALL:    0.222
+PRECISION: 0.667
+F-measure: 0.333
+
+----------------------------------------
+
+
+Finished processing 187 questions
+*************************************************************************
+
+FINAL RESULTS
+
+
+AVERAGE RECAL =     0.4014
+AVERAGE PRECISION = 0.4449
+AVERAGE F-MEASURE = 0.3980
+
+*************************************************************************
+

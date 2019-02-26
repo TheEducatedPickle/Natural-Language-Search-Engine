@@ -28,7 +28,8 @@ def dependent(question,story):
     question_text=question["text"]
     question_text=chunk.get_sentences(question_text)
     question_prefix=question_text[0][0][0]
- 
+    story_type=""
+    index=get_Index(question,story)
     
     #print("qgraph:", qgraph)
 
@@ -36,9 +37,13 @@ def dependent(question,story):
     # You would have to figure this out like in the chunking demo
    
     if question["type"]=='Sch':
-        sgraph = story["sch_dep"][get_Index(question,story)]
+        sgraph = story["sch_dep"][index]
+        #print("using sentence",baseline.get_sentences(story[story_type])[index])
+        story_type="sch"
     else:
         sgraph = story["story_dep"][get_Index(question,story)]
+        #print("using sentence",baseline.get_sentences(story["text"])[index])
+        story_type="text"
     #print(sgraph)
     
     lmtzr = WordNetLemmatizer()
@@ -53,25 +58,46 @@ def dependent(question,story):
     #print()
 
     posMap = {}
-    posMap["who"] = (["nsubj"],[])        #POSMAP: ([tags], [keywords])
-    posMap["what"] = (["nmod"],[])
-    posMap["when"] = (["nmod"],[])
-    posMap["where"] = (["nmod","advmod"],["at", "from"])
-    posMap["why"] = (["nmod"],[])
-    posMap["how"] = (["nsubj"],[])
-    posMap["did"] = (["nsubj"],[])
-    posMap["had"] = (["nsubj"],[])
-    posMap["which"] = (["nsubj"],[])
+    posMap["who"] = (["nsubj"],[], [])    #POSMAP: ([tags], [keywords], [blacklist])
+    posMap["what"] = (["nmod"],[], [])
+    posMap["when"] = (["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], [])
+    posMap["where"] = (["nmod","advmod","dobj","nsubj"],["at", "from","in","with"], ["of","with"])
+    posMap["why"] = (["nmod","advcl"],[], [])
+    posMap["how"] = (["advcl","nmod:tmod","conj"],[], [])
+    posMap["did"] = (["nsubj"],[], [])
+    posMap["had"] = (["nsubj"],[],[])
+    posMap["which"] = (["nsubj"],[], [])
     posType = posMap[question["text"].split(" ")[0].lower()]
 
+    print("QUESTION:", question["text"])
     answer = dependency.find_answer(qgraph, sgraph, posType)
-    if question["text"].split(" ")[0].lower() == "where":
-        print("question:", question["text"])
-        if answer == None:
-            print(sgraph)
-        print("answer:", answer)
-        print()
-    return answer
+    if answer == None:
+        answer =="none"
+    #if question["text"].split(" ")[0].lower() == "when":
+    #reformulate_question(question)
+    #if answer == None:
+    #    print(sgraph)
+    print("ANSWER:", answer)
+    print()
+    if question["text"].split(" ")[0].lower() == "who" and answer.lower().replace(" ","") in PERSONAL_PRONOUN and question_prefix.lower()=="who": #replace pronouns with Proper Nouns
+        i = index
+        if i > 0:
+            sentences=story[story_type]
+            sentences=baseline.get_sentences(sentences)
+            previous_sentence=sentences[index-i]
+            answer=""
+            for word,tag in previous_sentence:
+                if tag == "NNP":
+                    answer=word
+    return str(answer)
+
+def reformulate_question(question):
+    qtext = question["text"]
+    if (qtext.split(" ")[0].lower() == "who"):
+        ref = re.search(r'Who (.*).', qtext).group(1)
+        naive_regex = '(.*) '+ ref
+        print(naive_regex)
+
 def get_Index(question,story):
     real_question = question
     question_id = question["qid"]
@@ -140,12 +166,8 @@ def base(question, story):
             while True:
                 temp_ans = ""
                 val = False
-
                 for token in np[counter].leaves():
-
                     temp_ans=temp_ans+" "+token[0]
-
-
                 for word in only_noun_phrases:
 
                         if word in temp_ans:
@@ -288,7 +310,7 @@ def main():
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
     sys.stdout = f
-    #score_answers()
+    score_answers()
     sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
