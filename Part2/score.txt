@@ -1754,7 +1754,7 @@ F-measure: 1.000
 
 SCORING mc500.train.23.16
 
-Comparing Gold   "“i think the newspaper is here. maybe we can find an idea in the newspaper”"
+Comparing Gold   "â€œi think the newspaper is here. maybe we can find an idea in the newspaperâ€"
       and Resp   "None"
 
 RECALL:    0.000
@@ -1996,7 +1996,7 @@ F-measure: 0.000
 
 SCORING mc500.train.18.16
 
-Comparing Gold   "“8:30 am”"
+Comparing Gold   "â€œ8:30 amâ€"
       and Resp   "to her"
 
 RECALL:    0.000
