@@ -27,6 +27,11 @@ def get_dependents(node, graph):
         
     return results
 
+def get_subject(sgraph):
+    for node in sgraph.nodes.values():
+        if node.get('head',None) == snode["address"]:
+            if node['rel'] =='nsubj':
+                print("Found subject")
 
 def find_answer(qgraph, sgraph):
     qmain = find_main(qgraph)

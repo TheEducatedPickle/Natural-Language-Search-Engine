@@ -5,12 +5,10 @@ Created on May 14, 2014
 
 Modified on May 21, 2015
 '''
-from nltk.stem.wordnet import WordNetLemmatizer
+
 import sys, nltk, operator
 from qa_engine.base import QABase
-
-#def get_SurroundingSentences(text):
-
+import chunk
     
 # The standard NLTK pipeline for POS tagging a document
 def get_sentences(text):
@@ -35,23 +33,32 @@ def find_phrase(tagged_tokens, qbow):
 def baseline(qbow, sentences, stopwords):
     # Collect all the candidate answers
     answers = []
+    number = 0
     for sent in sentences:
         # A list of all the word tokens in the sentence
         sbow = get_bow(sent, stopwords)
-        
+   
         # Count the # of overlapping words between the Q and the A
         # & is the set intersection operator
         overlap = len(qbow & sbow)
         
-        answers.append((overlap, sent))
-        
+        answers.append((overlap, sent, number))
+        number += 1
     # Sort the results by the first element of the tuple (i.e., the count)
     # Sort answers from smallest to largest by default, so reverse it
     answers = sorted(answers, key=operator.itemgetter(0), reverse=True)
 
+    #for sent in best_candidate_sents: #Filter using Rake
+    #    ans_tagged = set([word[0] for word in sent])
+    #    best_overlap = len(ans_tagged & qbow)
+    #    candidates_ranked_on_rake.append((ans_tagged, best_overlap))
+    #print(candidates_ranked_on_rake)
+    #best_answer = sorted(candidates_ranked_on_rake, key=takeSecond)
+
     # Return the best answer
     best_answer = (answers[0])[1]    
-    return best_answer
+    index = (answers[0])[2]
+    return best_answer, index
 
 
 if __name__ == '__main__':
