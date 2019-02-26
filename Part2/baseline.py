@@ -8,6 +8,7 @@ Modified on May 21, 2015
 
 import sys, nltk, operator
 from qa_engine.base import QABase
+import chunk
     
 # The standard NLTK pipeline for POS tagging a document
 def get_sentences(text):
@@ -36,7 +37,7 @@ def baseline(qbow, sentences, stopwords):
     for sent in sentences:
         # A list of all the word tokens in the sentence
         sbow = get_bow(sent, stopwords)
-        
+   
         # Count the # of overlapping words between the Q and the A
         # & is the set intersection operator
         overlap = len(qbow & sbow)

@@ -34,16 +34,33 @@ def find_answer(qgraph, sgraph, dataarr):
     qword = qmain["word"]
     posarr = dataarr[0]
     keywords = dataarr[1]
+    blacklist = dataarr[2]
+    results = []
+    def search_blacklist(node): #Searches a node & dependencies for keywords / blacklist
+        deps = get_dependents(node, sgraph)
+        for dep in deps:
+            if dep['lemma'] in blacklist:
+                return False
+        return True
     
+    def search_keywords(node): #Searches a node & dependencies for keywords / blacklist
+        if keywords == []: return True
+        deps = get_dependents(node, sgraph)
+        for dep in deps:
+            if dep['lemma'] in keywords:
+                return True
+        return False
+
     for pos in posarr:
         snode = find_node(qword, sgraph)
+
         if snode == []:
             return "Snode null"
         for node in sgraph.nodes.values():
-            #if node.get('head', None) == snode["address"]:
-            if node['rel'] == pos:
+            # if node.get('head', None) == snode["address"]:
+            if node['rel'] == pos and search_blacklist(node):
                 deps = get_dependents(node, sgraph)
-                deps = sorted(deps+[node], key=operator.itemgetter("address"))  
+                deps = sorted(deps+[node], key=operator.itemgetter("address"))
                 return " ".join(dep["word"] for dep in deps)
 
 

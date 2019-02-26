@@ -41,6 +41,8 @@ def lemmatize(tagged_sent):
     for word_pair in tagged_sent:
         if re.search("VB", word_pair[1]):
             temp.append((LMTZR.lemmatize(word_pair[0], "v"),word_pair[1]))
+        elif re.search("NN",word_pair[1]):
+            temp.append((LMTZR.lemmatize(word_pair[0],"n"),word_pair[1]))
         else:
             temp.append(word_pair)
     return temp
