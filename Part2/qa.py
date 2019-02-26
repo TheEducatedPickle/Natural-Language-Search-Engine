@@ -78,6 +78,7 @@ def dependent(question,story):
             if word == "n't" or word =="not":
                 return "no"
         return "yes"
+
     posMap = {}
     posMap["who"] = (["nsubj"],[], [])    #POSMAP: ([tags], [keywords], [blacklist])
     posMap["what"] = (["nmod"],[], [])
@@ -88,12 +89,24 @@ def dependent(question,story):
     posMap["did"] = (["nsubj"],[], [])
     posMap["had"] = (["nsubj"],[],[])
     posMap["which"] = (["nsubj"],[], [])
-    posType = posMap[question["text"].split(" ")[0].lower()]
+    qKey = question["text"].split(" ")[0].lower()
+    posType = posMap[qKey] #select question type and fetch corresponding data
 
-    answer = dependency.find_answer(qgraph, sgraph, posType)
+    def q_base_blacklister (qKey, qgraph, posType): #blacklists certain answers that contain question elements
+        if qKey == "who":
+            for node in qgraph.nodes.values():
+                if node['rel'] in ['dobj']:
+                    #print (node['word'])
+                    posType[2].append(node['word'])
+                    #print (qgraph)
+                    return posType
+        return posType
+
+    answer = dependency.find_answer(qgraph, sgraph, q_base_blacklister(qKey, qgraph, posType))
     if answer == None:
         answer =="none"
-    if question["text"].split(" ")[0].lower() == "who": 
+
+    if question["text"].split(" ")[0].lower() == "who": #select display set
         #print("using ",story_type," ")
         print("question:", question["text"])
         if answer == None:
@@ -101,7 +114,7 @@ def dependent(question,story):
         print("answer:", answer)
         print()
 
-    if answer != None and answer.lower().replace(" ","") in PERSONAL_PRONOUN and question_prefix.lower()=="who": #replace pronouns with Proper Nouns
+    if question_prefix.lower()=="who" and answer != None and answer.lower().replace(" ","") in PERSONAL_PRONOUN: #replace pronouns with Proper Nouns
         i = index
         if i > 0:
             sentences=story[story_type]

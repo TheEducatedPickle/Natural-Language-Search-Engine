@@ -53,7 +53,6 @@ def find_answer(qgraph, sgraph, dataarr):
 
     for pos in posarr:
         snode = find_node(qword, sgraph)
-
         if snode == []:
             return "Snode null"
         for node in sgraph.nodes.values():
