@@ -119,6 +119,7 @@ def dependent(question,story):
                 if tag == "NNP":
                     answer=word
     return str(answer)
+    
 def get_Index(question,story):
     real_question = question
     question_id = question["qid"]
