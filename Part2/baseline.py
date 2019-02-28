@@ -10,7 +10,9 @@ import sys, nltk, operator
 from qa_engine.base import QABase
 import chunk
 import qa
+import spacy
     
+nlp = spacy.load('en_core_web_sm')
 # The standard NLTK pipeline for POS tagging a document
 def get_sentences(text):
     sentences = nltk.sent_tokenize(text)
@@ -42,7 +44,7 @@ def get_candidate(min, sent_index, sentences, tags):
             if tag in tags:
                 candidates.append(word)
     return candidates[0] if candidates != [] else None
-    
+
 def sub_proper_nouns(sentences, n=2):
     for i in range(0, len(sentences)):
         sent = sentences[i]
@@ -85,6 +87,30 @@ def baseline(qbow, sentences, stopwords):
     #best_answer = sorted(candidates_ranked_on_rake, key=takeSecond)
 
     # Return the best answer
+    top_answers=[]
+    max_overlap=(answers[0])[0]
+    for answer in answers:
+        if answer[0]==max_overlap:
+            top_answers.append(answer)
+    similarity=0
+    best_answer=""
+    question=" ".join(t[0] for t in qbow)
+    question=nlp(question)
+    if(len(top_answers)>1):
+        #print(top_answers[0])
+        for answer in top_answers:
+           
+            sentence= " ".join(t[0] for t in answer[1])
+            temp_sim=question.similarity(nlp(sentence))
+            if temp_sim>similarity:
+                best_answer=answer[1]
+                index=answer[2]
+                similarity=temp_sim
+            
+            #print("sentence:", " ".join(t[0] for t in answer)," ",temp_sim)
+        return best_answer,index
+
+
     best_answer = (answers[0])[1]    
     index = (answers[0])[2]
     return best_answer, index

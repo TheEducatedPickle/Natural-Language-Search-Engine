@@ -75,19 +75,19 @@ def dependent(question,story):
         return "yes"
 
     posMap = {}
-    posMap["who"] = (["nsubj"],[], [])    #POSMAP: ([tags], [keywords], [blacklist])
-    posMap["what"] = (["nmod"],[], [])
-    posMap["when"] = (["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], [])
-    posMap["where"] = (["nmod","advmod","dobj","nsubj"],["at", "from","in","with"], ["of","with"])
-    posMap["why"] = (["advcl", "nmod", "xcomp"],[], [])
-    posMap["how"] = (["advcl","nmod:tmod","conj"],[], [])
-    posMap["did"] = (["nsubj"],[], [])
-    posMap["had"] = (["nsubj"],[],[])
-    posMap["which"] = (["nsubj"],[], [])
+    posMap["who"] = [["nsubj"],[], []]    #POSMAP: ([tags], [keywords], [blacklist])
+    posMap["what"] = [["nmod","dobj", "ccomp", "nsubj"],[], []]
+    posMap["when"] = [["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], []]
+    posMap["where"] = [["nmod","advmod","dobj","nsubj"],["at", "from","in","with"], ["of","with"]]
+    posMap["why"] = [["advcl", "nmod", "xcomp"],[], []]
+    posMap["how"] = [["advcl","nmod:tmod","conj"],[], []]
+    posMap["did"] = [["nsubj"],[], []]
+    posMap["had"] = [["nsubj"],[],[]]
+    posMap["which"] = [["nsubj", "dobj"],[], []]
     qKey = question["text"].split(" ")[0].lower()
     posType = posMap[qKey] #select question type and fetch corresponding data
 
-    def q_base_blacklister (qKey, qgraph, posType): #blacklists certain answers that contain question elements
+    def q_base_substitution (qKey, qgraph, posType): #blacklists certain answers that contain question elements
         if qKey == "who": #if question is who, do not include question subj in answer subj
             for node in qgraph.nodes.values():
                 if node['rel'] in ['dobj']:
@@ -95,13 +95,26 @@ def dependent(question,story):
                     posType[2].append(node['word'])
                     #print (qgraph)
                     return posType
+        if qKey == "what":
+            for node in qgraph.nodes.values():
+                if node['word'] in ['time','hour']: #if question contains time, treat as "when" question
+                    return posMap["when"]
+                elif node['word'] in ['happened','do']: #if question is looking for verb, search for verbs
+                    posType[0] = ["acl:relcl", "conj", "root"]
+                    return posType
+                elif node['word'] in ['name', 'named']:
+                    posType[0] = ["dobj", "nsubj"]
+                    return posType
+                #else:
+                #    posType[0] = ["nsubj"]
+                #    return posType
         return posType
 
-    answer = dependency.find_answer(qgraph, sgraph, q_base_blacklister(qKey, qgraph, posType))
+    answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType))
     if answer == None:
         answer =="none"
 
-    if question["text"].split(" ")[0].lower() == "who": #select display set
+    if question["text"].split(" ")[0].lower() == "what": #select display set
         #print("using ",story_type," ")
         print("question:", question["text"])
         if answer == None:
