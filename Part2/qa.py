@@ -38,7 +38,7 @@ def dependent(question,story):
     qgraph = question["dep"]
     question_text=question["text"]
 
-    display_word = "who" #leave blank if want general
+    display_word = "where" #leave blank if want general
     global total_count
     total_count=total_count + 1
     global the_q_count
@@ -131,7 +131,7 @@ def dependent(question,story):
     if answer == None:
         answer =="none"
 
-    if question["text"].split(" ")[0].lower() == display_word: #select display set
+    if question["text"].split(" ")[0].lower() == display_word or display_word=="": #select display set
         #print("using ",story_type," ")
         print("question:", question["text"])
         if answer == None:
