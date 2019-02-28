@@ -22,11 +22,28 @@ GRAMMAR =   """
             """
 
 LOC_PP = set(["in", "on", "at"])
+global the_q_count
+global total_count
+total_count=0
+the_q_count=set()
 
 PERSONAL_PRONOUN=set(["he","she","it"])
+
+def get_the_q_count():
+    global the_q_count
+    return the_q_count
+
 def dependent(question,story):
+    qKey = question["text"].split(" ")[0].lower()
     qgraph = question["dep"]
     question_text=question["text"]
+
+    display_word = "who" #leave blank if want general
+    global total_count
+    total_count=total_count + 1
+    global the_q_count
+    if qKey == display_word:
+        the_q_count.add(total_count)
     if question_text.lstrip() == 'Who is the story about?':
         answer=""
         story_text=baseline.get_sentences(story["text"])
@@ -76,15 +93,15 @@ def dependent(question,story):
 
     posMap = {}
     posMap["who"] = [["nsubj"],[], []]    #POSMAP: ([tags], [keywords], [blacklist])
-    posMap["what"] = [["nmod","dobj", "ccomp", "nsubj"],[], []]
+    posMap["what"] = [["dobj", "ccomp","nmod", "nsubj"],[], []]
     posMap["when"] = [["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], []]
-    posMap["where"] = [["nmod","advmod","dobj","nsubj"],["at", "from","in","with"], ["of","with"]]
+    posMap["where"] = [["nmod","advmod","dobj","root","nsubj"],["at", "from","in","with"], ["of","with"]]
     posMap["why"] = [["advcl", "nmod", "xcomp"],[], []]
     posMap["how"] = [["advcl","nmod:tmod","conj"],[], []]
     posMap["did"] = [["nsubj"],[], []]
     posMap["had"] = [["nsubj"],[],[]]
     posMap["which"] = [["nsubj", "dobj"],[], []]
-    qKey = question["text"].split(" ")[0].lower()
+   
     posType = posMap[qKey] #select question type and fetch corresponding data
 
     def q_base_substitution (qKey, qgraph, posType): #blacklists certain answers that contain question elements
@@ -99,7 +116,7 @@ def dependent(question,story):
             for node in qgraph.nodes.values():
                 if node['word'] in ['time','hour']: #if question contains time, treat as "when" question
                     return posMap["when"]
-                elif node['word'] in ['happened','do']: #if question is looking for verb, search for verbs
+                elif node['word'] in ['happened','do','doing']: #if question is looking for verb, search for verbs
                     posType[0] = ["acl:relcl", "conj", "root"]
                     return posType
                 elif node['word'] in ['name', 'named']:
@@ -114,7 +131,7 @@ def dependent(question,story):
     if answer == None:
         answer =="none"
 
-    if question["text"].split(" ")[0].lower() == "what": #select display set
+    if question["text"].split(" ")[0].lower() == display_word: #select display set
         #print("using ",story_type," ")
         print("question:", question["text"])
         if answer == None:
@@ -347,7 +364,7 @@ def main():
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
     sys.stdout = f
-    score_answers()
+    score_answers(get_the_q_count()) #FIXME Change before you turn in 
     sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
