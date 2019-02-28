@@ -88,7 +88,7 @@ def dependent(question,story):
     posType = posMap[qKey] #select question type and fetch corresponding data
 
     def q_base_blacklister (qKey, qgraph, posType): #blacklists certain answers that contain question elements
-        if qKey == "who":
+        if qKey == "who": #if question is who, do not include question subj in answer subj
             for node in qgraph.nodes.values():
                 if node['rel'] in ['dobj']:
                     #print (node['word'])
