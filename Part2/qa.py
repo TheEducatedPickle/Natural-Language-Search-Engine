@@ -38,7 +38,7 @@ def dependent(question,story):
     qgraph = question["dep"]
     question_text=question["text"]
 
-    display_word = "where" #leave blank if want general
+    display_word = "" #leave blank if want general
     global total_count
     total_count=total_count + 1
     global the_q_count
@@ -108,6 +108,7 @@ def dependent(question,story):
         if qKey == "who": #if question is who, do not include question subj in answer subj
             for node in qgraph.nodes.values():
                 if node['rel'] in ['dobj']:
+                    
                     #print (node['word'])
                     posType[2].append(node['word'])
                     #print (qgraph)
@@ -237,6 +238,7 @@ def base(question, story):
         else:
             temp_ans = newanswer
         newanswer=temp_ans
+        
 
 
     elif question[0][0][0].lower()=="what":
@@ -261,7 +263,6 @@ def base(question, story):
 
     elif question[0][0][0].lower()=="where":
         pp=chunk.find_prepphrases(atree)
-        print(pp)
         temp_ans=""
         if (pp != []):
             for token in pp[0].leaves():

@@ -12,7 +12,7 @@ import chunk
 import qa
 import spacy
     
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('en_core_web_lg')
 # The standard NLTK pipeline for POS tagging a document
 def get_sentences(text):
     sentences = nltk.sent_tokenize(text)
@@ -94,7 +94,7 @@ def baseline(qbow, sentences, stopwords):
             top_answers.append(answer)
     similarity=0
     best_answer=""
-    question=" ".join(t[0] for t in qbow)
+    question=" ".join(t for t in qbow)
     question=nlp(question)
     if(len(top_answers)>1):
         #print(top_answers[0])
