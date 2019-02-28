@@ -24,10 +24,7 @@ def get_dependents(node, graph):
         dep = graph.nodes[address]
         results.append(dep)
         results = results + get_dependents(dep, graph)
-        
     return results
-
-
 
 def find_answer(qgraph, sgraph, dataarr):
     qmain = find_main(qgraph)

@@ -9,6 +9,7 @@ Modified on May 21, 2015
 import sys, nltk, operator
 from qa_engine.base import QABase
 import chunk
+import qa
     
 # The standard NLTK pipeline for POS tagging a document
 def get_sentences(text):
@@ -30,8 +31,36 @@ def find_phrase(tagged_tokens, qbow):
 # qtokens: is a list of pos tagged question tokens with SW removed
 # sentences: is a list of pos tagged story sentences
 # stopwords is a set of stopwords
+
+PERSONAL_PRONOUNS=set(["he","she","it"])
+GROUP_PRONOUNS=set(["they"])
+def get_candidate(min, sent_index, sentences, tags):
+    candidates = []
+    for i in reversed(range(min, sent_index)):
+        sent = sentences[i]
+        for word, tag in sent:
+            if tag in tags:
+                candidates.append(word)
+    return candidates[0] if candidates != [] else None
+    
+def sub_proper_nouns(sentences, n=2):
+    for i in range(0, len(sentences)):
+        sent = sentences[i]
+        minimum = max(i-n,0)
+        for j in range (0, len(sent)):
+            word = sent[j][0]
+            tag = sent[j][1]
+            if word in PERSONAL_PRONOUNS:
+                candidate = get_candidate(minimum, i, sentences, ["NN","NNP"])
+                sentences[i][j] = (candidate if candidate != None else word, tag)
+            if word in GROUP_PRONOUNS:
+                candidate = get_candidate(minimum, i, sentences, ["NNS","NNPS"])
+                sentences[i][j] = (candidate if candidate != None else word, tag)
+    return sentences
+
 def baseline(qbow, sentences, stopwords):
     # Collect all the candidate answers
+    sentences = sub_proper_nouns(sentences)
     answers = []
     number = 0
     for sent in sentences:

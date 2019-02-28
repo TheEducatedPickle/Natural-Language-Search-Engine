@@ -66,11 +66,11 @@ def dependent(question,story):
     #        else:
     #            print(lmtzr.lemmatize(word, 'n'))
     #print()
-    if question_prefix.lower()=='did':
+    if question_prefix.lower()=='did' or question_prefix.lower() == 'had':
         answer=base(question,story)
         answer=nltk.word_tokenize(answer)
         for word in answer:
-            if word == "n't" or word =="not":
+            if word in ["n't","not","never","no"]:
                 return "no"
         return "yes"
 
@@ -79,7 +79,7 @@ def dependent(question,story):
     posMap["what"] = (["nmod"],[], [])
     posMap["when"] = (["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], [])
     posMap["where"] = (["nmod","advmod","dobj","nsubj"],["at", "from","in","with"], ["of","with"])
-    posMap["why"] = (["nmod","advcl"],[], [])
+    posMap["why"] = (["advcl", "nmod", "xcomp"],[], [])
     posMap["how"] = (["advcl","nmod:tmod","conj"],[], [])
     posMap["did"] = (["nsubj"],[], [])
     posMap["had"] = (["nsubj"],[],[])
@@ -117,7 +117,7 @@ def dependent(question,story):
             previous_sentence=sentences[index-i]
             answer=""
             for word,tag in previous_sentence:
-                if tag == "NNP":
+                if tag == "NNP" or tag == "NNPS":
                     answer=word
     return str(answer)
     
@@ -192,16 +192,11 @@ def base(question, story):
                 val = False
 
                 for token in np[counter].leaves():
-
                     temp_ans=temp_ans+" "+token[0]
-
-
                 for word in only_noun_phrases:
-
                         if word in temp_ans:
                             val = True
                 if val: # if answer contains a word in only_noun_phrases
-                    print("bing")
                     if len(np)-1>counter:
                         counter+=1
                     else:

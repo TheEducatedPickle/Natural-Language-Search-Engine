@@ -83,11 +83,11 @@ F-measure: 0.286
 SCORING blogs-03-8
 
 Comparing Gold   "because it owned a group of trees and near the house of the narrator"
-      and Resp   "of trees"
+      and Resp   "because it owned a group of trees"
 
-RECALL:    0.167
+RECALL:    0.583
 PRECISION: 1.000
-F-measure: 0.286
+F-measure: 0.737
 
 ----------------------------------------
 
@@ -413,11 +413,11 @@ F-measure: 0.000
 SCORING fables-02-10
 
 Comparing Gold   "because the lion feared sharp every horn of the bull"
-      and Resp   "of the bull"
+      and Resp   "because the lion feared sharp every horn of the bull"
 
-RECALL:    0.333
+RECALL:    1.000
 PRECISION: 1.000
-F-measure: 0.500
+F-measure: 1.000
 
 ----------------------------------------
 
@@ -479,11 +479,11 @@ F-measure: 0.000
 SCORING fables-02-16
 
 Comparing Gold   "because every horn of the bull was ugly"
-      and Resp   "of the bull"
+      and Resp   "because every horn of the bull was ugly"
 
-RECALL:    0.375
+RECALL:    1.000
 PRECISION: 1.000
-F-measure: 0.545
+F-measure: 1.000
 
 ----------------------------------------
 
@@ -677,11 +677,11 @@ F-measure: 0.000
 SCORING blogs-01-16
 
 Comparing Gold   "because they disagreed about a view"
-      and Resp   "about a view"
+      and Resp   "because it disagreed about a view"
 
-RECALL:    0.500
-PRECISION: 1.000
-F-measure: 0.667
+RECALL:    0.833
+PRECISION: 0.833
+F-measure: 0.833
 
 ----------------------------------------
 
@@ -699,11 +699,11 @@ F-measure: 0.000
 SCORING blogs-01-18
 
 Comparing Gold   "to alleviate the violence"
-      and Resp   "None"
+      and Resp   "to alleviate the violence"
 
-RECALL:    0.000
-PRECISION: 0.000
-F-measure: 0.000
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
 
 ----------------------------------------
 
@@ -787,11 +787,11 @@ F-measure: 0.400
 SCORING fables-04-8
 
 Comparing Gold   "for it was impossible for him to reach the tempting contents of the vessel"
-      and Resp   "him"
+      and Resp   "Thus enjoyed Fox hungry"
 
-RECALL:    0.083
-PRECISION: 1.000
-F-measure: 0.154
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
 
 ----------------------------------------
 
@@ -886,11 +886,11 @@ F-measure: 1.000
 SCORING blogs-02-4
 
 Comparing Gold   "because it wanted the young man to know the narrator regretting that it had not aided him"
-      and Resp   "to the spot of the yard of the narrator"
+      and Resp   "because it wanted the young man to know the narrator regretting that it had not aided him"
 
-RECALL:    0.200
-PRECISION: 0.500
-F-measure: 0.286
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
 
 ----------------------------------------
 
@@ -1150,11 +1150,11 @@ F-measure: 0.286
 SCORING blogs-04-12
 
 Comparing Gold   "in order for benjamin to drink the bowl's water."
-      and Resp   "on the deck in order for Benjamin"
+      and Resp   "to drink the bowl 's water"
 
-RECALL:    0.455
-PRECISION: 0.714
-F-measure: 0.556
+RECALL:    0.545
+PRECISION: 1.000
+F-measure: 0.706
 
 ----------------------------------------
 
@@ -1678,11 +1678,11 @@ F-measure: 0.000
 SCORING mc500.train.23.9
 
 Comparing Gold   "no"
-      and Resp   "Andrew"
+      and Resp   "no"
 
-RECALL:    0.000
-PRECISION: 0.000
-F-measure: 0.000
+RECALL:    1.000
+PRECISION: 1.000
+F-measure: 1.000
 
 ----------------------------------------
 
@@ -1754,7 +1754,7 @@ F-measure: 1.000
 
 SCORING mc500.train.23.16
 
-Comparing Gold   "‚Äúi think the newspaper is here. maybe we can find an idea in the newspaper‚Äù"
+Comparing Gold   "ìi think the newspaper is here. maybe we can find an idea in the newspaperî"
       and Resp   "None"
 
 RECALL:    0.000
@@ -1908,12 +1908,12 @@ F-measure: 0.000
 
 SCORING mc500.train.18.8
 
-Comparing Gold   "in a secret spot "
-      and Resp   "inside"
+Comparing Gold   " in a new spot that was up higher "
+      and Resp   "After that"
 
-RECALL:    0.000
-PRECISION: 0.000
-F-measure: 0.000
+RECALL:    0.125
+PRECISION: 0.500
+F-measure: 0.200
 
 ----------------------------------------
 
@@ -1975,7 +1975,7 @@ F-measure: 0.000
 SCORING mc500.train.18.14
 
 Comparing Gold   "the flowers"
-      and Resp   "to her back yard"
+      and Resp   "After that"
 
 RECALL:    0.000
 PRECISION: 0.000
@@ -1996,7 +1996,7 @@ F-measure: 0.000
 
 SCORING mc500.train.18.16
 
-Comparing Gold   "‚Äú8:30 am‚Äù"
+Comparing Gold   "ì8:30 amî"
       and Resp   "to her"
 
 RECALL:    0.000
@@ -2041,22 +2041,22 @@ F-measure: 0.000
 SCORING mc500.train.18.20
 
 Comparing Gold   "so morgan wouldn't find the flowers and eat them"
-      and Resp   "of the flowers"
+      and Resp   "After that"
 
-RECALL:    0.200
-PRECISION: 0.667
-F-measure: 0.308
+RECALL:    0.000
+PRECISION: 0.000
+F-measure: 0.000
 
 ----------------------------------------
 
 SCORING mc500.train.18.21
 
 Comparing Gold   "she was going to give her mother the flowers"
-      and Resp   "of the flowers"
+      and Resp   "After Kelly collected all of the flowers"
 
 RECALL:    0.222
-PRECISION: 0.667
-F-measure: 0.333
+PRECISION: 0.286
+F-measure: 0.250
 
 ----------------------------------------
 
@@ -2067,9 +2067,9 @@ Finished processing 187 questions
 FINAL RESULTS
 
 
-AVERAGE RECAL =     0.4214
-AVERAGE PRECISION = 0.4743
-AVERAGE F-MEASURE = 0.4202
+AVERAGE RECAL =     0.4470
+AVERAGE PRECISION = 0.4800
+AVERAGE F-MEASURE = 0.4420
 
 *************************************************************************
 
