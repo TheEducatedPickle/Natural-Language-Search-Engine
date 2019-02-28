@@ -23,10 +23,33 @@ GRAMMAR =   """
 
 LOC_PP = set(["in", "on", "at"])
 
+global the_q_count
+global total_count
+total_count = 0
+the_q_count = set()
+
+
 PERSONAL_PRONOUN=set(["he","she","it"])
+
+def get_the_q_count():
+    global the_q_count
+    print(the_q_count)
+    return the_q_count
+
 def dependent(question,story):
     qgraph = question["dep"]
     question_text=question["text"]
+
+    qKey = question["text"].split(" ")[0].lower()
+
+    display_word = "" #leave blank if want general
+    global total_count
+    total_count = total_count + 1 #adds one then checks
+    global the_q_count
+    if qKey == display_word:
+        the_q_count.add(total_count)
+
+
     if question_text.lstrip() == 'Who is the story about?':
         answer=""
         story_text=baseline.get_sentences(story["text"])
@@ -36,7 +59,8 @@ def dependent(question,story):
                     answer=answer +" a "+ word
         return str(answer)
     question_text=chunk.get_sentences(question_text)
-    question_prefix=question_text[0][0][0]
+    question_prefix = question_text[0][0][0]
+
     story_type=""
     index=get_Index(question,story)
     
@@ -66,6 +90,8 @@ def dependent(question,story):
     #        else:
     #            print(lmtzr.lemmatize(word, 'n'))
     #print()
+
+
     if question_prefix.lower()=='did' or question_prefix.lower() == 'had':
         answer=base(question,story)
         answer=nltk.word_tokenize(answer)
@@ -84,7 +110,7 @@ def dependent(question,story):
     posMap["did"] = (["nsubj"],[], [])
     posMap["had"] = (["nsubj"],[],[])
     posMap["which"] = (["nsubj"],[], [])
-    qKey = question["text"].split(" ")[0].lower()
+
     posType = posMap[qKey] #select question type and fetch corresponding data
 
     def q_base_blacklister (qKey, qgraph, posType): #blacklists certain answers that contain question elements
@@ -101,13 +127,21 @@ def dependent(question,story):
     if answer == None:
         answer =="none"
 
-    if question["text"].split(" ")[0].lower() == "who": #select display set
+
+    #if question_prefix == "who":
+    #    the_q_count.append(total_count)
+    #print(the_q_count)
+
+
+
+    if question["text"].split(" ")[0].lower() == display_word: #select display set
         #print("using ",story_type," ")
         print("question:", question["text"])
         if answer == None:
             print(sgraph)
         print("answer:", answer)
         print()
+
 
     if question_prefix.lower()=="who" and answer != None and answer.lower().replace(" ","") in PERSONAL_PRONOUN: #replace pronouns with Proper Nouns
         i = index
@@ -332,10 +366,10 @@ def main():
     run_qa(evala=False)
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
-    f = open("score.txt", "w")
-    sys.stdout = f
-    score_answers()
-    sys.stdout = sys.__stdout__
+    #f = open("score.txt", "w")
+    #sys.stdout = f
+    score_answers(get_the_q_count())
+    #sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
     main()

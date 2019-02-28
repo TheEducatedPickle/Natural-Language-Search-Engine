@@ -107,6 +107,7 @@ class QABase(object):
 
     
     def save_answers(self, fname=None):
+        print("hi")
         if fname is None:
             if self.evaluate:
                 fname = EVAL_RESPONSE_FILE

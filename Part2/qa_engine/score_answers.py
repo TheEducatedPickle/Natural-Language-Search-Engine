@@ -1,17 +1,31 @@
 import pandas as pd
 import nltk, argparse
 import numpy as np
+global counterzz
+counterzz = 0
 
-def score_all_answers(gold, pred):
+
+def score_all_answers(gold, pred, the_q_set):
     all_scores = {"p": [], "r": [], "f": []}
     for row in gold.itertuples():
+
+        global counterzz
+        counterzz += 1  # adds one then checks
+
+        if the_q_set is set() and counterzz not in the_q_set: #if the_q_set is none that means that there is no selection.
+            continue
 
         print("-"*40)
         print("\nSCORING {}\n".format(row.Index))
 
         golds = row.answer.lower().split("|")
         scores = {"p": [], "r": [], "f": []}
+
+
+
         for i, gold_answer in enumerate(golds):
+
+
             gold_words = set(nltk.word_tokenize(gold_answer))
             pred_answer = pred.loc[row.Index]
             pred_words = set(nltk.word_tokenize(pred_answer.answer.lower()))
@@ -51,8 +65,8 @@ def score_all_answers(gold, pred):
     return np.mean(all_scores["p"]), np.mean(all_scores["r"]), np.mean(all_scores["f"])
 
 
-def run_scoring(gold, pred):
-    p, r, f = score_all_answers(gold, pred)
+def run_scoring(gold, pred, the_q_set):
+    p, r, f = score_all_answers(gold, pred, the_q_set)
 
     print("\n\nFinished processing {} questions".format(gold.shape[0]))
     print("*************************************************************************\n")
@@ -64,14 +78,14 @@ def run_scoring(gold, pred):
     print("\n*************************************************************************\n")
 
 
-def main():
+def main(the_q_set):
     import qa_engine.base as qa
     print("Computing QA Performance:")
     print("  * answer key:", qa.ANSWER_FILE)
     print("  * predictions file:", qa.RESPONSE_FILE)
     gold = pd.read_csv(qa.DATA_DIR + qa.ANSWER_FILE, index_col="qid", sep="\t")
     pred = pd.read_csv(qa.RESPONSE_FILE, index_col="qid", sep="\t")
-    run_scoring(gold, pred)
+    run_scoring(gold, pred, the_q_set)
 
 
 
