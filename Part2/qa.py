@@ -38,7 +38,7 @@ def dependent(question,story):
     qgraph = question["dep"]
     question_text=question["text"]
 
-    display_word = "where" #leave blank if want general
+    display_word = "how" #leave blank if want general
     global total_count
     total_count=total_count + 1
     global the_q_count
@@ -72,8 +72,8 @@ def dependent(question,story):
         sgraph = story["story_dep"][get_Index(question,story)]
         story_type="text"
     #print(sgraph)
-    if question['qid']=='blogs-04-11':
-        print(sgraph)
+    #if question['qid']=='blogs-04-11':
+        #print(sgraph)
     lmtzr = WordNetLemmatizer()
     #for node in sgraph.nodes.values():
     #    tag = node["tag"]
