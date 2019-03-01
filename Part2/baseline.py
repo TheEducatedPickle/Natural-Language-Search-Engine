@@ -12,7 +12,7 @@ import chunk
 import qa
 import spacy
     
-nlp = spacy.load('en_core_web_lg')
+nlp = spacy.load('en_core_web_sm')
 # The standard NLTK pipeline for POS tagging a document
 def get_sentences(text):
     sentences = nltk.sent_tokenize(text)

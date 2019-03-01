@@ -10,7 +10,9 @@ def find_main(graph):
         if node['rel'] == 'root':
             return node
     return None
-    
+
+
+
 def find_node(word, graph):
     for node in graph.nodes.values():
         if node["word"] == word:
@@ -25,6 +27,50 @@ def get_dependents(node, graph):
         results.append(dep)
         results = results + get_dependents(dep, graph)
     return results
+
+
+def get_direct_object(qgraph):
+    for node in qgraph.nodes.values():
+        if node['rel'] == 'nsubj':
+            return node
+    return None
+
+def find_answer_what_direct(qgraph, sgraph, dataarr, direct_object):
+    qmain = find_main(qgraph)
+    qword = direct_object["word"]
+    posarr = dataarr[0]
+    keywords = dataarr[1]
+    blacklist = dataarr[2]
+    results = []
+
+    def search_blacklist(node):  # Searches a node & dependencies for keywords / blacklist
+        if node['lemma'] in blacklist:
+            return False
+        deps = get_dependents(node, sgraph)
+        for dep in deps:
+            if dep['lemma'] in blacklist:
+                return False
+        return True
+
+    def search_keywords(node):  # Searches a node & dependencies for keywords / blacklist
+        if keywords == []: return True
+        deps = get_dependents(node, sgraph)
+        for dep in deps:
+            if dep['lemma'] in keywords:
+                return True
+        return False
+
+    for pos in posarr:
+        snode = find_node(qword, sgraph)
+        if snode == []:
+            return "Snode null"
+        for node in sgraph.nodes.values():
+            # if node.get('head', None) == snode["address"]:
+            if node['rel'] == pos and search_blacklist(node):
+                deps = get_dependents(node, sgraph)
+                deps = sorted(deps + [node], key=operator.itemgetter("address"))
+                return " ".join(dep["word"] for dep in deps)
+
 
 def find_answer(qgraph, sgraph, dataarr):
     qmain = find_main(qgraph)

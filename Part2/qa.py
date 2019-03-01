@@ -38,7 +38,7 @@ def dependent(question,story):
     qgraph = question["dep"]
     question_text=question["text"]
 
-    display_word = "how" #leave blank if want general
+    display_word = "what" #leave blank if want general
     global total_count
     total_count=total_count + 1
     global the_q_count
@@ -103,6 +103,7 @@ def dependent(question,story):
     posMap["did"] = [["nsubj"],[], []]
     posMap["had"] = [["nsubj"],[],[]]
     posMap["which"] = [["nsubj", "dobj"],[], []]
+    posMap["what_v1"] = [["nsubj"],[],[]]
    
     posType = posMap[qKey] #select question type and fetch corresponding data
 
@@ -130,6 +131,13 @@ def dependent(question,story):
                 #    return posType
         return posType
 
+    #TODO figure out when to use the what direct object stuff
+
+    if qKey.lower() == "what": #TODO if this is equal to what then we are looking for a direct object
+        what_direct_object = dependency.get_direct_object(qgraph)
+        if what_direct_object is not None:
+            print("DIRECT OBJECT:",what_direct_object["word"])
+            answer = dependency.find_answer_what_direct(qgraph,sgraph,)# find direct object to the verb
     answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType))
     if answer == None:
         answer =="none"
