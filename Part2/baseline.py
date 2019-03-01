@@ -60,7 +60,7 @@ def sub_proper_nouns(sentences, n=2):
                 sentences[i][j] = (candidate if candidate != None else word, tag)
     return sentences
 
-def baseline(qbow, sentences, stopwords):
+def baseline(qbow, sentences, stopwords,question):
     # Collect all the candidate answers
     sentences = sub_proper_nouns(sentences)
     answers = []
@@ -94,9 +94,17 @@ def baseline(qbow, sentences, stopwords):
             top_answers.append(answer)
     similarity=0
     best_answer=""
-    question=" ".join(t for t in qbow)
+    question=nltk.word_tokenize(question)
+    question[0]=""
+    length=len(question)-1
+    question[length]=""
+    stopwords = set(nltk.corpus.stopwords.words("english"))
+    stopwords.add('was')
+    question = " ".join(word for word in question if word not in stopwords)
     question=nlp(question)
+    #print(top_answers)
     if(len(top_answers)>1):
+        #print("in here")
         #print(top_answers[0])
         for answer in top_answers:
            

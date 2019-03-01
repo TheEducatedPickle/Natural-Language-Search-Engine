@@ -3,11 +3,11 @@ import sys, nltk, operator, re
 import baseline
 import chunk
 from nltk.stem.wordnet import WordNetLemmatizer
-import constituency
 import dependency
 from qa_engine.base import QABase
 from qa_engine.score_answers import main as score_answers
 from rake_nltk import Rake
+import constituency
 
 GRAMMAR =   """
             N: {<PRP>|<NN.*>}
@@ -38,7 +38,7 @@ def dependent(question,story):
     qgraph = question["dep"]
     question_text=question["text"]
 
-    display_word = "" #leave blank if want general
+    display_word = "where" #leave blank if want general
     global total_count
     total_count=total_count + 1
     global the_q_count
@@ -64,7 +64,7 @@ def dependent(question,story):
     if question['qid']=='fables-03-21':
         sgraph = story["sch_dep"][index]
         story_type="sch"
-
+    
     elif question["type"]=='Sch':
         sgraph = story["sch_dep"][index]
         story_type="sch"
@@ -72,7 +72,8 @@ def dependent(question,story):
         sgraph = story["story_dep"][get_Index(question,story)]
         story_type="text"
     #print(sgraph)
-    
+    if question['qid']=='blogs-04-11':
+        print(sgraph)
     lmtzr = WordNetLemmatizer()
     #for node in sgraph.nodes.values():
     #    tag = node["tag"]
@@ -91,11 +92,12 @@ def dependent(question,story):
                 return "no"
         return "yes"
 
+
     posMap = {}
     posMap["who"] = [["nsubj"],[], []]    #POSMAP: ([tags], [keywords], [blacklist])
     posMap["what"] = [["dobj", "ccomp","nmod", "nsubj"],[], []]
     posMap["when"] = [["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], []]
-    posMap["where"] = [["nmod","advmod","dobj","root","nsubj"],["at", "from","in","with"], ["of","with"]]
+    posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj"],["at", "from","in","with"], ["of","with","that"]]
     posMap["why"] = [["advcl", "nmod", "xcomp"],[], []]
     posMap["how"] = [["advcl","nmod:tmod","conj"],[], []]
     posMap["did"] = [["nsubj"],[], []]
@@ -171,7 +173,7 @@ def get_Index(question,story):
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords)
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"])
     return index
 
 def base(question, story):
@@ -194,7 +196,7 @@ def base(question, story):
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords)
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"])
     newanswer ="".join(t[0]+" " for t in base_ans)
     chunker = nltk.RegexpParser(GRAMMAR)
     tempanswer=chunk.get_sentences(newanswer)
