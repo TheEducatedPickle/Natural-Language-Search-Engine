@@ -95,34 +95,55 @@ def dependent(question,story):
 
     posMap = {}
     posMap["who"] = [["nsubj"],[], []]    #POSMAP: ([tags], [keywords], [blacklist])
-    posMap["what"] = [["dobj", "ccomp","nmod:with","nmod", "nsubj",],[], ["it"]]
-    posMap["when"] = [["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], []]
+    posMap["what"] = [["dobj", "ccomp","nsubj","nmod:with","nmod" ],[], ["it","in"]]
+    posMap["when"] = [["nmod:tmod", "nmod:npmod", "nummod", "nmod", "compound"],["on","at","during","before","after","since"], []]
     posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj"],["at", "from","in","with"], ["of","with","that"]]
     posMap["why"] = [["advcl", "nmod", "xcomp"],[], []]
     posMap["how"] = [["advcl","nmod:tmod","conj"],[], []]
     posMap["did"] = [["nsubj"],[], []]
     posMap["had"] = [["nsubj"],[],[]]
-    posMap["which"] = [["nsubj", "dobj"],[], []]
+    posMap["which"] = [["nsubj", "dobj","root"],["the"], ["'s"]]
    
     posType = posMap[qKey] #select question type and fetch corresponding data
-
-    def q_base_substitution (qKey, qgraph, posType): #blacklists certain answers that contain question elements
+    def regex_on_list(regex_list, word):
+        for rgx in regex_list:
+            if re.search(rgx, word):
+                return True
+        return False
+    
+    def q_base_substitution (qKey, qgraph, posType,qtext): #blacklists certain answers that contain question elements
         if qKey == "who": #if question is who, do not include question subj in answer subj
             for node in qgraph.nodes.values():
                 if node['rel'] in ['dobj']:
-                    
                     #print (node['word'])
                     posType[2].append(node['word'])
                     #print (qgraph)
                     return posType
         if qKey == "what":
+            qTok = nltk.pos_tag(nltk.word_tokenize(qtext))
+            #if regex_on_list(["VB"], qTok[len(qTok)-2][1]):
+            #    print(qTok[len(qTok)-3])
+            #    posType[0] = ["acl:relcl", "conj", "root"]
+            #    return posType
+            #qMode = nltk.word_tokenize(qtext)[1]
+            #for vbsuf in ['ed','ing']:
+            #    if qMode.endswith(vbsuf):
+            #        posType[0] = ["acl:relcl", "conj", "root"]
+            #        return posType
+            #n = len(qTok)
+            #print(qgraph.nodes[n-1]['word'])
+            #if regex_on_list(["VB"], qgraph.nodes[n-1]['tag']) and regex_on_list(["NN","TO","PRP"], qgraph.nodes[n-2]['tag'])  and regex_on_list(["was","did"], qgraph.nodes[2]['word']):
+            #    #print(qgraph.nodes[2]['word'])
+            #    posType[0] = ["acl:relcl", "conj", "root"]
+            #    return posType
+            
             for node in qgraph.nodes.values():
-                if node['word'] in ['time','hour']: #if question contains time, treat as "when" question
+                if node['word'] in ['time','hour','day']: #if question contains time, treat as "when" question
                     return posMap["when"]
                 elif node['word'] in ['happened','do','doing']: #if question is looking for verb, search for verbs
                     posType[0] = ["acl:relcl", "conj", "root"]
                     return posType
-                elif node['word'] in ['name', 'named']:
+                elif node['word'] in ['name', 'named', 'have','get']:
                     posType[0] = ["dobj", "nsubj"]
                     return posType
                 #else:
@@ -130,15 +151,15 @@ def dependent(question,story):
                 #    return posType
         return posType
 
-    answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType))
+    answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType,question["text"]))
     if answer == None:
         answer=base(question,story)
 
     if question["text"].split(" ")[0].lower() == display_word or display_word=="": #select display set
         #print("using ",story_type," ")
         print("question:", question["text"])
-        #if answer == None:
-            #print(sgraph)
+        if answer == None:
+            print(sgraph)
         print("answer:", answer)
         print()
 

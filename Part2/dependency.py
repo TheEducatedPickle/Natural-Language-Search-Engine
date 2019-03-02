@@ -44,10 +44,16 @@ def find_answer(qgraph, sgraph, dataarr):
     
     def search_keywords(node): #Searches a node & dependencies for keywords / blacklist
         if keywords == []: return True
-        deps = get_dependents(node, sgraph)
-        for dep in deps:
-            if dep['lemma'] in keywords:
-                return True
+        keys = ["mark"]
+        kw = keywords
+        if node['word'] in kw:
+            return True
+        directDeps = node["deps"]
+        for key in keys:
+            address = directDeps[key]
+            for addr in address:
+                if sgraph.nodes[addr]['word'] in kw:
+                    return True
         return False
 
     for pos in posarr:

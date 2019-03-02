@@ -1,10 +1,10 @@
 QA_System_NLTK
 
-*Note: This program requires Rake to run
+*Note: This program requires Rake and Spacy to run
+    *To download Spacy: # pip install spacy
+                        # python -m spacy download en_core_web_lg
 
 Team Members:
 Austin Yuan
 Priya Rajarathinam
 Dean Campagnolo
-
-If subj then find obj vv

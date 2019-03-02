@@ -137,7 +137,7 @@ if __name__ == '__main__':
     stopwords = set(nltk.corpus.stopwords.words("english"))
 
     qbow = get_bow(get_sentences(question)[0], stopwords)
-    print(find_phrase(get_sentences(question)[0],qbow))
+    #print(find_phrase(get_sentences(question)[0],qbow))
     sentences = get_sentences(text)
     answer = baseline(qbow, sentences, stopwords)
     print("answer:", " ".join(t[0] for t in answer))
