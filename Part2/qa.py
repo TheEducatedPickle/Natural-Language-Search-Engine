@@ -38,7 +38,7 @@ def dependent(question,story):
     qgraph = question["dep"]
     question_text=question["text"]
 
-    display_word = "how" #leave blank if want general
+    display_word = "" #leave blank if want general
     global total_count
     total_count=total_count + 1
     global the_q_count
@@ -95,7 +95,7 @@ def dependent(question,story):
 
     posMap = {}
     posMap["who"] = [["nsubj"],[], []]    #POSMAP: ([tags], [keywords], [blacklist])
-    posMap["what"] = [["dobj", "ccomp","nmod", "nsubj"],[], []]
+    posMap["what"] = [["dobj", "ccomp","nmod:with","nmod", "nsubj",],[], ["it"]]
     posMap["when"] = [["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], []]
     posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj"],["at", "from","in","with"], ["of","with","that"]]
     posMap["why"] = [["advcl", "nmod", "xcomp"],[], []]
@@ -132,13 +132,13 @@ def dependent(question,story):
 
     answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType))
     if answer == None:
-        answer =="none"
+        answer=base(question,story)
 
     if question["text"].split(" ")[0].lower() == display_word or display_word=="": #select display set
         #print("using ",story_type," ")
         print("question:", question["text"])
-        if answer == None:
-            print(sgraph)
+        #if answer == None:
+            #print(sgraph)
         print("answer:", answer)
         print()
 
