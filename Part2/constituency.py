@@ -3,7 +3,7 @@
 
 import sys, nltk
 from nltk.tree import Tree
-
+import qa
 from qa_engine.base import QABase
 
 
@@ -48,6 +48,33 @@ def pattern_matcher(pattern, tree):
         if node is not None:
             return node
     return None
+
+def get_constituency(question,story):
+    story_type=""
+    if question["type"]=='Sch':
+        story_type="sch_par"
+    else:
+        story_type="story_par"
+    tree = story[story_type][qa.get_Index(question,story)]
+    sentences=nltk.sent_tokenize(story["text"])
+    #print("STORYYY : ",sentences[qa.get_Index(question,story)])
+     # Create our pattern
+    pattern = nltk.ParentedTree.fromstring("(PP)")
+    
+    # # Match our pattern to the tree  
+    subtree = pattern_matcher(pattern, tree)
+    # print(" ".join(subtree.leaves()))
+    
+    # create a new pattern to match a smaller subset of subtree
+   # pattern = nltk.ParentedTree.fromstring("(PP)")
+    #print(tree)
+    #if subtree == None:
+        #print (tree)
+    # Find and print the answer
+    #subtree2 = pattern_matcher(pattern, subtree)
+    answer = " ".join(subtree.leaves())
+    print(answer)
+    return answer
 
 if __name__ == '__main__':
 

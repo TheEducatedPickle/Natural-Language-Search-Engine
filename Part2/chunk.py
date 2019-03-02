@@ -71,7 +71,7 @@ def find_prepphrases(tree):
     # Make sure the crow/subj is to the left
     locations = []
     for subtree in tree.subtrees(filter=pp_filter):
-        print(subtree)
+        #print(subtree)
         if is_location(subtree[0]):
             locations.append(subtree)
     
@@ -79,7 +79,7 @@ def find_prepphrases(tree):
 
 def find_reasons(tree, indicators=["because","since","for","to"]):
     output = []
-    print(tree)
+    #print(tree)
     for subtree in tree.subtrees(filter=rp_filter):
         if (subtree[0][0][0] in indicators):
             output.append(subtree)
@@ -98,7 +98,7 @@ def find_verbphrase(tree):
 
 def find_times(tree, indicators = ["by","after","during","before","at", "on"]):
     output = []
-    print(tree)
+    #print(tree)
     for subtree in tree.subtrees(filter=pp_filter):
         if (subtree[0][0] in indicators):
             output.append(subtree)

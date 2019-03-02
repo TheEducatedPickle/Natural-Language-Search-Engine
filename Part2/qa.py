@@ -3,11 +3,11 @@ import sys, nltk, operator, re
 import baseline
 import chunk
 from nltk.stem.wordnet import WordNetLemmatizer
-import constituency
 import dependency
 from qa_engine.base import QABase
 from qa_engine.score_answers import main as score_answers
 from rake_nltk import Rake
+import constituency
 
 GRAMMAR =   """
             N: {<PRP>|<NN.*>}
@@ -22,11 +22,28 @@ GRAMMAR =   """
             """
 
 LOC_PP = set(["in", "on", "at"])
+global the_q_count
+global total_count
+total_count=0
+the_q_count=set()
 
 PERSONAL_PRONOUN=set(["he","she","it"])
+
+def get_the_q_count():
+    global the_q_count
+    return the_q_count
+
 def dependent(question,story):
+    qKey = question["text"].split(" ")[0].lower()
     qgraph = question["dep"]
     question_text=question["text"]
+
+    display_word = "" #leave blank if want general
+    global total_count
+    total_count=total_count + 1
+    global the_q_count
+    if qKey == display_word:
+        the_q_count.add(total_count)
     if question_text.lstrip() == 'Who is the story about?':
         answer=""
         story_text=baseline.get_sentences(story["text"])
@@ -47,7 +64,7 @@ def dependent(question,story):
     if question['qid']=='fables-03-21':
         sgraph = story["sch_dep"][index]
         story_type="sch"
-
+    
     elif question["type"]=='Sch':
         sgraph = story["sch_dep"][index]
         story_type="sch"
@@ -55,7 +72,8 @@ def dependent(question,story):
         sgraph = story["story_dep"][get_Index(question,story)]
         story_type="text"
     #print(sgraph)
-    
+    #if question['qid']=='blogs-04-11':
+        #print(sgraph)
     lmtzr = WordNetLemmatizer()
     #for node in sgraph.nodes.values():
     #    tag = node["tag"]
@@ -66,42 +84,78 @@ def dependent(question,story):
     #        else:
     #            print(lmtzr.lemmatize(word, 'n'))
     #print()
-    if question_prefix.lower()=='did':
+    if question_prefix.lower()=='did' or question_prefix.lower() == 'had':
         answer=base(question,story)
         answer=nltk.word_tokenize(answer)
         for word in answer:
-            if word == "n't" or word =="not":
+            if word in ["n't","not","never","no"]:
                 return "no"
         return "yes"
 
-    posMap = {}
-    posMap["who"] = (["nsubj"],[], [])    #POSMAP: ([tags], [keywords], [blacklist])
-    posMap["what"] = (["nmod"],[], [])
-    posMap["when"] = (["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], [])
-    posMap["where"] = (["nmod","advmod","dobj","nsubj"],["at", "from","in","with"], ["of","with"])
-    posMap["why"] = (["nmod","advcl"],[], [])
-    posMap["how"] = (["advcl","nmod:tmod","conj"],[], [])
-    posMap["did"] = (["nsubj"],[], [])
-    posMap["had"] = (["nsubj"],[],[])
-    posMap["which"] = (["nsubj"],[], [])
-    qKey = question["text"].split(" ")[0].lower()
-    posType = posMap[qKey] #select question type and fetch corresponding data
 
-    def q_base_blacklister (qKey, qgraph, posType): #blacklists certain answers that contain question elements
-        if qKey == "who":
+    posMap = {}
+    posMap["who"] = [["nsubj"],[], []]    #POSMAP: ([tags], [keywords], [blacklist])
+    posMap["what"] = [["dobj", "ccomp","nsubj","nmod:with","nmod" ],[], ["it","in"]]
+    posMap["when"] = [["nmod:tmod", "nmod:npmod", "nummod", "nmod", "compound"],["on","at","during","before","after","since"], []]
+    posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj"],["at", "from","in","with"], ["of","with","that"]]
+    posMap["why"] = [["advcl", "nmod", "xcomp"],[], []]
+    posMap["how"] = [["advcl","nmod:tmod","conj"],[], []]
+    posMap["did"] = [["nsubj"],[], []]
+    posMap["had"] = [["nsubj"],[],[]]
+    posMap["which"] = [["nsubj", "dobj","root"],["the"], ["'s"]]
+   
+    posType = posMap[qKey] #select question type and fetch corresponding data
+    def regex_on_list(regex_list, word):
+        for rgx in regex_list:
+            if re.search(rgx, word):
+                return True
+        return False
+    
+    def q_base_substitution (qKey, qgraph, posType,qtext): #blacklists certain answers that contain question elements
+        if qKey == "who": #if question is who, do not include question subj in answer subj
             for node in qgraph.nodes.values():
                 if node['rel'] in ['dobj']:
                     #print (node['word'])
                     posType[2].append(node['word'])
                     #print (qgraph)
                     return posType
+        if qKey == "what":
+            qTok = nltk.pos_tag(nltk.word_tokenize(qtext))
+            #if regex_on_list(["VB"], qTok[len(qTok)-2][1]):
+            #    print(qTok[len(qTok)-3])
+            #    posType[0] = ["acl:relcl", "conj", "root"]
+            #    return posType
+            #qMode = nltk.word_tokenize(qtext)[1]
+            #for vbsuf in ['ed','ing']:
+            #    if qMode.endswith(vbsuf):
+            #        posType[0] = ["acl:relcl", "conj", "root"]
+            #        return posType
+            #n = len(qTok)
+            #print(qgraph.nodes[n-1]['word'])
+            #if regex_on_list(["VB"], qgraph.nodes[n-1]['tag']) and regex_on_list(["NN","TO","PRP"], qgraph.nodes[n-2]['tag'])  and regex_on_list(["was","did"], qgraph.nodes[2]['word']):
+            #    #print(qgraph.nodes[2]['word'])
+            #    posType[0] = ["acl:relcl", "conj", "root"]
+            #    return posType
+            
+            for node in qgraph.nodes.values():
+                if node['word'] in ['time','hour','day']: #if question contains time, treat as "when" question
+                    return posMap["when"]
+                elif node['word'] in ['happened','do','doing']: #if question is looking for verb, search for verbs
+                    posType[0] = ["acl:relcl", "conj", "root"]
+                    return posType
+                elif node['word'] in ['name', 'named', 'have','get']:
+                    posType[0] = ["dobj", "nsubj"]
+                    return posType
+                #else:
+                #    posType[0] = ["nsubj"]
+                #    return posType
         return posType
 
-    answer = dependency.find_answer(qgraph, sgraph, q_base_blacklister(qKey, qgraph, posType))
+    answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType,question["text"]))
     if answer == None:
-        answer =="none"
+        answer=base(question,story)
 
-    if question["text"].split(" ")[0].lower() == "who": #select display set
+    if question["text"].split(" ")[0].lower() == display_word or display_word=="": #select display set
         #print("using ",story_type," ")
         print("question:", question["text"])
         if answer == None:
@@ -117,7 +171,7 @@ def dependent(question,story):
             previous_sentence=sentences[index-i]
             answer=""
             for word,tag in previous_sentence:
-                if tag == "NNP":
+                if tag == "NNP" or tag == "NNPS":
                     answer=word
     return str(answer)
     
@@ -140,7 +194,7 @@ def get_Index(question,story):
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords)
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"])
     return index
 
 def base(question, story):
@@ -163,7 +217,7 @@ def base(question, story):
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords)
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"])
     newanswer ="".join(t[0]+" " for t in base_ans)
     chunker = nltk.RegexpParser(GRAMMAR)
     tempanswer=chunk.get_sentences(newanswer)
@@ -192,16 +246,11 @@ def base(question, story):
                 val = False
 
                 for token in np[counter].leaves():
-
                     temp_ans=temp_ans+" "+token[0]
-
-
                 for word in only_noun_phrases:
-
                         if word in temp_ans:
                             val = True
                 if val: # if answer contains a word in only_noun_phrases
-                    print("bing")
                     if len(np)-1>counter:
                         counter+=1
                     else:
@@ -212,6 +261,7 @@ def base(question, story):
         else:
             temp_ans = newanswer
         newanswer=temp_ans
+        
 
 
     elif question[0][0][0].lower()=="what":
@@ -236,7 +286,6 @@ def base(question, story):
 
     elif question[0][0][0].lower()=="where":
         pp=chunk.find_prepphrases(atree)
-        print(pp)
         temp_ans=""
         if (pp != []):
             for token in pp[0].leaves():
@@ -339,7 +388,7 @@ def main():
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
     sys.stdout = f
-    score_answers()
+    score_answers(get_the_q_count()) #FIXME Change before you turn in 
     sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
