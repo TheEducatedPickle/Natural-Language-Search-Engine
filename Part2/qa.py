@@ -95,7 +95,7 @@ def dependent(question,story):
 
     posMap = {}
     posMap["who"] = [["nsubj"],[], []]    #POSMAP: ([tags], [keywords], [blacklist])
-    posMap["what"] = [["dobj", "ccomp","nmod", "nsubj"],[], []]
+    posMap["what"] = [["dobj","ccomp","nmod", "nsubj"],[], []]
     posMap["when"] = [["nmod:tmod", "nmod:npmod" , "nummod", "nmod", "compound"],["on","at","during","before","after","since"], []]
     posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj"],["at", "from","in","with"], ["of","with","that"]]
     posMap["why"] = [["advcl", "nmod", "xcomp"],[], []]
@@ -104,6 +104,7 @@ def dependent(question,story):
     posMap["had"] = [["nsubj"],[],[]]
     posMap["which"] = [["nsubj", "dobj"],[], []]
     posMap["what_v1"] = [["nsubj"],[],[]]
+    posMap["what2"] = posMap["how"]#"[["nsubj","dobj", "ccomp","nmod"],[], []]
    
     posType = posMap[qKey] #select question type and fetch corresponding data
 
@@ -133,20 +134,30 @@ def dependent(question,story):
 
     #TODO figure out when to use the what direct object stuff
 
+    answer = ""
     if qKey.lower() == "what": #TODO if this is equal to what then we are looking for a direct object
         what_direct_object = dependency.get_direct_object(qgraph)
-        if what_direct_object is not None:
-            print("DIRECT OBJECT:",what_direct_object["word"])
-            answer = dependency.find_answer_what_direct(qgraph,sgraph,)# find direct object to the verb
-    answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType))
-    if answer == None:
+        if what_direct_object is not None and what_direct_object["word"].lower() != "what":
+            if what_direct_object is not None:
+                print("DIRECT OBJECT:",what_direct_object["word"])
+                answer = dependency.find_answer_what_direct(qgraph,sgraph,posMap["what_v1"], what_direct_object)# find direct object to the verb
+        elif what_direct_object is not None and what_direct_object["word"].lower() == "what":
+            answer = dependency.find_answer(qgraph, sgraph, posMap["what2"])
+            answer = story["text"][get_Index(question, story)]
+            print(answer)
+            print("AHHHHHHHHHHHHHHHHHHH\n\n\n\n\n\n")
+    if answer == "" or "None":
+        answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType))
+    if answer == "":
         answer =="none"
 
+    if answer == "None":
+        answer = story["text"][get_Index(question, story)]
     if question["text"].split(" ")[0].lower() == display_word or display_word=="": #select display set
         #print("using ",story_type," ")
         print("question:", question["text"])
-        if answer == None:
-            print(sgraph)
+        #if answer == None:
+        #print(sgraph)
         print("answer:", answer)
         print()
 
@@ -373,10 +384,10 @@ def main():
     run_qa(evala=False)
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
-    f = open("score.txt", "w")
-    sys.stdout = f
+    #f = open("score.txt", "w")
+    #sys.stdout = f
     score_answers(get_the_q_count()) #FIXME Change before you turn in 
-    sys.stdout = sys.__stdout__
+    #sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
     main()
