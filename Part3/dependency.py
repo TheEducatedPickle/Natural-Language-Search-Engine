@@ -46,17 +46,16 @@ def find_answer(qgraph, sgraph, dataarr):
         return True
     
     def search_keywords(node): #Searches a node & dependencies for keywords / blacklist
-        if keywords == []: return True
-        keys = ["mark"]
-        kw = keywords
-        if node['word'] in kw:
+        if keywords == []:
             return True
-        directDeps = node["deps"]
-        for key in keys:
-            address = directDeps[key]
-            for addr in address:
-                if sgraph.nodes[addr]['word'] in kw:
-                    return True
+        if node['lemma'] in keywords:
+            return True
+        deps = get_dependents(node, sgraph)
+        #if (len(deps) == 0 and node['word'][0] >= 'A' and node['word'][0] <= 'Z'): #Return proper nouns
+        #    return True
+        for dep in deps:
+            if dep['lemma'] in keywords:
+                return True
         return False
 
     for pos in posarr:
@@ -65,12 +64,11 @@ def find_answer(qgraph, sgraph, dataarr):
             return "Snode null"
         for node in sgraph.nodes.values():
             # if node.get('head', None) == snode["address"]:
-            if node['rel'] == pos and search_blacklist(node):
+            if node['rel'] == pos and search_blacklist(node) and search_keywords(node):
                 deps = get_dependents(node, sgraph)
                 deps = sorted(deps+[node], key=operator.itemgetter("address"))
                 return " ".join(dep["word"] for dep in deps)
-
-
+                
 if __name__ == '__main__':
     driver = QABase()
 
