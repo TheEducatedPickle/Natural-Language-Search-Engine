@@ -5,13 +5,14 @@ Created on May 14, 2014
 
 Modified on May 21, 2015
 '''
-
+import time
 import sys, nltk, operator
 from qa_engine.base import QABase
 import chunk
 import qa
-import spacy
-    
+import spacy,re
+from nltk.stem.wordnet import WordNetLemmatizer
+LMTZR = WordNetLemmatizer()
 nlp = spacy.load('en_core_web_lg')
 # The standard NLTK pipeline for POS tagging a document
 def get_sentences(text):
@@ -68,12 +69,43 @@ def baseline(qbow, sentences, stopwords,question):
     for sent in sentences:
         # A list of all the word tokens in the sentence
         sbow = get_bow(sent, stopwords)
-   
+        #print(qbow)
+        pos_sbow=nltk.pos_tag(sbow)
+        temp=[]
+        for word,tag in pos_sbow:
+            if re.search("VB", tag):
+                temp.append((LMTZR.lemmatize(word, "v")))
+            elif re.search("NN",tag):
+                temp.append((LMTZR.lemmatize(word,"n")))
+            else:
+                temp.append(word)
+        
+        sbow=set(temp)
+
+        pos_qbow=nltk.pos_tag(qbow)
+        temp=[]
+        for word,tag in pos_qbow:
+            if re.search("VB", tag):
+                temp.append((LMTZR.lemmatize(word, "v")))
+            elif re.search("NN",tag):
+                temp.append((LMTZR.lemmatize(word,"n")))
+            else:
+                temp.append(word)
+        qbow=set(temp)
+        #print(sbow)
         # Count the # of overlapping words between the Q and the A
         # & is the set intersection operator
         overlap = len(qbow & sbow)
+        testoverlap=0
+        overlapp= list(qbow & sbow)
+        overlapp= nltk.pos_tag(overlapp)
+        for word,tag in overlapp:
+            if re.search("V",tag):
+                testoverlap+=2
+            else:
+                testoverlap+=1
         
-        answers.append((overlap, sent, number))
+        answers.append((testoverlap, sent, number))
         number += 1
     # Sort the results by the first element of the tuple (i.e., the count)
     # Sort answers from smallest to largest by default, so reverse it
