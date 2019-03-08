@@ -31,9 +31,6 @@ def find_phrase(tagged_tokens, qbow):
         if word in qbow:
             return tagged_tokens[i+1:]
 
-# qtokens: is a list of pos tagged question tokens with SW removed
-# sentences: is a list of pos tagged story sentences
-# stopwords is a set of stopwords
 
 PERSONAL_PRONOUNS=set(["he","she","it"])
 GROUP_PRONOUNS=set(["they"])
