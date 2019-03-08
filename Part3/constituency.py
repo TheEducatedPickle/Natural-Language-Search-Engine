@@ -49,7 +49,19 @@ def pattern_matcher(pattern, tree):
             return node
     return None
 
-def get_constituency(question,story):
+def get_quesconstituency(question,filters):
+    tree=question["par"]
+    for filter in filters:
+        pattern = nltk.ParentedTree.fromstring(filter)
+        # # Match our pattern to the tree  
+        subtree = pattern_matcher(pattern, tree)
+        if subtree != None:
+            answer = " ".join(subtree.leaves())
+        else:
+            answer =""
+        return answer
+
+def get_constituency(question,story,filter):
     story_type=""
     if question["type"]=='Sch':
         story_type="sch_par"
@@ -59,7 +71,7 @@ def get_constituency(question,story):
     sentences=nltk.sent_tokenize(story["text"])
     #print("STORYYY : ",sentences[qa.get_Index(question,story)])
      # Create our pattern
-    pattern = nltk.ParentedTree.fromstring("(PP)")
+    pattern = nltk.ParentedTree.fromstring(filter)
     
     # # Match our pattern to the tree  
     subtree = pattern_matcher(pattern, tree)

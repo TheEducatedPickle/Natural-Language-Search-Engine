@@ -1,9 +1,10 @@
 import csv
 from collections import defaultdict
 from nltk.corpus import wordnet as wn
-
+import time
 
 DATA_DIR = "./wordnet"
+
 
 def load_wordnet_ids(filename):
     file = open(filename, 'r')
@@ -14,6 +15,90 @@ def load_wordnet_ids(filename):
     for line in csvreader:
         word_ids[line['synset_id']] = {'synset_offset': line['synset_offset'], 'story_'+type: line['story_'+type], 'stories': line['stories']}
     return word_ids
+
+def findword(word):
+
+    noun_ids = load_wordnet_ids("{}/{}".format(DATA_DIR, "Wordnet_nouns.csv"))
+    verb_ids = load_wordnet_ids("{}/{}".format(DATA_DIR, "Wordnet_verbs.csv"))
+     # iterate through dictionary
+    for synset_id, items in noun_ids.items():
+        noun = items['story_noun']
+        stories = items['stories']
+        #print(noun, stories)
+        # get lemmas, hyponyms, hypernyms
+
+    for synset_id, items in verb_ids.items():
+        verb = items['story_verb']
+        stories = items['stories']
+        # print(verb, stories)
+        # get lemmas, hyponyms, hypernyms
+
+
+    # 'Rodent' is a hypernym of 'mouse',
+    # so we look at hyponyms of 'rodent' to find 'mouse'
+    #
+    # Question: Where did the rodent run into?
+    # Answer: the face of the lion
+    # Sch: The lion awaked because a mouse ran into the face of the lion.
+    rodent_synsets = wn.synsets(word)
+
+    for rodent_synset in rodent_synsets:
+        rodent_hypo = rodent_synset.hyponyms()
+        #print("%s: %s" % (rodent_synset, rodent_hypo))
+
+        for hypo in rodent_hypo:
+            match=hypo.name()[0:hypo.name().index(".")]
+            for synset_id, items in noun_ids.items():
+                noun = items['story_noun']
+                stories = items['stories']
+                if match == noun:
+                    return hypo.name()[0:hypo.name().index(".")],stories
+            #print("is hypo_synset in Wordnet_nouns/verbs.csv?")
+            # match on "mouse.n.01"
+
+
+    # 'Know' is a hyponym of 'recognize' (know.v.09),
+    # so we look at hypernyms of 'know' to find 'recognize'
+    #
+    # Question: What did the mouse know?
+    # Answer: the voice of the lion
+    # Sch: The mouse recognized the voice of the lion.
+    know_synsets = wn.synsets(word)
+    #print("\n'Know' synsets: %s" % know_synsets)
+
+    #print("'Know' hypernyms")
+    for know_synset in know_synsets:
+        know_hyper = know_synset.hypernyms()
+        #print("%s: %s" % (know_synset, know_hyper))
+        for hyper in  know_hyper:
+            match = hyper.name()[0:hyper.name().index(".")]
+            for synset_id, items in verb_ids.items():
+                verb = items['story_verb']
+                stories = items['stories']
+                if verb == match:
+                    return match,stories
+
+    # 'Express mirth' is a lemma of 'laugh'
+    # so we look at lemmas of 'express mirth' to find 'laugh'
+    #
+    # Question: Who expressed mirs th?
+    # Answer: the lion
+    # Sch: The lion laughed aloud because he thought that the mouse is extremely not able to help him.
+    print(word)
+    mirth_synsets = wn.synsets(str(word))
+    print("\n'Express Mirth' synsets: %s" % mirth_synsets)
+    time.sleep(5)
+    #print("'Express mirth' lemmas")
+    for mirth_synset in mirth_synsets:
+        for synset_id,items in verb_ids.items():
+            if mirth_synset.name() in verb_ids:
+                verb = items['story_verb']
+                stories = items['stories']
+                if mirth_synset.name()==verb:
+                    return mirth_synset.name(),stories
+        #print("\n'%s' is in our dictionary: %s" % (mirth_synset.name(), (mirth_synset.name() in verb_ids)))
+
+    return None,None
 
 
 if __name__ == "__main__":
@@ -34,13 +119,13 @@ if __name__ == "__main__":
     for synset_id, items in noun_ids.items():
         noun = items['story_noun']
         stories = items['stories']
-        # print(noun, stories)
+        #print(noun, stories)
         # get lemmas, hyponyms, hypernyms
 
     for synset_id, items in verb_ids.items():
         verb = items['story_verb']
         stories = items['stories']
-        # print(verb, stories)
+        #print(stories)
         # get lemmas, hyponyms, hypernyms
 
 
@@ -59,8 +144,13 @@ if __name__ == "__main__":
         print("%s: %s" % (rodent_synset, rodent_hypo))
 
         for hypo in rodent_hypo:
-            print(hypo.name()[0:hypo.name().index(".")])
-            print("is hypo_synset in Wordnet_nouns/verbs.csv?")
+            match=hypo.name()[0:hypo.name().index(".")]
+            for synset_id, items in noun_ids.items():
+                noun = items['story_noun']
+                stories = items['stories']
+                if match == noun:
+                    print(hypo.name()[0:hypo.name().index(".")])
+            #print("is hypo_synset in Wordnet_nouns/verbs.csv?")
             # match on "mouse.n.01"
 
 
@@ -76,7 +166,14 @@ if __name__ == "__main__":
     print("'Know' hypernyms")
     for know_synset in know_synsets:
         know_hyper = know_synset.hypernyms()
-        print("%s: %s" % (know_synset, know_hyper))
+        #print("%s: %s" % (know_synset, know_hyper))
+        for hyper in  know_hyper:
+            match = hyper.name()[0:hyper.name().index(".")]
+            for synset_id, items in verb_ids.items():
+                verb = items['story_verb']
+                stories = items['stories']
+                if verb == match:
+                    print(match)
 
     # 'Express mirth' is a lemma of 'laugh'
     # so we look at lemmas of 'express mirth' to find 'laugh'
@@ -87,9 +184,9 @@ if __name__ == "__main__":
     mirth_synsets = wn.synsets("express_mirth")
     print("\n'Express Mirth' synsets: %s" % mirth_synsets)
 
-    print("'Express mirth' lemmas")
+    #print("'Express mirth' lemmas")
     for mirth_synset in mirth_synsets:
-        print(mirth_synset)
+        #print(mirth_synset)
 
         # look up in dictionary
         print("\n'%s' is in our dictionary: %s" % (mirth_synset.name(), (mirth_synset.name() in verb_ids)))

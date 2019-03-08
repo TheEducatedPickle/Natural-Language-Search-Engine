@@ -8,6 +8,7 @@ from qa_engine.base import QABase
 from qa_engine.score_answers import main as score_answers
 from rake_nltk import Rake
 import constituency
+import wordnet_demo
 
 GRAMMAR =   """
             N: {<PRP>|<NN.*>}
@@ -28,6 +29,51 @@ total_count=0
 the_q_count=set()
 
 PERSONAL_PRONOUN=set(["he","she","it"])
+def reformulate(question,story):
+    verblist=set(["(VB)","(VBD)","(VBG)","(VBN)","(VBP)","(VBZ)","(VP (*)(VB))","(VP (*)(VBD))","(VP (*)(VBG))","(VP (*)(VBN))","(VP (*)(VBP))"])
+    nounlist=set(["(NN)","(NNS)","(NNP)","(NNPS)","(NP)","(NP (*) (NP))","(NP (*) (NN))"])
+    vplist=set(["(VP)"])       
+    qgraph=question["dep"]
+    qtext=question["text"]
+    sid=story["sid"]
+    story_pattern="{'([A-z].*).vgl"
+    noun= constituency.get_quesconstituency(question,nounlist)
+    print("NOUN: ",noun)
+    vp = constituency.get_quesconstituency(question,vplist)
+    print("VP: ",vp)
+    verb = constituency.get_quesconstituency(question,verblist)
+    print("VERB: ",verb)
+    if noun!=None:
+        noun,storiesn = wordnet_demo.findword(noun)
+        print("NOUN GUESS: ",noun)
+        if noun!=None:
+            m=re.match(story_pattern,str(storiesn))
+            if m!= None:
+                if sid==m.group(1):
+                    print(m.group(1))
+                    print(sid)
+    if vp!=None:
+        vp,storiesvp = wordnet_demo.findword(vp)
+        print("VP GUESS: ",vp)
+        if vp!=None:
+            m=re.match(story_pattern,str(storiesn))
+            if m!=None:
+                if sid==m.group(1):
+                    print(m.group(1))
+                    print(sid)
+    if verb!=None:
+        verb,storiesv = wordnet_demo.findword(verb)
+        print("verb guess: ",verb)
+        if verb!=None:
+            m=re.match(story_pattern,str(storiesn))
+            if m != None:
+                if sid == m.group(1):
+                    print(m.group(1))
+                    print(sid)
+    
+    
+  
+            ##insert Austin's function
 
 def get_the_q_count():
     global the_q_count
@@ -37,13 +83,17 @@ def dependent(question,story):
     qKey = question["text"].split(" ")[0].lower()
     qgraph = question["dep"]
     question_text=question["text"]
-
+    if question['difficulty']=="Hard":
+        reformulate(question,story)
     display_word = "" #leave blank if want general
+    display_difficulty = "Hard"
     global total_count
     total_count=total_count + 1
     global the_q_count
-    if qKey == display_word:
+    if (qKey == display_word or display_word == "") and (question["difficulty"].lower() == display_difficulty.lower() or display_difficulty == ""):
         the_q_count.add(total_count)
+    else:
+        return ""
     if question_text.lstrip() == 'Who is the story about?':
         answer=""
         story_text=baseline.get_sentences(story["text"])
@@ -155,13 +205,14 @@ def dependent(question,story):
     if answer == None:
         answer=base(question,story)
 
-    if question["text"].split(" ")[0].lower() == display_word or display_word=="": #select display set
-        #print("using ",story_type," ")
-        print("question:", question["text"])
-        if answer == None:
-            print(sgraph)
-        print("answer:", answer)
-        print()
+    if question["difficulty"].lower() == display_difficulty.lower() or display_difficulty == "":
+        if question["text"].split(" ")[0].lower() == display_word or display_word=="": #select display set
+            #print("using ",story_type," ")
+            print("question:", question["text"])
+            if answer == None:
+                print(sgraph)
+            print("answer:", answer)
+            print()
 
     if question_prefix.lower()=="who" and answer != None and answer.lower().replace(" ","") in PERSONAL_PRONOUN: #replace pronouns with Proper Nouns
         i = index
