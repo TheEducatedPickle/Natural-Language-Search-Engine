@@ -258,6 +258,7 @@ def base(question, story):
     question=chunk.get_sentences(question)
     base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"])
     newanswer ="".join(t[0]+" " for t in base_ans)
+    saveans=newanswer
     chunker = nltk.RegexpParser(GRAMMAR)
     tempanswer=chunk.get_sentences(newanswer)
     atree=chunker.parse(tempanswer[0])
@@ -363,7 +364,7 @@ def base(question, story):
 
     #print("ANSWER ",newanswer)
     #print()
-    return str(newanswer)
+    return saveans
 
 
 def get_answer(question, story):
