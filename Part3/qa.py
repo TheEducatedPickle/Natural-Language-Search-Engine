@@ -144,7 +144,7 @@ def dependent(question,story):
     posMap["when"] = [["nmod:tmod", "advmod", "nmod:npmod", "nummod", "nmod", "compound"],[], []]
     posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj"],[], ["of","with","that"]] #["at", "from","in","on","to","with","onto","toward","away","by","near","the","over","up","down"]
     posMap["why"] = [["advcl", "nmod", "xcomp"],["for","because","since","to"], []]
-    posMap["how"] = [["advcl","nmod:tmod","conj"],[], []]
+    posMap["how"] = [["advcl","advmod","nmod:tmod","conj"],[], []]
     posMap["did"] = [["nsubj"],[], []]
     posMap["had"] = [["nsubj"],[],[]]
     posMap["which"] = [["nsubj", "dobj","root"],["the"], ["'s"]]
@@ -174,10 +174,16 @@ def dependent(question,story):
                 if node['word'] in ['time','hour','day']: #if question contains time, treat as "when" question
                     return posMap["when"]
                 elif node['word'] in ['happened','do','doing']: #if question is looking for verb, search for verbs
-                    posType[0] = ["acl:relcl", "conj", "root"]
+                    posType[0] = ["acl:relcl", "conj","nmod","root"]
                     return posType
-                elif node['word'] in ['name', 'named', 'have','get']:
+                elif node['word'] in ['named', 'have','get']:
                     posType[0] = ["dobj", "nsubj"]
+                    return posType
+                elif node['word'] in ['name']:
+                    posType[0]=["nsubj"]
+                    return posType
+                elif node['word'] in ['say']:
+                    posType[0]=["root"]
                     return posType
                 #else:
                 #    posType[0] = ["nsubj"]
@@ -300,6 +306,7 @@ def base(question, story):
                     break
         else:
             temp_ans = newanswer
+
         newanswer=temp_ans
         
 
@@ -364,6 +371,7 @@ def base(question, story):
 
     #print("ANSWER ",newanswer)
     #print()
+    saveans= re.sub(r'[^\w\s]','',saveans)
     return saveans
 
 

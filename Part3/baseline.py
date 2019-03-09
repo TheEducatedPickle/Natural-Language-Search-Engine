@@ -67,9 +67,13 @@ def baseline(qbow, sentences, stopwords,question):
         # A list of all the word tokens in the sentence
         sbow = get_bow(sent, stopwords)
         #print(qbow)
+        """
         pos_sbow=nltk.pos_tag(sbow)
+        
+
         temp=[]
         for word,tag in pos_sbow:
+            ###
             if re.search("VB", tag):
                 temp.append((LMTZR.lemmatize(word, "v")))
             elif re.search("NN",tag):
@@ -89,6 +93,7 @@ def baseline(qbow, sentences, stopwords,question):
             else:
                 temp.append(word)
         qbow=set(temp)
+        """
         #print(sbow)
         # Count the # of overlapping words between the Q and the A
         # & is the set intersection operator
@@ -102,7 +107,7 @@ def baseline(qbow, sentences, stopwords,question):
             else:
                 testoverlap+=1
         
-        answers.append((testoverlap, sent, number))
+        answers.append((overlap, sent, number))
         number += 1
     # Sort the results by the first element of the tuple (i.e., the count)
     # Sort answers from smallest to largest by default, so reverse it
