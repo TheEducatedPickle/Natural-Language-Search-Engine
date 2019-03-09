@@ -9,10 +9,7 @@ from qa_engine.score_answers import main as score_answers
 from rake_nltk import Rake
 import constituency
 import wordnet_demo
-from nltk.tag import StanfordNERTagger
-st = StanfordNERTagger('/usr/share/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz',
-					   '/usr/share/stanford-ner/stanford-ner.jar',
-					   encoding='utf-8')
+
 
 GRAMMAR =   """
             N: {<PRP>|<NN.*>}
@@ -96,10 +93,10 @@ def dependent(question,story):
         return ""
     if question_text.lstrip() == 'Who is the story about?':
         answer=""
-        story_text=nltk.sent_tokenize(story["text"])
-        for st.tag(storys) in story_text:
+        story_text=baseline.get_sentences(story["text"])
+        for storys in story_text:
             for word, tag in storys:
-                if tag=='PERSON':
+                if word.isupper():
                     answer=answer +" a "+ word
         return str(answer)
     question_text=chunk.get_sentences(question_text)
