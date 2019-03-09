@@ -147,7 +147,7 @@ def dependent(question,story):
     posMap["how"] = [["advcl","advmod","nmod:tmod","conj"],[], []]
     posMap["did"] = [["nsubj"],[], []]
     posMap["had"] = [["nsubj"],[],[]]
-    posMap["which"] = [["nsubj", "dobj","root"],["the"], ["'s"]]
+    posMap["which"] = [["nsubj", "dobj","root"],["the"], []]
    
     posType = posMap[qKey] #select question type and fetch corresponding data
     def regex_on_list(regex_list, word):
