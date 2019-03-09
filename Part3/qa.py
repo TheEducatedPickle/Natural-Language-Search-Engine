@@ -141,15 +141,15 @@ def dependent(question,story):
         return "yes"
 
     posMap = {}
-    posMap["who"] = [["nsubj"],[], []]    #POSMAP: ([tags], [keywords], [blacklist])
-    posMap["what"] = [["dobj", "ccomp","nsubj","nmod:with","nmod" ],[], ["it","in"]]
-    posMap["when"] = [["nmod:tmod", "advmod", "nmod:npmod", "nummod", "nmod", "compound"],[], []]
-    posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj"],[], ["of","with","that"]] #["at", "from","in","on","to","with","onto","toward","away","by","near","the","over","up","down"]
-    posMap["why"] = [["advcl", "nmod", "xcomp"],["for","because","since","to"], []]
-    posMap["how"] = [["advcl","conj","advmod","nmod:tmod","conj"],[], []]
-    posMap["did"] = [["nsubj"],[], []]
-    posMap["had"] = [["nsubj"],[],[]]
-    posMap["which"] = [["nsubj", "dobj","root"],["the"], ["'s"]]
+    posMap["who"] = [["nsubj", "root"],[], [], []]    #POSMAP: ([tags], [keywords], [blacklist])
+    posMap["what"] = [["dobj", "ccomp","nsubj","nmod:with","nmod","root" ],[], ["it", "in"], []]
+    posMap["when"] = [["nmod:tmod", "advmod", "nmod:npmod", "nummod", "nmod", "compound","root"],[], [], []]
+    posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj","root"],["at", "from","in","on","to","with","onto","toward","away","by","near","the","over","up","down"], ["of","with","that"], []] #["at", "from","in","on","to","with","onto","toward","away","by","near","the","over","up","down"]
+    posMap["why"] = [["advcl", "nmod", "xcomp"],["for","because","since","to","root"], [], ["mark"]]
+    posMap["how"] = [["advcl","conj","advmod","nmod:tmod","conj","root"],[], [], []]
+    posMap["did"] = [["nsubj","root"],[], [], []]
+    posMap["had"] = [["nsubj","root"],[],[], []]
+    posMap["which"] = [["nsubj", "dobj","root"],["the"], ["'s"], []]
    
     posType = posMap[qKey] #select question type and fetch corresponding data
     def regex_on_list(regex_list, word):

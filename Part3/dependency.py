@@ -35,6 +35,7 @@ def find_answer(qgraph, sgraph, dataarr):
     posarr = dataarr[0]
     keywords = dataarr[1]
     blacklist = dataarr[2]
+    keydeplist = dataarr[3]
     results = []
     def search_blacklist(node): #Searches a node & dependencies for keywords / blacklist
         if node['lemma'] in blacklist:
@@ -48,13 +49,14 @@ def find_answer(qgraph, sgraph, dataarr):
     def search_keywords(node): #Searches a node & dependencies for keywords / blacklist
         if keywords == []:
             return True
+        if node['tag'] in ['NNP','NNPS']: return True
         if node['lemma'] in keywords:
             return True
         deps = get_dependents(node, sgraph)
         #if (len(deps) == 0 and node['word'][0] >= 'A' and node['word'][0] <= 'Z'): #Return proper nouns
         #    return True
         for dep in deps:
-            if dep['lemma'] in keywords:
+            if dep['lemma'] in keywords or dep['rel'] in keydeplist:
                 return True
         return False
 

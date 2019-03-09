@@ -58,8 +58,8 @@ def match_gender(word, gender):
     if (word[0] < 'A' or word[0] > 'Z'): return False
     return predict_gender(word,return_proba=False) == gender
 
-MALE_PRONOUNS=set(["he"])
-FEMALE_PRONOUNS=set(["she"])
+MALE_PRONOUNS=set(["he","him"])
+FEMALE_PRONOUNS=set(["she","her"])
 OBJECT_PRONOUNS=set(["it"])
 GROUP_PRONOUNS=set(["they"])
 def sub_proper_nouns(sentences, n=2):
