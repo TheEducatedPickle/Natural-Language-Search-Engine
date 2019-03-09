@@ -12,6 +12,7 @@ import chunk
 import qa
 import spacy,re
 from nltk.stem.wordnet import WordNetLemmatizer
+from chicksexer import predict_gender
 LMTZR = WordNetLemmatizer()
 nlp = spacy.load('en_core_web_lg')
 # The standard NLTK pipeline for POS tagging a document
@@ -32,17 +33,35 @@ def find_phrase(tagged_tokens, qbow):
             return tagged_tokens[i+1:]
 
 
-PERSONAL_PRONOUNS=set(["he","she","it"])
-GROUP_PRONOUNS=set(["they"])
-def get_candidate(min, sent_index, sentences, tags):
-    candidates = []
-    for i in reversed(range(min, sent_index)):
+def get_candidate(min_index, sent_index, sentences, tags, gender): #scan sents in order of recency for candidates
+    candidates = {}
+    for i in reversed(range(min_index, sent_index)):
         sent = sentences[i]
         for word, tag in sent:
-            if tag in tags:
-                candidates.append(word)
-    return candidates[0] if candidates != [] else None
+            if tag in tags and match_gender(word, gender): #Assign scores with recency decay
+                if word in candidates: candidates[word] = candidates[word] + sent_index-min_index-i
+                else: candidates[word] = 10 - (sent_index - min_index - i)*2
+    if not bool(candidates): return None
+    #Getting highest ranked item
+    max_score = 0
+    output = None
+    for item, score in candidates.items(): 
+        if score > max_score:
+            max_score = score
+            output = item
+    #print(" ".join(word[0] for word in sentences[sent_index]))
+    #print(output)
+    return output
 
+def match_gender(word, gender):
+    if gender in ['obj','group']: return True
+    if (word[0] < 'A' or word[0] > 'Z'): return False
+    return predict_gender(word,return_proba=False) == gender
+
+MALE_PRONOUNS=set(["he"])
+FEMALE_PRONOUNS=set(["she"])
+OBJECT_PRONOUNS=set(["it"])
+GROUP_PRONOUNS=set(["they"])
 def sub_proper_nouns(sentences, n=2):
     for i in range(0, len(sentences)):
         sent = sentences[i]
@@ -50,12 +69,13 @@ def sub_proper_nouns(sentences, n=2):
         for j in range (0, len(sent)):
             word = sent[j][0]
             tag = sent[j][1]
-            if word in PERSONAL_PRONOUNS:
-                candidate = get_candidate(minimum, i, sentences, ["NN","NNP"])
-                sentences[i][j] = (candidate if candidate != None else word, tag)
-            if word in GROUP_PRONOUNS:
-                candidate = get_candidate(minimum, i, sentences, ["NNS","NNPS"])
-                sentences[i][j] = (candidate if candidate != None else word, tag)
+            if word in MALE_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NNP","NN"], "male")
+            elif word in FEMALE_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NNP","NN"], "female")
+            elif word in OBJECT_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NN", "NNP"], "obj")
+            elif word in GROUP_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NNS","NNPS"], "group")
+            else: candidate = None
+            sentences[i][j] = (candidate if candidate != None else word, tag)
+            #if candidate != None: print(" ".join(word[0] for word in sentences[i]))
     return sentences
 
 def baseline(qbow, sentences, stopwords,question):
