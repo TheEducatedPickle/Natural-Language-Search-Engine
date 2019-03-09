@@ -67,7 +67,9 @@ def find_answer(qgraph, sgraph, dataarr):
             if node['rel'] == pos and search_blacklist(node) and search_keywords(node):
                 deps = get_dependents(node, sgraph)
                 deps = sorted(deps+[node], key=operator.itemgetter("address"))
-                return " ".join(dep["word"] for dep in deps)
+                joined = " ".join(dep["word"] for dep in deps)
+                joined = re.sub(r'[!.?]','',joined)
+                return joined
                 
 if __name__ == '__main__':
     driver = QABase()

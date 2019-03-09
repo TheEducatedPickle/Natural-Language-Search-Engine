@@ -9,6 +9,10 @@ from qa_engine.score_answers import main as score_answers
 from rake_nltk import Rake
 import constituency
 import wordnet_demo
+from nltk.tag import StanfordNERTagger
+st = StanfordNERTagger('/usr/share/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz',
+					   '/usr/share/stanford-ner/stanford-ner.jar',
+					   encoding='utf-8')
 
 GRAMMAR =   """
             N: {<PRP>|<NN.*>}
@@ -28,7 +32,7 @@ global total_count
 total_count=0
 the_q_count=set()
 
-PERSONAL_PRONOUN=set(["he","she","it"])
+PERSONAL_PRONOUN=set(["he","she","it","He","She"])
 def reformulate(question,story):
     verblist=set(["(VB)","(VBD)","(VBG)","(VBN)","(VBP)","(VBZ)","(VP (*)(VB))","(VP (*)(VBD))","(VP (*)(VBG))","(VP (*)(VBN))","(VP (*)(VBP))"])
     nounlist=set(["(NN)","(NNS)","(NNP)","(NNPS)","(NP)","(NP (*) (NP))","(NP (*) (NN))"])
@@ -92,10 +96,10 @@ def dependent(question,story):
         return ""
     if question_text.lstrip() == 'Who is the story about?':
         answer=""
-        story_text=baseline.get_sentences(story["text"])
-        for storys in story_text:
+        story_text=nltk.sent_tokenize(story["text"])
+        for st.tag(storys) in story_text:
             for word, tag in storys:
-                if word.isupper():
+                if tag=='PERSON':
                     answer=answer +" a "+ word
         return str(answer)
     question_text=chunk.get_sentences(question_text)
@@ -176,7 +180,7 @@ def dependent(question,story):
                 elif node['word'] in ['happened','do','doing']: #if question is looking for verb, search for verbs
                     posType[0] = ["acl:relcl", "conj","nmod","root"]
                     return posType
-                elif node['word'] in ['named', 'have','get']:
+                elif node['word'] in ['named', 'have','get','with']:
                     posType[0] = ["dobj", "nsubj"]
                     return posType
                 elif node['word'] in ['name']:
