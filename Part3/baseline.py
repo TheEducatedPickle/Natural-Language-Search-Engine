@@ -88,9 +88,7 @@ def baseline(qbow, sentences, stopwords,question):
         # A list of all the word tokens in the sentence
         sbow = get_bow(sent, stopwords)
         #print(qbow)
-    
         pos_sbow=nltk.pos_tag(sbow)
-        
 
         temp=[]
         for word,tag in pos_sbow:
@@ -114,7 +112,6 @@ def baseline(qbow, sentences, stopwords,question):
             else:
                 temp.append(word)
         qbow=set(temp)
-
         #print(sbow)
         # Count the # of overlapping words between the Q and the A
         # & is the set intersection operator
@@ -123,6 +120,8 @@ def baseline(qbow, sentences, stopwords,question):
         overlapp= list(qbow & sbow)
         overlapp= nltk.pos_tag(overlapp)
         for word,tag in overlapp:
+            if re.search("N", tag):
+                testoverlap+=2
             if re.search("V",tag):
                 testoverlap+=2
             else:

@@ -9,6 +9,7 @@ from qa_engine.score_answers import main as score_answers
 from rake_nltk import Rake
 import constituency
 import wordnet_demo
+td = open("test_data.txt", "w")
 
 
 GRAMMAR =   """
@@ -145,7 +146,7 @@ def dependent(question,story):
     posMap["when"] = [["nmod:tmod", "advmod", "nmod:npmod", "nummod", "nmod", "compound"],[], []]
     posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj"],[], ["of","with","that"]] #["at", "from","in","on","to","with","onto","toward","away","by","near","the","over","up","down"]
     posMap["why"] = [["advcl", "nmod", "xcomp"],["for","because","since","to"], []]
-    posMap["how"] = [["advcl","advmod","nmod:tmod","conj"],[], []]
+    posMap["how"] = [["advcl","conj","advmod","nmod:tmod","conj"],[], []]
     posMap["did"] = [["nsubj"],[], []]
     posMap["had"] = [["nsubj"],[],[]]
     posMap["which"] = [["nsubj", "dobj","root"],["the"], ["'s"]]
@@ -158,19 +159,17 @@ def dependent(question,story):
         return False
     
     def q_base_substitution (qKey, qgraph, posType,qtext): #blacklists certain answers that contain question elements
+        global td
         if qKey == "who": #if question is list, do not include question subj in answer subj
             for node in qgraph.nodes.values():
                 if node['rel'] in ['dobj']:
-                    #print (node['word'])
                     posType[2].append(node['word'])
-                    #print (qgraph)
                     return posType
         if qKey == "what":
             qTok = nltk.pos_tag(nltk.word_tokenize(qtext))
             for node in qgraph.nodes.values():
                 if node['rel'] in ['dobj','nsubj']:
                     posType[2].append(node['word'])
-
             for node in qgraph.nodes.values():
                 if node['word'] in ['time','hour','day']: #if question contains time, treat as "when" question
                     return posMap["when"]
@@ -189,13 +188,16 @@ def dependent(question,story):
                 #else:
                 #    posType[0] = ["nsubj"]
                 #    return posType
-        #if qKey == "who":
-        #    for node in qgraph.nodes.values():
-        #        if node['rel'] in ['nsubj']:
-        #            posType[2].append(node['word'])
+        if qKey == "where":
+            sys.stdout = td
+            print(qgraph)
+            sys.stdout = sys.__stdout__
+            for node in qgraph.nodes.values():
+                if node['rel'] in ['nsubj','compound']:
+                    posType[2].append(node['word'])
         return posType
 
-    answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType,question["text"]))
+    answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType, question["text"]))
     if answer == None:
         answer=base(question,story)
 
