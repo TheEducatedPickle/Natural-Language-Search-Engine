@@ -49,7 +49,7 @@ def find_answer(qgraph, sgraph, dataarr):
     def search_keywords(node): #Searches a node & dependencies for keywords / blacklist
         if keywords == []:
             return True
-        if node['tag'] in ['NNP','NNPS']: return True
+        #if node['tag'] in ['NNP','NNPS']: return True
         if node['lemma'] in keywords:
             return True
         deps = get_dependents(node, sgraph)

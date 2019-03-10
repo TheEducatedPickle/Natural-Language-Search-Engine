@@ -144,8 +144,8 @@ def dependent(question,story):
     posMap["who"] = [["nsubj", "root"],[], [], []]    #POSMAP: ([tags], [keywords], [blacklist])
     posMap["what"] = [["dobj", "ccomp","nsubj","nmod:with","nmod","root" ],[], ["it", "in"], []]
     posMap["when"] = [["nmod:tmod", "advmod", "nmod:npmod", "nummod", "nmod", "compound","root"],[], [], []]
-    posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj","root"],["at", "from","in","on","to","with","onto","toward","away","by","near","the","over","up","down"], ["of","with","that"], []] #["at", "from","in","on","to","with","onto","toward","away","by","near","the","over","up","down"]
-    posMap["why"] = [["advcl", "nmod", "xcomp"],["for","because","since","to","root"], [], ["mark"]]
+    posMap["where"] = [["nmod:upon","nmod:over","nmod","ccomp","advmod","dobj","root","nsubj","root"],[], ["of","with","that"], []] #["at", "from","in","on","to","with","onto","toward","away","by","near","the","over","up","down"]
+    posMap["why"] = [["advcl", "nmod", "xcomp"],["for","because","since","to","root"], [], []]
     posMap["how"] = [["advcl","conj","advmod","nmod:tmod","conj","root"],[], [], []]
     posMap["did"] = [["nsubj","root"],[], [], []]
     posMap["had"] = [["nsubj","root"],[],[], []]
@@ -189,12 +189,13 @@ def dependent(question,story):
                 #    posType[0] = ["nsubj"]
                 #    return posType
         if qKey == "where":
-            sys.stdout = td
-            print(qgraph)
-            sys.stdout = sys.__stdout__
             for node in qgraph.nodes.values():
                 if node['rel'] in ['nsubj','compound']:
                     posType[2].append(node['word'])
+        sys.stdout = td
+        print(question["text"])
+        print(qgraph)
+        sys.stdout = sys.__stdout__
         return posType
 
     answer = dependency.find_answer(qgraph, sgraph, q_base_substitution(qKey, qgraph, posType, question["text"]))

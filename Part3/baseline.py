@@ -12,7 +12,7 @@ import chunk
 import qa
 import spacy,re
 from nltk.stem.wordnet import WordNetLemmatizer
-from chicksexer import predict_gender
+#from chicksexer import predict_gender
 LMTZR = WordNetLemmatizer()
 nlp = spacy.load('en_core_web_lg')
 # The standard NLTK pipeline for POS tagging a document
@@ -56,26 +56,27 @@ def get_candidate(min_index, sent_index, sentences, tags, gender): #scan sents i
 def match_gender(word, gender):
     if gender in ['obj','group']: return True
     if (word[0] < 'A' or word[0] > 'Z'): return False
-    return predict_gender(word,return_proba=False) == gender
+    return True
 
 MALE_PRONOUNS=set(["he","him"])
 FEMALE_PRONOUNS=set(["she","her"])
 OBJECT_PRONOUNS=set(["it"])
 GROUP_PRONOUNS=set(["they"])
 def sub_proper_nouns(sentences, n=2):
+    #if (n == 2): return sentences
     for i in range(0, len(sentences)):
         sent = sentences[i]
         minimum = max(i-n,0)
-        for j in range (0, len(sent)):
-            word = sent[j][0]
-            tag = sent[j][1]
-            if word in MALE_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NNP","NN"], "male")
-            elif word in FEMALE_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NNP","NN"], "female")
-            elif word in OBJECT_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NN", "NNP"], "obj")
-            elif word in GROUP_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NNS","NNPS"], "group")
-            else: candidate = None
-            sentences[i][j] = (candidate if candidate != None else word, tag)
-            #if candidate != None: print(" ".join(word[0] for word in sentences[i]))
+        j = 0
+        word = sent[j][0]
+        tag = sent[j][1]
+        if word in MALE_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NNP","NN"], "male")
+        elif word in FEMALE_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NNP","NN"], "female")
+        elif word in OBJECT_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NN", "NNP"], "obj")
+        elif word in GROUP_PRONOUNS: candidate = get_candidate(minimum, i, sentences, ["NNS","NNPS"], "group")
+        else: candidate = None
+        sentences[i][j] = (candidate if candidate != None else word, tag)
+        #if candidate != None: print(" ".join(word[0] for word in sentences[i]))
     return sentences
 
 def baseline(qbow, sentences, stopwords,question):
