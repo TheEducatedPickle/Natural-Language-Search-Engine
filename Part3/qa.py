@@ -87,7 +87,7 @@ def dependent(question,story):
     #if question['difficulty']=="Hard":
     #    reformulate(question,story)
     display_word = "" #leave blank if want general
-    display_difficulty = "Hard"
+    display_difficulty = ""
     global total_count
     total_count=total_count + 1
     global the_q_count
@@ -437,7 +437,7 @@ class QAEngine(QABase):
         return str(answer)
 
 
-def run_qa(evala=False):
+def run_qa(evala=True):
     QA = QAEngine(evaluate=evala)
     QA.run()
     QA.save_answers()
@@ -446,7 +446,7 @@ def run_qa(evala=False):
 
 
 def main():
-    run_qa(evala=False)
+    run_qa(evala=True)
     # You can uncomment this next line to evaluate your
     # answers, or you can run score_answers.py
     f = open("score.txt", "w")
