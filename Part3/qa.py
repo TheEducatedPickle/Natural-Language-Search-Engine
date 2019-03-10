@@ -234,6 +234,8 @@ def get_Index(question,story):
         text = story["text"]
     question = question["text"]
     #print("QUESTION: ", question)
+    rake = Rake()
+    rake.extract_keywords_from_text(real_question["text"])#this is question text
 
     #Code
     stopwords = set(nltk.corpus.stopwords.words("english"))
@@ -243,7 +245,7 @@ def get_Index(question,story):
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"])
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"], rake.get_ranked_phrases())
     return index
 
 def base(question, story):
@@ -266,7 +268,9 @@ def base(question, story):
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"])
+    rake = Rake()
+    rake.extract_keywords_from_text(real_question["text"])
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"], rake.get_ranked_phrases())
     newanswer ="".join(t[0]+" " for t in base_ans)
     saveans=newanswer
     chunker = nltk.RegexpParser(GRAMMAR)
