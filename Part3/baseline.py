@@ -11,8 +11,10 @@ from qa_engine.base import QABase
 import chunk
 import qa
 import spacy,re
+from rake_nltk import Rake
 from nltk.stem.wordnet import WordNetLemmatizer
-from chicksexer import predict_gender
+from nltk.corpus import wordnet as wn
+#from chicksexer import predict_gender
 LMTZR = WordNetLemmatizer()
 nlp = spacy.load('en_core_web_lg')
 # The standard NLTK pipeline for POS tagging a document
@@ -78,10 +80,40 @@ def sub_proper_nouns(sentences, n=2):
             #if candidate != None: print(" ".join(word[0] for word in sentences[i]))
     return sentences
 
-def baseline(qbow, sentences, stopwords,question):
+
+
+
+
+def expand_rake(raked_phrases):
+    all_words = set()
+    for phrases in raked_phrases:
+        for words in nltk.word_tokenize(phrases):
+            all_words.add(words)
+    return all_words
+
+def find_overlap(the_rake, sbow):
+    the_total = 0
+
+    for word in the_rake:
+        synset_sets = set()
+        word_net_list = []
+        word_net_list.extend(wn.synsets(word))
+        for mini_word in wn.synsets(word):
+            word_net_list.extend(mini_word.hyponyms())
+            word_net_list.extend(mini_word.hypernyms())
+
+        for mini_word in word_net_list:
+            synset_sets.add(mini_word.name()[0:mini_word.name().index(".")])
+        if len(list(synset_sets & sbow)) > 0:
+            the_total += 3 #tbd ( I think it works better the larger it is)
+    return the_total
+
+def baseline(qbow, sentences, stopwords,question, raked_phrases):
     # Collect all the candidate answers
 
-    sentences = sub_proper_nouns(sentences)
+    raked_phrases_list = expand_rake(raked_phrases)
+
+    #sentences = sub_proper_nouns(sentences)
     answers = []
     number = 0
     for sent in sentences:
@@ -115,13 +147,32 @@ def baseline(qbow, sentences, stopwords,question):
                 temp.append(word)
         qbow=set(temp)
 
+        temp = []
+        pos_rake=nltk.pos_tag(raked_phrases_list)
+        for word,tag in pos_rake:
+            if re.search("VB", tag):
+                temp.append((LMTZR.lemmatize(word, "v")))
+            elif re.search("NN",tag):
+                temp.append((LMTZR.lemmatize(word,"n")))
+            else:
+                temp.append(word)
+        the_rake = set(temp)
+
+
+
+
         #print(sbow)
         # Count the # of overlapping words between the Q and the A
         # & is the set intersection operator
-        overlap = len(qbow & sbow)
+        #overlap = len(qbow & sbow)
         testoverlap=0
+        testoverlap += find_overlap(the_rake, sbow)
+
         overlapp= list(qbow & sbow)
         overlapp= nltk.pos_tag(overlapp)
+
+
+
         for word,tag in overlapp:
             if re.search("V",tag):
                 testoverlap+=2
@@ -162,7 +213,6 @@ def baseline(qbow, sentences, stopwords,question):
         #print("in here")
         #print(top_answers[0])
         for answer in top_answers:
-           
             sentence= " ".join(t[0] for t in answer[1])
             temp_sim=question.similarity(nlp(sentence))
             if temp_sim>similarity:

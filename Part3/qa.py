@@ -232,6 +232,9 @@ def get_Index(question,story):
     question = question["text"]
     #print("QUESTION: ", question)
 
+    rake = Rake()
+    rake.extract_keywords_from_text(real_question["text"])#this is question text
+
     #Code
     stopwords = set(nltk.corpus.stopwords.words("english"))
     #question_stem_list = chunk.lemmatize(nltk.pos_tag(nltk.word_tokenize(question)))
@@ -240,7 +243,7 @@ def get_Index(question,story):
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"])
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"], rake.get_ranked_phrases())
     return index
 
 def base(question, story):
@@ -263,7 +266,9 @@ def base(question, story):
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"])
+    rake = Rake()
+    rake.extract_keywords_from_text(real_question["text"])
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"], rake.get_ranked_phrases())
     newanswer ="".join(t[0]+" " for t in base_ans)
     saveans=newanswer
     chunker = nltk.RegexpParser(GRAMMAR)
@@ -271,8 +276,7 @@ def base(question, story):
     atree=chunker.parse(tempanswer[0])
     what_set = ["happened", "do"] #this should probably be changed in the future
     what_set = set(what_set)
-    rake =Rake()
-    rake.extract_keywords_from_text(real_question["text"])
+
     if question[0][0][0].lower()=="who":
 
         pos_phrases = nltk.pos_tag(rake.get_ranked_phrases())
