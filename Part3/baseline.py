@@ -12,8 +12,10 @@ import spacy,re
 from rake_nltk import Rake
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import wordnet as wn
+import wordnet_demo
 LMTZR = WordNetLemmatizer()
 nlp = spacy.load('en_core_web_lg')
+
 # The standard NLTK pipeline for POS tagging a document
 def get_sentences(text):
     sentences = nltk.sent_tokenize(text)
@@ -38,9 +40,9 @@ def expand_rake(raked_phrases):
             all_words.add(words)
     return all_words
 
-def find_overlap(the_rake, sbow):
+def get_array_of_sets(the_rake,sid, noun_ids, verb_ids):
     the_total = 0
-
+    listofsets = []
     for word in the_rake:
         synset_sets = set()
         word_net_list = []
@@ -50,10 +52,13 @@ def find_overlap(the_rake, sbow):
             word_net_list.extend(mini_word.hypernyms())
 
         for mini_word in word_net_list:
-            synset_sets.add(mini_word.name()[0:mini_word.name().index(".")])
-        if len(list(synset_sets & sbow)) > 0:
-            the_total += 3 #tbd ( I think it works better the larger it is)
-    return the_total
+            if wordnet_demo.wordincsv(mini_word.name()[0:mini_word.name().index(".")],sid, noun_ids, verb_ids):
+                synset_sets.add(mini_word.name()[0:mini_word.name().index(".")])
+        listofsets.append(synset_sets)
+        #if len(list(synset_sets & sbow)) > 0:
+        #    the_total += 3 #tbd ( I think it works better the larger it is)
+
+    return listofsets
 
 def get_candidate(min_index, sent_index, sentences, tags, gender): #scan sents in order of recency for candidates
     candidates = {}
@@ -101,12 +106,34 @@ def sub_proper_nouns(sentences, n=2):
         #if candidate != None: print(" ".join(word[0] for word in sentences[i]))
     return sentences
 
-def baseline(qbow, sentences, stopwords,question, raked_phrases):
+def get_overlap(sbow, setofsets):
+    total = 0
+    for the_set in setofsets:
+        
+        for item in the_set:
+            if len(list(sbow&set([item]))) > 0:
+                total += 3
+                break
+    return total
+def baseline(qbow, sentences, stopwords,question, raked_phrases,sid, noun_ids, verb_ids):
     # Collect all the candidate answers
     raked_phrases_list = expand_rake(raked_phrases)
     sentences = sub_proper_nouns(sentences)
     answers = []
     number = 0
+
+    temp = []
+    pos_rake=nltk.pos_tag(raked_phrases_list)
+    for word,tag in pos_rake:
+        if re.search("VB", tag):
+            temp.append((LMTZR.lemmatize(word, "v")))
+        elif re.search("NN",tag):
+            temp.append((LMTZR.lemmatize(word,"n")))
+        else:
+            temp.append(word)
+    the_rake = set(temp)
+
+    setofsets = get_array_of_sets(the_rake,sid, noun_ids, verb_ids)
     for sent in sentences:
         # A list of all the word tokens in the sentence
         sbow = get_bow(sent, stopwords)
@@ -136,23 +163,14 @@ def baseline(qbow, sentences, stopwords,question, raked_phrases):
                 temp.append(word)
         qbow=set(temp)
 
-        temp = []
-        pos_rake=nltk.pos_tag(raked_phrases_list)
-        for word,tag in pos_rake:
-            if re.search("VB", tag):
-                temp.append((LMTZR.lemmatize(word, "v")))
-            elif re.search("NN",tag):
-                temp.append((LMTZR.lemmatize(word,"n")))
-            else:
-                temp.append(word)
-        the_rake = set(temp)
+        
 
         #print(sbow)
         # Count the # of overlapping words between the Q and the A
         # & is the set intersection operator
         #overlap = len(qbow & sbow)
         testoverlap=0
-        testoverlap += find_overlap(the_rake, sbow)
+        testoverlap += get_overlap(sbow,setofsets)
         overlapp= list(qbow & sbow)
         overlapp= nltk.pos_tag(overlapp)
         for word,tag in overlapp:

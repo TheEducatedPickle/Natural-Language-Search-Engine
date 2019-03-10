@@ -1,7 +1,7 @@
 import csv
 from collections import defaultdict
 from nltk.corpus import wordnet as wn
-import time
+import time,re
 
 DATA_DIR = "./wordnet"
 
@@ -16,6 +16,29 @@ def load_wordnet_ids(filename):
         word_ids[line['synset_id']] = {'synset_offset': line['synset_offset'], 'story_'+type: line['story_'+type], 'stories': line['stories']}
     return word_ids
 
+def wordincsv(word,sid, noun_ids, verb_ids):
+     # iterate through dictionary
+    for synset_id, items in noun_ids.items():
+        noun = items['story_noun']
+        stories = items['stories']
+        story_pattern="{'([A-z].*).vgl"
+        m=re.match(story_pattern,stories)
+        if m!=None:
+            if word == noun and sid == m.group(1):
+                return True
+        #print(noun, stories)
+        # get lemmas, hyponyms, hypernyms
+
+    for synset_id, items in verb_ids.items():
+        verb = items['story_verb']
+        stories = items['stories']
+        story_pattern="{'([A-z].*).vgl"
+        m=re.match(story_pattern,stories)
+        if m != None:
+            if word == verb and sid == m.group(1):
+                return True
+    
+    return False
 def findword(word):
 
     noun_ids = load_wordnet_ids("{}/{}".format(DATA_DIR, "Wordnet_nouns.csv"))

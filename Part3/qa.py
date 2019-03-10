@@ -10,7 +10,10 @@ from rake_nltk import Rake
 import constituency
 import wordnet_demo
 td = open("test_data.txt", "w")
-
+global noun_ids 
+noun_ids = wordnet_demo.load_wordnet_ids("{}/{}".format("./wordnet", "Wordnet_nouns.csv"))
+global verb_ids 
+verb_ids = wordnet_demo.load_wordnet_ids("{}/{}".format("./wordnet", "Wordnet_verbs.csv"))
 
 GRAMMAR =   """
             N: {<PRP>|<NN.*>}
@@ -84,7 +87,7 @@ def dependent(question,story):
     #if question['difficulty']=="Hard":
     #    reformulate(question,story)
     display_word = "" #leave blank if want general
-    display_difficulty = ""
+    display_difficulty = "Hard"
     global total_count
     total_count=total_count + 1
     global the_q_count
@@ -245,7 +248,9 @@ def get_Index(question,story):
     qbow = baseline.get_bow(baseline.get_sentences(question_stem)[0], stopwords)
     sentences = baseline.get_sentences(text)
     question=chunk.get_sentences(question)
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"], rake.get_ranked_phrases())
+    global noun_ids
+    global verb_ids
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"], rake.get_ranked_phrases(),story["sid"], noun_ids, verb_ids)
     return index
 
 def base(question, story):
@@ -270,7 +275,9 @@ def base(question, story):
     question=chunk.get_sentences(question)
     rake = Rake()
     rake.extract_keywords_from_text(real_question["text"])
-    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"], rake.get_ranked_phrases())
+    global noun_ids
+    global verb_ids
+    base_ans, index = baseline.baseline(qbow, sentences, stopwords,real_question["text"], rake.get_ranked_phrases(),story["sid"], noun_ids, verb_ids)
     newanswer ="".join(t[0]+" " for t in base_ans)
     saveans=newanswer
     chunker = nltk.RegexpParser(GRAMMAR)
