@@ -32,12 +32,11 @@ PERSONAL_PRONOUN=set(["he","she","it"])
 def get_the_q_count():
     global the_q_count
     return the_q_count
-
 def dependent(question,story):
     qKey = question["text"].split(" ")[0].lower()
     qgraph = question["dep"]
     question_text=question["text"]
-
+    print(qgraph)
     display_word = "" #leave blank if want general
     global total_count
     total_count=total_count + 1

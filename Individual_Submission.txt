@@ -1,0 +1,21 @@
+Tuned in the code: Austin Yuan
+
+Team Members:
+Austin Yuan
+Dean Campagnolo
+Priya Rajarathinam
+
+Improved word selection by using a discourse model to substitute pronouns with proper nouns. Used wordnet, lemmatizer, and rake to improve our sentance selector. Used regex patterns to fix faulty answers. Added a blacklist.
+
+          
+Priya Contributions:
+
+I improved the sentence selection algorithm by providing different weights to certain tags of wods. I also lemmatized the bag of words to improve the sentence selection accuracy.  This improved our F-Measure by about 2%.  I also helped with the keywords selection and in addition I worked on the wordnet code so that it would return correctly. I also worked on the implementing the code for blacklisting.
+
+Dean Contributions:
+
+I initially worked on a system for this project that filtered out questions by difficulty. This helped our team focus on a certain difficulty. I also spent some of my time developing some regex patterns to help our recall with weird answers. I spent the rest of my time developing a system that used wordnet and rake that helped get the important parts of the question and then found the sysets, hypernyms, and hyponyms of those particular important words, matched them with the wordnet csv and then gave it a certain amount of additional “points” for our sentance selector.
+
+Austin Contributions:
+
+I improved our answer sentence selection by using a discourse model to replace pronouns with proper nouns before generating the question/sentence overlap. My discourse model is influenced by syntax, number of times mentioned, and recency. I also attempted to improve our noun substitution by matching gender, but this ultimately decreased out score. I also attempted to use a different method for pronoun substitution if it demanded a group of proper nouns, but this also reduced our overall accuracy. I also improved our keyword/blacklist detection by including certain question elements, such as subject of the question.
