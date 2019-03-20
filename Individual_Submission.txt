@@ -5,6 +5,7 @@ Austin Yuan
 Dean Campagnolo
 Priya Rajarathinam
 
+Part 3 Changelog
 Improved word selection by using a discourse model to substitute pronouns with proper nouns. Used wordnet, lemmatizer, and rake to improve our sentance selector. Used regex patterns to fix faulty answers. Added a blacklist.
 
           
