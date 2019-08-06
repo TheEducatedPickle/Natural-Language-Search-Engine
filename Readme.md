@@ -9,5 +9,3 @@ Final product employs a number of natural languages processing techniques, inclu
 * Question classification
 * Discourse model for creating pronoun-to-proper-noun associations
 * Fitness scoring for candidate answers
-
-[More info available on our slide deck](https://docs.google.com/presentation/d/1nBYrqvv_P3AVb0amEMf6m_jX9_n8BxAzonvr2nj14zQ/edit#slide=id.g5061a36c1b_0_16)
