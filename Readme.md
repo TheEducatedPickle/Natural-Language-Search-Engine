@@ -1,4 +1,6 @@
-A search engine built to answer any question written in plain English by returning the most relevant exerpt from a library of text. <br />
+# Natural Language Search Engine
+
+An information retrieval system built to answer any question written in plain English by returning the most relevant exerpt from a library of text. <br />
 
 Final product employs a number of natural languages processing techniques, including
 * Word dependency parsing
